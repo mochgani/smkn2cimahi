@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kesiswaan — SMKN 2 Cimahi</title>
+  <meta name="description" content="Data kesiswaan SMK Negeri 2 Cimahi — total siswa, distribusi per kompetensi, dan rekapitulasi per kelas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="topbar-text">SMK NEGERI 2 CIMAHI · BMW: BEKERJA · MELANJUTKAN · WIRAUSAHA</span>
+    <span class="topbar-text">+62 896 0520 1376 · INFO@SMKN2CMI.SCH.ID</span>
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo-block">
+        <img src="../assets/images/logo.png" alt="Logo SMKN 2 Cimahi" class="logo-img">
+        <div class="logo-text">
+          <div class="logo-title">SMKN 2 Cimahi</div>
+          <div class="logo-sub">EST. 2007 / KOTA CIMAHI</div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="../index.html" class="nav-link">Beranda</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link nav-trigger active">Profil <span class="caret">▾</span><span class="nav-dot"></span></a>
+          <div class="dropdown-menu">
+            <a href="profil-sekolah.html" class="dropdown-item">Profil Sekolah</a>
+            <a href="visi-misi.html" class="dropdown-item">Visi &amp; Misi</a>
+            <a href="kesiswaan.html" class="dropdown-item">Kesiswaan</a>
+            <a href="bkk.html" class="dropdown-item">Bursa Kerja Khusus</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link nav-trigger">Kompetensi <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="animasi.html" class="dropdown-item">Animasi</a>
+            <a href="dkv.html" class="dropdown-item">Desain Komunikasi Visual</a>
+            <a href="rpl.html" class="dropdown-item">Rekayasa Perangkat Lunak</a>
+            <a href="kimia.html" class="dropdown-item">Teknik Kimia Industri</a>
+            <a href="mekatronika.html" class="dropdown-item">Teknik Mekatronika</a>
+            <a href="pemesinan.html" class="dropdown-item">Teknik Pemesinan</a>
+          </div>
+        </div>
+        <a href="berita.html" class="nav-link">Berita</a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+      </nav>
+
+      <a href="#" class="btn-spmb">SPMB 2026 →</a>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="breadcrumb">
+      <a href="../index.html">Beranda</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Profil</span>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Kesiswaan</span>
+    </div>
+
+    <div class="page-meta">REKAPITULASI · TAHUN PELAJARAN BERJALAN</div>
+
+    <h1 class="page-title">1.479 siswa, enam kompetensi, satu komunitas.</h1>
+    <p class="page-lead">Data kesiswaan SMK Negeri 2 Cimahi — distribusi siswa berdasarkan program keahlian, jenjang kelas, dan jenis kelamin.</p>
+  </section>
+
+  <!-- ===== SUMMARY CARDS ===== -->
+  <section class="kesiswaan-summary">
+    <div class="summary-card">
+      <div class="summary-label">Total Peserta Didik</div>
+      <div class="summary-value">1.479</div>
+      <div class="summary-detail">Rombongan belajar: 42</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Kelas X</div>
+      <div class="summary-value">546</div>
+      <div class="summary-detail">L: 443 · P: 103</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Kelas XI</div>
+      <div class="summary-value">521</div>
+      <div class="summary-detail">L: 419 · P: 102</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Kelas XII</div>
+      <div class="summary-value">412</div>
+      <div class="summary-detail">L: 309 · P: 103</div>
+    </div>
+  </section>
+
+  <!-- ===== CHART: Per Kompetensi ===== -->
+  <section class="chart-section">
+    <div class="section-label">
+      <span class="label-num">[01]</span>
+      <span class="label-line"></span>
+      <span class="label-title">Distribusi per Kompetensi Keahlian</span>
+    </div>
+
+    <div class="section-head">
+      <h2 class="section-h2">Mekatronika menjadi kompetensi terbesar.</h2>
+      <p class="section-sub">Distribusi 1.479 siswa di enam program keahlian, diurutkan dari yang terbesar.</p>
+    </div>
+
+    <div id="chart-container">
+      <div class="chart-row">
+        <div class="chart-name">Teknik Mekatronika</div>
+        <div class="chart-code">MK</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 100%;">26.6%</div></div>
+        <div class="chart-value">393</div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-name">Teknik Kimia Industri</div>
+        <div class="chart-code">TKI</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 70.2%;">18.7%</div></div>
+        <div class="chart-value">276</div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-name">Multimedia / DKV</div>
+        <div class="chart-code">DKV</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 62.8%;">16.7%</div></div>
+        <div class="chart-value">247</div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-name">Rekayasa Perangkat Lunak</div>
+        <div class="chart-code">RPL</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 58.3%;">15.5%</div></div>
+        <div class="chart-value">229</div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-name">Animasi</div>
+        <div class="chart-code">AN</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 49.4%;">13.1%</div></div>
+        <div class="chart-value">194</div>
+      </div>
+      <div class="chart-row">
+        <div class="chart-name">Teknik Pemesinan</div>
+        <div class="chart-code">TP</div>
+        <div class="chart-bar-wrap"><div class="chart-bar" style="width: 35.6%;">9.5%</div></div>
+        <div class="chart-value">140</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TABLE RINGKAS ===== -->
+  <section class="section" style="padding-top: 0; padding-bottom: 32px;">
+    <div class="section-label">
+      <span class="label-num">[02]</span>
+      <span class="label-line"></span>
+      <span class="label-title">Rekapitulasi per Kompetensi</span>
+    </div>
+
+    <div class="section-head">
+      <h2 class="section-h2">Tabel ringkas: rombel, gender, dan total per program.</h2>
+    </div>
+  </section>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Kompetensi Keahlian</th>
+          <th class="num">Rombel</th>
+          <th class="num">Laki-laki</th>
+          <th class="num">Perempuan</th>
+          <th class="num">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Teknik Mekatronika</strong></td>
+          <td class="num">16</td>
+          <td class="num">381</td>
+          <td class="num">12</td>
+          <td class="num">393</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Teknik Kimia Industri</strong></td>
+          <td class="num">6</td>
+          <td class="num">219</td>
+          <td class="num">57</td>
+          <td class="num">276</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>Multimedia / DKV</strong></td>
+          <td class="num">6</td>
+          <td class="num">175</td>
+          <td class="num">72</td>
+          <td class="num">247</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Rekayasa Perangkat Lunak</strong></td>
+          <td class="num">7</td>
+          <td class="num">176</td>
+          <td class="num">53</td>
+          <td class="num">229</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Animasi</strong></td>
+          <td class="num">5</td>
+          <td class="num">139</td>
+          <td class="num">55</td>
+          <td class="num">194</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Teknik Pemesinan</strong></td>
+          <td class="num">2</td>
+          <td class="num">138</td>
+          <td class="num">2</td>
+          <td class="num">140</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>TOTAL</strong></td>
+          <td class="num">42</td>
+          <td class="num">1.171</td>
+          <td class="num">308</td>
+          <td class="num">1.479</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- ===== CALLOUT ===== -->
+  <section class="callout">
+    <div class="callout-inner">
+      <div>
+        <div class="callout-label">CATATAN DATA</div>
+        <h3 class="callout-title">Data per tahun pelajaran berjalan, diperbarui berkala.</h3>
+      </div>
+      <p class="callout-text">Untuk informasi lebih detail mengenai rekapitulasi siswa per kelas, silakan menghubungi bagian Kesiswaan SMK Negeri 2 Cimahi atau email ke <strong>info@smkn2cmi.sch.id</strong>. Data resmi tersedia dalam dokumen rekapitulasi tahunan sekolah.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <img src="../assets/images/logo.png" alt="Logo" class="footer-logo">
+        <div class="footer-name">SMK Negeri 2 Cimahi</div>
+        <p class="footer-tagline">BMW: Bekerja · Melanjutkan · Wirausaha</p>
+        <p class="footer-est">EST. 2007</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Kontak</div>
+        <p class="footer-text">Jl. Kamarung KM 1.5 No.69<br>Citeureup, Cimahi Utara<br>Kota Cimahi 40512</p>
+        <p class="footer-text">+62 896 0520 1376<br>info@smkn2cmi.sch.id</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Profil</div>
+        <a href="profil-sekolah.html" class="footer-link">Profil Sekolah</a>
+        <a href="visi-misi.html" class="footer-link">Visi &amp; Misi</a>
+        <a href="kesiswaan.html" class="footer-link">Kesiswaan</a>
+        <a href="bkk.html" class="footer-link">Bursa Kerja Khusus</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Sosial Media</div>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Facebook</a>
+        <a href="#" class="footer-link">YouTube</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SMK NEGERI 2 CIMAHI</span>
+      <span>SEKOLAH MENENGAH KEJURUAN NEGERI</span>
+      <span>NSS 401026802002 / NPSN 20224389</span>
+    </div>
+  </footer>
+
+</body>
+</html>

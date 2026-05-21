@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berita — SMKN 2 Cimahi</title>
+  <meta name="description" content="Berita, kegiatan, dan prestasi terbaru dari SMK Negeri 2 Cimahi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="topbar-text">SMK NEGERI 2 CIMAHI · BMW: BEKERJA · MELANJUTKAN · WIRAUSAHA</span>
+    <span class="topbar-text">+62 896 0520 1376 · INFO@SMKN2CMI.SCH.ID</span>
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo-block">
+        <img src="../assets/images/logo.png" alt="Logo SMKN 2 Cimahi" class="logo-img">
+        <div class="logo-text">
+          <div class="logo-title">SMKN 2 Cimahi</div>
+          <div class="logo-sub">EST. 2007 / KOTA CIMAHI</div>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="../index.html" class="nav-link ">Beranda</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link nav-trigger">Profil <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="profil-sekolah.html" class="dropdown-item">Profil Sekolah</a>
+            <a href="visi-misi.html" class="dropdown-item">Visi &amp; Misi</a>
+            <a href="kesiswaan.html" class="dropdown-item">Kesiswaan</a>
+            <a href="bkk.html" class="dropdown-item">Bursa Kerja Khusus</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link nav-trigger">Kompetensi <span class="caret">▾</span></a>
+          <div class="dropdown-menu">
+            <a href="animasi.html" class="dropdown-item">Animasi</a>
+            <a href="dkv.html" class="dropdown-item">Desain Komunikasi Visual</a>
+            <a href="rpl.html" class="dropdown-item">Rekayasa Perangkat Lunak</a>
+            <a href="kimia.html" class="dropdown-item">Teknik Kimia Industri</a>
+            <a href="mekatronika.html" class="dropdown-item">Teknik Mekatronika</a>
+            <a href="pemesinan.html" class="dropdown-item">Teknik Pemesinan</a>
+          </div>
+        </div>
+        <a href="berita.html" class="nav-link active">Berita<span class="nav-dot"></span></a>
+        <a href="kontak.html" class="nav-link">Kontak</a>
+      </nav>
+
+      <a href="#" class="btn-spmb">SPMB 2026 →</a>
+    </div>
+  </header>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-header">
+    <div class="breadcrumb">
+      <a href="../index.html">Beranda</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Berita</span>
+    </div>
+
+    <div class="page-meta">20 ARTIKEL · DIPERBARUI BERKALA</div>
+
+    <h1 class="page-title">Kabar dari sekolah.</h1>
+    <p class="page-lead">Berita, kegiatan, prestasi siswa, dan informasi terbaru dari SMK Negeri 2 Cimahi.</p>
+  </section>
+
+  <!-- ===== FEATURED ARTICLE ===== -->
+  <section class="berita-featured">
+    <div class="berita-featured-inner">
+      <a href="berita-detail.html" class="featured-link">
+        <div class="featured-content">
+          <div class="featured-badge">
+            <span class="badge-dot"></span>
+            <span>FEATURED · TERBARU</span>
+          </div>
+          <div class="featured-meta">
+            <span class="featured-date">4 Maret 2026</span>
+            <span class="featured-cats">Info · Kegiatan</span>
+          </div>
+          <h2 class="featured-title">Pesantren Ekologi SMKN 2 Cimahi: Tiga Tahap Aksi Nyata Peduli Lingkungan</h2>
+          <p class="featured-excerpt">SMKN 2 Cimahi menyelenggarakan kegiatan Pesantren Ekologi yang berlangsung mulai 23 Februari hingga 13 Maret 2026. Program ini menjadi bagian dari upaya sekolah dalam membentuk karakter peserta didik yang tidak hanya unggul secara akademik, tetapi juga peduli terhadap lingkungan.</p>
+          <div class="featured-cta">
+            Baca Selengkapnya <span class="arrow">→</span>
+          </div>
+        </div>
+        <div class="featured-visual">
+          <div class="featured-pattern"></div>
+          <div class="featured-stamp">
+            <div class="stamp-num">01</div>
+            <div class="stamp-label">PESANTREN<br>EKOLOGI</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== CATEGORY FILTER ===== -->
+  <section class="section" style="padding-top: 64px; padding-bottom: 0;">
+    <div class="section-label">
+      <span class="label-num">[02]</span>
+      <span class="label-line"></span>
+      <span class="label-title">Filter Kategori</span>
+    </div>
+    <div class="cat-filter">
+        <button class="cat-chip active" data-cat="all"><span class="chip-label">Semua</span><span class="chip-count">20</span></button>
+        <button class="cat-chip" data-cat="Kegiatan"><span class="chip-label">Kegiatan</span><span class="chip-count">14</span></button>
+        <button class="cat-chip" data-cat="Info"><span class="chip-label">Info</span><span class="chip-count">8</span></button>
+        <button class="cat-chip" data-cat="Prestasi"><span class="chip-label">Prestasi</span><span class="chip-count">2</span></button>
+    </div>
+  </section>
+
+  <!-- ===== BERITA LIST ===== -->
+  <section class="section" style="padding-top: 32px;">
+    <div class="berita-grid" id="berita-grid">
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[02]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">19.12.2025</span>
+            <span class="berita-card-cats">Info · Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">INFO KEGIATAN SEKOLAH SMK Negeri 2 Cimahi Periode 1 – 12 Desember 2025</h3>
+          <p class="berita-card-excerpt">Bapak/Ibu orangtua/wali siswa/siswi, mohon ijin untuk menginformasikan kegiatan sekolah dalam periode 1 – 12 Desember 2025 termasuk Pelaksanaan PSAS Ganjil di L...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[03]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">05.12.2025</span>
+            <span class="berita-card-cats">Prestasi</span>
+          </div>
+          <h3 class="berita-card-title">Vidika, Pivot Muda SMKN 2 Cimahi Raih Prestasi AAFI 2025</h3>
+          <p class="berita-card-excerpt">Prestasi membanggakan kembali diraih Vidika Ramadhan Setiawan, siswa kelas X Mekatronika A. Vidika berhasil meraih Juara 3 Nasional Grand Champion AAFI Putaran ...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[04]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">02.12.2025</span>
+            <span class="berita-card-cats">Info · Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">INFO KEGIATAN SEKOLAH SMK Negeri 2 Cimahi Periode 17 – 28 November 2025</h3>
+          <p class="berita-card-excerpt">Informasi kegiatan sekolah dalam periode 17 – 28 November 2025 termasuk pelaksanaan Tes Kemampuan Akademik (TKA) susulan dan In House Training (IHT) Implementas...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[05]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">25.11.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">SMK Negeri 2 Cimahi Gelar Simulasi Bencana di Hari Guru</h3>
+          <p class="berita-card-excerpt">SMKN 2 Cimahi melaksanakan rangkaian kegiatan kesiapsiagaan bencana pada Selasa, 25 November 2025. Kegiatan ini bagian dari implementasi Gapura Panca Waluya dal...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[06]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">22.11.2025</span>
+            <span class="berita-card-cats">Info</span>
+          </div>
+          <h3 class="berita-card-title">IHT Implementasi Pendidikan Karakter Pancawaluya Tahun 2025</h3>
+          <p class="berita-card-excerpt">SMK Negeri 2 Cimahi melaksanakan In House Training (IHT) Implementasi Pendidikan Karakter Pancawaluya pada 19–21 November 2025 untuk memperkuat budaya sekolah b...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[07]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">15.11.2025</span>
+            <span class="berita-card-cats">Info</span>
+          </div>
+          <h3 class="berita-card-title">Serah Terima Jabatan Kepala SMK Negeri 2 Cimahi: Menguatkan Tradisi, Membangun Arah Baru</h3>
+          <p class="berita-card-excerpt">SMK Negeri 2 Cimahi resmi melaksanakan acara Serah Terima Jabatan Kepala Sekolah di Gedung Center of Excellence (COE) pada Jumat, 14 November 2025....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[08]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">06.11.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Refleksi Pelaksanaan TKA di SMKN 2 Cimahi: Harapan untuk Diferensiasi bagi SMK</h3>
+          <p class="berita-card-excerpt">Pelaksanaan TKA di SMKN 2 Cimahi berjalan dengan baik. Sebanyak 441 dari 554 siswa kelas XII (80%) dapat mengikuti TKA dengan lancar....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">5 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[09]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">04.11.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">SMKN 2 Cimahi Sukses Gelar Tes Kemampuan Akademik (TKA): Jadi Ujian Logika dan Mental</h3>
+          <p class="berita-card-excerpt">Pelaksanaan TKA di SMKN 2 Cimahi pada 03–04 November 2025 berjalan sukses dan lancar. Kegiatan diikuti sebagian besar siswa kelas XII bahkan peserta dari luar p...</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[10]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">27.10.2025</span>
+            <span class="berita-card-cats">Info</span>
+          </div>
+          <h3 class="berita-card-title">INFO KEGIATAN SEKOLAH SMK Negeri 2 Cimahi Periode 1-15 Oktober 2025</h3>
+          <p class="berita-card-excerpt">Informasi kegiatan sekolah periode 1-15 Oktober 2025 termasuk Rapat Simulasi TKA dan kegiatan Camping Pendidikan Dasar Kepramukaan (CPDK)....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[11]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">15.10.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Layanan Murid Optimal, SMKN 2 Cimahi Perkuat Kompetensi Guru Lewat "7 Jurus BK Hebat"</h3>
+          <p class="berita-card-excerpt">Workshop Peningkatan Kapabilitas Guru sebagai pengimbasan Program Nasional "7 Jurus BK Hebat" di COE Lt. 1 SMKN 2 Cimahi pada 15 Oktober 2025....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[12]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">10.10.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Sukses! CPDK SMKN 2 Cimahi 2025 Implementasikan Pendidikan Karakter di Alam Terbuka</h3>
+          <p class="berita-card-excerpt">Camping Pendidikan Dasar Kepramukaan (CPDK) Tahun 2025 bagi siswa Kelas X. Implementasi konsep Gapura Panca Waluya melalui pendidikan karakter Kepanduan....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[13]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">06.10.2025</span>
+            <span class="berita-card-cats">Info</span>
+          </div>
+          <h3 class="berita-card-title">INFO KEGIATAN SEKOLAH SMK Negeri 2 Cimahi Periode 15 – 30 September 2025</h3>
+          <p class="berita-card-excerpt">Informasi kegiatan sekolah termasuk Rapat Koordinasi Implementasi Pembelajaran Inquiry Kolaboratif dan Penandatanganan Perjanjian Kerjasama dengan industri....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[14]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">26.09.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Gerakan 'Jumat Bersih', Implementasi Budaya Gotong Royong di SMK Negeri 2 Cimahi</h3>
+          <p class="berita-card-excerpt">Warga SMK Negeri 2 Cimahi bersatu padu dalam semangat gotong royong pada kegiatan "Jumat Bersih" pada 26 September 2025. Implementasi Gapura Panca Waluya....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[15]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">26.09.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Bazar Kewirausahaan: Projek Pembelajaran Kolaborasi DKV SMKN 2 Cimahi</h3>
+          <p class="berita-card-excerpt">Bazar Kewirausahaan oleh Konsentrasi Keahlian DKV SMKN 2 Cimahi pada Jumat, 26 September 2025 di Parkir Guru dan Selasar Teknik Pemesinan....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[16]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">16.09.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">INFO KEGIATAN SEKOLAH SMK Negeri 2 Cimahi Periode 8 – 12 September 2025</h3>
+          <p class="berita-card-excerpt">Informasi kegiatan sekolah dalam sepekan ini termasuk Rapat sosialisasi pembelajaran kolaboratif dan kegiatan Makan Bergizi Gratis (MBG)....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[17]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">13.09.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">Info Kegiatan SMK Negeri 2 Cimahi Periode 11 – 29 Agustus 2025</h3>
+          <p class="berita-card-excerpt">Informasi kegiatan sekolah termasuk Rapat dinas membahas MBG, Guru Wali, TKA dan Pembelajaran Projek Kolaboratif. Monitoring siswa kelas XII....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[18]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">29.08.2025</span>
+            <span class="berita-card-cats">Info · Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">SMKN 2 Cimahi Mulai Laksanakan Program Makan Bergizi Gratis</h3>
+          <p class="berita-card-excerpt">Program Makan Bergizi Gratis (MBG) merupakan misi Asta Cita Presiden untuk memperbaiki asupan gizi siswa, mengatasi stunting, dan mendukung Indonesia Emas 2045....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">4 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[19]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">18.08.2025</span>
+            <span class="berita-card-cats">Prestasi</span>
+          </div>
+          <h3 class="berita-card-title">Perjalanan Inspiratif Dinda Juliana Syafarini dari Cimahi menuju Paskibraka Jawa Barat</h3>
+          <p class="berita-card-excerpt">Dinda Juliana Syafarini, siswi Konsentrasi Keahlian Kimia Industri, terpilih sebagai anggota Paskibraka tingkat Jawa Barat tahun 2025....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">5 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+      <article class="berita-card">
+        <a href="berita-detail.html" class="berita-card-link">
+          <div class="berita-card-num">[20]</div>
+          <div class="berita-card-meta">
+            <span class="berita-card-date">31.07.2025</span>
+            <span class="berita-card-cats">Kegiatan</span>
+          </div>
+          <h3 class="berita-card-title">SMKN 2 Cimahi Ramaikan Aksi Pelajar Segar Bareng Radio Dahlia dan SDC-1000</h3>
+          <p class="berita-card-excerpt">SMKN 2 Cimahi menjadi lokasi "SCHOOL TO SCHOOL – Aksi Pelajar Segar" oleh Radio Dahlia FM Bandung dan SDC-1000 dari Wings Food....</p>
+          <div class="berita-card-footer">
+            <span class="berita-card-time">3 menit baca</span>
+            <span class="berita-card-arrow">→</span>
+          </div>
+        </a>
+      </article>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="page-btn" disabled>← Prev</button>
+      <div class="page-numbers">
+        <button class="page-num active">1</button>
+        <button class="page-num">2</button>
+        <span class="page-dots">...</span>
+        <button class="page-num">8</button>
+      </div>
+      <button class="page-btn">Next →</button>
+    </div>
+  </section>
+
+  <!-- ===== CALLOUT ===== -->
+  <section class="callout" style="padding-top: 64px;">
+    <div class="callout-inner">
+      <div>
+        <div class="callout-label">SUBSCRIBE NEWSLETTER</div>
+        <h3 class="callout-title">Dapatkan kabar terbaru langsung di email Anda.</h3>
+      </div>
+      <div>
+        <p class="callout-text" style="margin-bottom: 20px;">Berlangganan newsletter SMKN 2 Cimahi untuk update kegiatan, prestasi, dan pengumuman sekolah.</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="email@anda.com" required>
+          <button type="submit" class="newsletter-btn">Subscribe →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <img src="../assets/images/logo.png" alt="Logo" class="footer-logo">
+        <div class="footer-name">SMK Negeri 2 Cimahi</div>
+        <p class="footer-tagline">BMW: Bekerja · Melanjutkan · Wirausaha</p>
+        <p class="footer-est">EST. 2007</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Kontak</div>
+        <p class="footer-text">Jl. Kamarung KM 1.5 No.69<br>Citeureup, Cimahi Utara<br>Kota Cimahi 40512</p>
+        <p class="footer-text">+62 896 0520 1376<br>info@smkn2cmi.sch.id</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Profil</div>
+        <a href="profil-sekolah.html" class="footer-link">Profil Sekolah</a>
+        <a href="visi-misi.html" class="footer-link">Visi &amp; Misi</a>
+        <a href="kesiswaan.html" class="footer-link">Kesiswaan</a>
+        <a href="bkk.html" class="footer-link">Bursa Kerja Khusus</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-label">Sosial Media</div>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Facebook</a>
+        <a href="#" class="footer-link">YouTube</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SMK NEGERI 2 CIMAHI</span>
+      <span>SEKOLAH MENENGAH KEJURUAN NEGERI</span>
+      <span>NSS 401026802002 / NPSN 20224389</span>
+    </div>
+  </footer>
+
+  <script>
+    // Filter kategori (visual only di static HTML)
+    document.querySelectorAll('.cat-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const cat = chip.dataset.cat;
+        document.querySelectorAll('.berita-card').forEach(card => {
+          if (cat === 'all') {
+            card.style.display = '';
+          } else {
+            const cats = card.querySelector('.berita-card-cats').textContent;
+            card.style.display = cats.includes(cat) ? '' : 'none';
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

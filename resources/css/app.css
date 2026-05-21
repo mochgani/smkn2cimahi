@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply font-sans bg-bg text-ink antialiased;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    a {
+        @apply transition-colors;
+    }
+}
+
+@layer components {
+    .container-page {
+        @apply max-w-page mx-auto px-page;
+    }
+
+    .section-label {
+        @apply flex items-center gap-3 mb-8;
+    }
+
+    .section-label .label-num {
+        @apply font-mono text-[11px] text-accent tracking-mono;
+    }
+
+    .section-label .label-line {
+        @apply flex-none w-[60px] h-px bg-line;
+    }
+
+    .section-label .label-title {
+        @apply font-mono text-[11px] text-muted tracking-mono-wide uppercase;
+    }
+
+    .section-h2 {
+        @apply text-[40px] font-bold leading-[1.15] tracking-tightest text-ink;
+    }
+
+    .section-sub {
+        @apply text-base text-muted-soft max-w-[560px];
+    }
+
+    .btn-primary {
+        @apply bg-ink text-white px-6 py-3.5 text-sm font-medium
+               inline-flex items-center gap-2 transition-colors hover:bg-accent;
+    }
+
+    .btn-secondary {
+        @apply text-ink border border-ink px-6 py-3.5 text-sm font-medium
+               transition-all hover:bg-ink hover:text-white;
+    }
+
+    .btn-spmb {
+        @apply bg-accent text-white px-[18px] py-2.5 font-mono
+               text-xs font-semibold tracking-mono uppercase
+               transition-colors hover:bg-accent-dark;
+    }
+
+    .grid-bordered {
+        @apply grid border-t border-l border-line;
+    }
+
+    .grid-bordered > * {
+        @apply border-r border-b border-line bg-white;
+    }
+
+    .card {
+        @apply bg-white p-7 transition-colors hover:bg-bg-alt;
+    }
+
+    .mono-badge {
+        @apply font-mono text-[11px] tracking-mono;
+    }
+
+    .page-header {
+        @apply container-page py-16 border-b border-line;
+    }
+
+    .page-title {
+        @apply text-[56px] font-extrabold leading-[1.05]
+               tracking-tightest text-ink mb-4 max-w-[900px];
+    }
+
+    .page-lead {
+        @apply text-lg leading-relaxed text-muted-soft max-w-[720px];
+    }
+
+    .topbar {
+        @apply bg-ink text-bg flex justify-between items-center
+               px-page py-2 font-mono text-[11px] tracking-mono;
+    }
+
+    .prose-section {
+        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-12 py-12;
+    }
+
+    .prose-aside {
+        @apply font-mono text-[11px] text-accent tracking-mono uppercase md:pt-2;
+    }
+
+    .prose-body {
+        @apply max-w-[720px] text-[15px] leading-[1.75] text-muted-soft;
+    }
+
+    .prose-body h2 {
+        @apply text-[26px] font-bold leading-tight tracking-tighter text-ink mt-10 mb-4 first:mt-0;
+    }
+
+    .prose-body p {
+        @apply mb-5;
+    }
+
+    .prose-body strong {
+        @apply font-semibold text-ink;
+    }
+
+    .prose-body ul {
+        @apply list-disc list-outside pl-5 mb-5 space-y-2;
+    }
+
+    .prose-body ol {
+        @apply list-decimal list-outside pl-5 mb-5 space-y-2;
+    }
+
+    .prose-body blockquote {
+        @apply border-l-4 border-accent pl-5 py-2 my-6 italic text-ink-soft;
+    }
+
+    .highlight-card {
+        @apply bg-white p-7 border-r border-b border-line transition-colors hover:bg-bg-alt;
+    }
+
+    .highlight-num {
+        @apply font-mono text-[10px] text-accent tracking-mono-wide uppercase mb-4;
+    }
+
+    .highlight-title {
+        @apply text-xl font-bold leading-tight tracking-tighter text-ink mb-3;
+    }
+
+    .highlight-desc {
+        @apply text-[14px] leading-relaxed text-muted-soft;
+    }
+
+    .detail-card {
+        @apply bg-white p-6 border-r border-b border-line;
+    }
+
+    .detail-num {
+        @apply font-mono text-[24px] font-semibold text-accent leading-none tracking-tight mb-4;
+    }
+
+    .detail-title {
+        @apply text-base font-bold leading-tight tracking-tighter text-ink mb-2;
+    }
+
+    .detail-desc {
+        @apply text-[13px] leading-relaxed text-muted-soft;
+    }
+
+    .statement-block {
+        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-12 py-10 border-b border-line;
+    }
+
+    .statement-num {
+        @apply font-mono text-[40px] font-extrabold text-accent leading-none tracking-tightest mb-2;
+    }
+
+    .statement-label {
+        @apply font-mono text-[11px] text-muted tracking-mono-wide uppercase;
+    }
+
+    .statement-text {
+        @apply text-[22px] leading-snug tracking-tighter text-ink font-medium max-w-[720px];
+    }
+
+    .form-input {
+        @apply w-full bg-white border border-line px-4 py-3 text-[14px] text-ink
+               placeholder:text-muted/60 focus:outline-none focus:border-ink transition-colors;
+    }
+
+    .form-label {
+        @apply block font-mono text-[11px] text-muted tracking-mono-wide uppercase mb-2;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
