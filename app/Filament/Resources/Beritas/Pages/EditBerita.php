@@ -16,4 +16,22 @@ class EditBerita extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $user = auth()->user();
+
+        if ($user?->isSuperAdmin()) {
+            // Super admin publish via form = otomatis approved
+            if (! empty($data['is_published'])) {
+                $data['approval_status'] = 'approved';
+                $data['approved_by']     = $user->id;
+                $data['approved_at']     = now();
+            } elseif (($data['approval_status'] ?? '') !== 'rejected') {
+                $data['approval_status'] = 'draft';
+            }
+        }
+
+        return $data;
+    }
 }

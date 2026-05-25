@@ -106,11 +106,14 @@ class BeritaForm
                         ->columnSpanFull(),
 
                     Toggle::make('is_featured')
-                        ->label('Featured (tampil di hero beranda)'),
+                        ->label('Featured (tampil di hero beranda)')
+                        ->visible(fn () => auth()->user()?->isSuperAdmin() ?? false),
 
                     Toggle::make('is_published')
                         ->label('Publish')
-                        ->default(false),
+                        ->default(false)
+                        ->visible(fn () => auth()->user()?->isSuperAdmin() ?? false)
+                        ->helperText('Hanya super admin yang bisa mempublish berita.'),
 
                     DateTimePicker::make('published_at')
                         ->label('Tanggal Publish')

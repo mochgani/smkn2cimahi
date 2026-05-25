@@ -15,6 +15,7 @@ class Berita extends Model
         'slug', 'title', 'excerpt', 'content', 'cover_image',
         'tags', 'reading_time_minutes', 'is_featured', 'is_published',
         'published_at', 'author_id', 'created_by', 'kompetensi_id', 'divisi_id',
+        'approval_status', 'approved_by', 'approved_at',
     ];
 
     protected $casts = [
@@ -22,6 +23,7 @@ class Berita extends Model
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
         'published_at' => 'datetime',
+        'approved_at'  => 'datetime',
     ];
 
     protected static function booted(): void
@@ -46,6 +48,11 @@ class Berita extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function approvedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
     public function kompetensi(): BelongsTo
     {
         return $this->belongsTo(Kompetensi::class);
@@ -59,7 +66,8 @@ class Berita extends Model
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true)
-            ->where('published_at', '<=', now());
+            ->where('published_at', '<=', now())
+            ->where('approval_status', 'approved');
     }
 
     public function scopeFeatured(Builder $query): Builder

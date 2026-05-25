@@ -31,6 +31,19 @@ class CreateBerita extends CreateRecord
         // Catat siapa yang input berita
         $data['created_by'] = $user->id;
 
+        // Non-super_admin: wajib approve dulu, kunci is_published
+        if (! $user->isSuperAdmin()) {
+            $data['approval_status'] = 'pending';
+            $data['is_published']    = false;
+        } else {
+            // Super admin publish langsung = otomatis approved
+            $data['approval_status'] = $data['is_published'] ? 'approved' : 'draft';
+            if ($data['is_published']) {
+                $data['approved_by'] = $user->id;
+                $data['approved_at'] = now();
+            }
+        }
+
         return $data;
     }
 }
