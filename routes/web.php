@@ -9,10 +9,14 @@ use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// SEO: sitemap dynamic dari DB
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::prefix('profil')->name('profil.')->controller(ProfilController::class)->group(function () {
     Route::get('/sekolah', 'sekolah')->name('sekolah');

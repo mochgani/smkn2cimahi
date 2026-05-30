@@ -1,18 +1,46 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import Breadcrumb from '@/Components/UI/Breadcrumb.vue';
 import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
-defineProps({
+const props = defineProps({
     berita: { type: Object, required: true },
     related: { type: Array, default: () => [] },
 });
+
+// JSON-LD Article schema
+const articleSchema = computed(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: props.berita.title,
+    description: props.berita.excerpt,
+    image: props.berita.cover_image
+        ? (typeof window !== 'undefined' ? window.location.origin : '') + props.berita.cover_image
+        : undefined,
+    datePublished: props.berita.date_iso,
+    author: {
+        '@type': 'Person',
+        name: props.berita.author?.name || 'Tim Penulis',
+    },
+    articleSection: props.berita.categories?.[0] || 'Berita',
+}));
 </script>
 
 <template>
-    <Head :title="berita.title" />
+    <SeoTag
+        :title="berita.title"
+        :description="berita.excerpt"
+        :image="berita.cover_image"
+        type="article"
+        :published-at="berita.date_iso"
+        :author="berita.author?.name || 'Tim Penulis'"
+        :section="berita.categories?.[0] || 'Berita'"
+        :schema="articleSchema"
+    />
 
     <AppLayout>
         <article class="container-page pt-12 pb-8">

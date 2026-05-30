@@ -42,7 +42,7 @@ const isActive = (item) => {
                 </div>
             </Link>
 
-            <nav class="flex gap-5 lg:gap-7 items-center flex-wrap">
+            <nav class="flex gap-5 lg:gap-7 items-center flex-wrap" aria-label="Menu utama">
                 <template v-for="(item, idx) in navigation" :key="idx">
                     <!-- Item dengan children: render dropdown -->
                     <div
@@ -53,14 +53,17 @@ const isActive = (item) => {
                     >
                         <button
                             type="button"
+                            :aria-expanded="openMenu === idx"
+                            :aria-label="`Menu ${item.label}`"
                             class="text-[13px] font-medium text-ink-soft hover:text-accent inline-flex items-center gap-1 transition-colors"
                             :class="{ 'text-accent': isActive(item) }"
                         >
                             {{ item.label }}
-                            <span class="text-[10px] transition-transform" :class="{ 'rotate-180': openMenu === idx }">▾</span>
+                            <span class="text-[10px] transition-transform" :class="{ 'rotate-180': openMenu === idx }" aria-hidden="true">▾</span>
                         </button>
                         <div
                             v-show="openMenu === idx"
+                            role="menu"
                             class="absolute top-full -left-4 bg-white border border-line min-w-[240px] py-2 shadow-lg z-50"
                         >
                             <Link

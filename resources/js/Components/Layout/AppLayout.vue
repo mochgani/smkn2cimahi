@@ -6,10 +6,13 @@ import Footer from './Footer.vue';
 
 <template>
     <div class="min-h-screen flex flex-col">
+        <!-- A11y: skip-to-content link (muncul saat focus dengan Tab) -->
+        <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+
         <Topbar />
         <Header />
 
-        <main class="flex-1">
+        <main id="main-content" class="flex-1" tabindex="-1">
             <slot />
         </main>
 

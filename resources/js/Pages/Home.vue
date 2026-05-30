@@ -1,8 +1,9 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 import HeroSlider from '@/Components/Sections/HeroSlider.vue';
 import StatsBar from '@/Components/Sections/StatsBar.vue';
 import KompetensiGrid from '@/Components/Sections/KompetensiGrid.vue';
@@ -16,7 +17,10 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Beranda" />
+    <SeoTag
+        title="Beranda"
+        description="Website resmi SMK Negeri 2 Cimahi — Sekolah Menengah Kejuruan Negeri dengan 6 kompetensi keahlian unggulan: Animasi, DKV, RPL, Kimia, Mekatronika, dan Teknik Pemesinan."
+    />
 
     <AppLayout>
         <HeroSlider v-if="slides.length" :slides="slides" />

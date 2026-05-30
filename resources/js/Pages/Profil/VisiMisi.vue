@@ -1,10 +1,10 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
-defineProps({
+const props = defineProps({
     visi: { type: String, default: '' },
     misi: { type: Array, default: () => [] },
     tujuan: { type: Array, default: () => [] },
@@ -12,7 +12,10 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Visi & Misi" />
+    <SeoTag
+        title="Visi & Misi"
+        :description="visi || 'Visi, misi, dan tujuan SMK Negeri 2 Cimahi sebagai sekolah unggulan di Cimahi.'"
+    />
 
     <AppLayout>
         <PageHeader

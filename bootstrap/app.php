@@ -20,5 +20,16 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Custom 404 page (Inertia) — render Vue page Errors/NotFound
+        // saat ada NotFoundHttpException (route tidak ada / firstOrFail miss).
+        $exceptions->render(function (
+            Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e,
+            Illuminate\Http\Request $request
+        ) {
+            if (! $request->expectsJson() && ! config('app.debug')) {
+                return Inertia\Inertia::render('Errors/NotFound')
+                    ->toResponse($request)
+                    ->setStatusCode(404);
+            }
+        });
     })->create();

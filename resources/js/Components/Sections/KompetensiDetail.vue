@@ -1,10 +1,11 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import Breadcrumb from '@/Components/UI/Breadcrumb.vue';
 import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
 const props = defineProps({
     kompetensi: { type: Object, required: true },
@@ -35,7 +36,11 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
 </script>
 
 <template>
-    <Head :title="kompetensi.name" />
+    <SeoTag
+        :title="`Kompetensi ${kompetensi.name}`"
+        :description="kompetensi.lead || kompetensi.short_desc || `Program keahlian ${kompetensi.name} di SMK Negeri 2 Cimahi.`"
+        :image="kompetensi.logo_image"
+    />
 
     <AppLayout>
         <section class="page-header">
@@ -121,6 +126,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                     v-for="(img, i) in kompetensi.gallery"
                     :key="i"
                     type="button"
+                    :aria-label="`Buka foto ${i + 1} dalam galeri`"
                     @click="openLightbox(i)"
                     class="relative aspect-square overflow-hidden bg-line-soft border border-line group"
                 >
@@ -144,10 +150,15 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
             <div
                 v-if="lightboxOpen"
                 class="fixed inset-0 z-[100] bg-ink/95 flex items-center justify-center p-4"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Galeri foto"
                 @click.self="closeLightbox"
+                @keydown.esc="closeLightbox"
             >
                 <button
                     type="button"
+                    aria-label="Tutup galeri"
                     @click="closeLightbox"
                     class="absolute top-4 right-4 text-bg font-mono text-sm hover:text-accent"
                 >
@@ -156,6 +167,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                 <button
                     v-if="kompetensi.gallery.length > 1"
                     type="button"
+                    aria-label="Foto sebelumnya"
                     @click="lightboxPrev"
                     class="absolute left-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2"
                 >
@@ -169,6 +181,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                 <button
                     v-if="kompetensi.gallery.length > 1"
                     type="button"
+                    aria-label="Foto berikutnya"
                     @click="lightboxNext"
                     class="absolute right-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2"
                 >

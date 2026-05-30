@@ -1,2 +1,34 @@
+# Robots.txt SMKN 2 Cimahi
+# https://www.robotstxt.org/
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Block area admin & file deployment
+Disallow: /admin
+Disallow: /deploy.php
+Disallow: /optimize.php
+Disallow: /storage_link.php
+Disallow: /genkey.php
+Disallow: /migrate.php
+
+# Block search engine indexing untuk endpoint internal
+Disallow: /up
+Disallow: /storage/
+Disallow: /build/
+
+# Bot agresif yang sering scrape tanpa adab
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap
+Sitemap: https://staging.smkn2cmi.sch.id/sitemap.xml

@@ -1,7 +1,7 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
 defineProps({
     kepala: { type: Object, required: true },
@@ -9,7 +9,11 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Kepala Sekolah" />
+    <SeoTag
+        title="Kepala Sekolah"
+        :description="`Sambutan dari ${kepala.nama || 'Kepala Sekolah'}, ${kepala.jabatan || 'Kepala Sekolah'} SMK Negeri 2 Cimahi.`"
+        :image="kepala.foto"
+    />
 
     <AppLayout>
         <PageHeader

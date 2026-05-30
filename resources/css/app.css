@@ -16,6 +16,32 @@
     a {
         @apply transition-colors;
     }
+
+    /* A11y: focus ring jelas untuk keyboard navigation */
+    :focus-visible {
+        @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+    }
+
+    /* Respect user prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    /* Skip-to-content link untuk keyboard user */
+    .skip-link {
+        @apply absolute left-2 top-2 z-[100] -translate-y-20 focus:translate-y-0
+               bg-ink text-bg px-4 py-2 font-mono text-xs tracking-mono
+               transition-transform;
+    }
 }
 
 @layer components {

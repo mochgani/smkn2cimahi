@@ -1,9 +1,10 @@
 <script setup>
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
 import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
 const props = defineProps({
     featured: { type: Object, default: null },
@@ -37,7 +38,10 @@ const goToPage = (url) => {
 </script>
 
 <template>
-    <Head title="Berita" />
+    <SeoTag
+        title="Berita"
+        description="Kabar terbaru, prestasi siswa, kegiatan sekolah, dan informasi resmi dari SMK Negeri 2 Cimahi."
+    />
 
     <AppLayout>
         <PageHeader

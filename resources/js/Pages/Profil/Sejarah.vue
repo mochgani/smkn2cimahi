@@ -1,7 +1,7 @@
 <script setup>
-import { Head } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
 defineProps({
     sejarah: { type: Object, required: true },
@@ -9,7 +9,11 @@ defineProps({
 </script>
 
 <template>
-    <Head :title="sejarah.title" />
+    <SeoTag
+        :title="sejarah.title"
+        :description="sejarah.lead"
+        :image="sejarah.image"
+    />
 
     <AppLayout>
         <PageHeader

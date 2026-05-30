@@ -45,13 +45,13 @@ class ProfilController extends Controller
 
     public function sekolah(): Response
     {
+        $unggulan = \App\Models\ProfilUnggulan::active()
+            ->orderBy('display_order')
+            ->get(['num', 'tag', 'title', 'desc'])
+            ->toArray();
+
         return Inertia::render('Profil/Sekolah', [
-            'unggulan' => [
-                ['num' => '01', 'tag' => 'KELAS INDUSTRI', 'title' => 'BUMA School', 'desc' => 'Kerja sama dengan PT Bukit Makmur Mandiri Utama (BUMA), perusahaan pertambangan batu bara untuk mempersiapkan lulusan siap kerja di industri tambang.'],
-                ['num' => '02', 'tag' => 'KELAS INDUSTRI', 'title' => 'Ayena Studio', 'desc' => 'Kolaborasi dengan studio animasi profesional untuk pengembangan kompetensi siswa di industri animasi dan kreatif.'],
-                ['num' => '03', 'tag' => 'KEWIRAUSAHAAN', 'title' => 'Cimahi Markerspace', 'desc' => 'Program kewirausahaan digital di bidang desain yang membentuk siswa menjadi wirausahawan kreatif dan mandiri.'],
-                ['num' => '04', 'tag' => 'TEFA', 'title' => 'Teaching Factory', 'desc' => 'Sistem pembelajaran berbasis produksi dan simulasi dunia kerja, memberikan pengalaman langsung kepada siswa layaknya bekerja di industri sungguhan.'],
-            ],
+            'unggulan' => $unggulan,
         ]);
     }
 

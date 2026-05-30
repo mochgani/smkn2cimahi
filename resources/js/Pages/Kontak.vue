@@ -1,10 +1,11 @@
 <script setup>
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
 import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
+import SeoTag from '@/Components/UI/SeoTag.vue';
 
 const page = usePage();
 const flashSuccess = computed(() => page.props.flash?.success);
@@ -39,7 +40,10 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Kontak" />
+    <SeoTag
+        title="Kontak"
+        description="Hubungi SMK Negeri 2 Cimahi via telepon, email, WhatsApp, atau kunjungi langsung. Senin - Jumat 07:00 - 16:00 WIB."
+    />
 
     <AppLayout>
         <PageHeader

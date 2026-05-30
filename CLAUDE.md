@@ -468,12 +468,12 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 
 - [x] Dinamis-kan data Kesiswaan — Rekap Siswa via Filament (selesai 2026-05-11)
 - [x] Dinamis-kan Sejarah, Visi-Misi, Kepala Sekolah via Filament (selesai 2026-05-13)
-- [ ] Dinamis-kan data Profil lainnya (Sekolah, BKK) via Filament
+- [x] Dinamis-kan data Profil Sekolah (unggulan: BUMA, Ayena, dll) via Filament — selesai Phase 4
 - [x] Dinamis-kan Hero Slider di halaman Home (selesai 2026-05-11)
 - [x] Dinamis-kan Stats Bar di halaman Home (selesai 2026-05-11)
-- [ ] Upload gambar berita (cover_image) via Filament file upload
-- [ ] SEO meta tags per halaman
-- [ ] Sitemap.xml & robots.txt
+- [x] Upload gambar berita (cover_image) via Filament — auto-resize 1200×675 (Phase 2)
+- [x] SEO meta tags per halaman — `SeoTag` component (Phase 4)
+- [x] Sitemap.xml & robots.txt — dynamic `/sitemap.xml` (Phase 4)
 - [x] Deploy ke server produksi (staging: staging.smkn2cmi.sch.id)
 
 ---
@@ -563,3 +563,36 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 - ✅ **Selesai phase X** = update checklist di atas + commit dengan message `Phase X: ...`
 - ⏸️ **Konfirmasi user** sebelum mulai phase berikutnya
 - 📝 Setiap item yang selesai, tambah catatan di "Riwayat Perubahan" dengan tanggal & detail singkat
+
+---
+
+### Phase 4 — SEO & Discoverability ✅ SELESAI
+
+**A. Dynamic SEO Meta Tags:**
+- [x] 4.1 `<SeoTag />` component Vue (title, description, canonical, OG, Twitter Card, JSON-LD)
+- [x] 4.2 Open Graph + Twitter Card (preview di WA/FB/X)
+- [x] 4.3 Per page meta: Home, Berita Index/Show, Kontak, Profil (Sejarah/VisiMisi/KepalaSekolah), Kompetensi
+- [x] 4.4 JSON-LD Schema.org: `EducationalOrganization` (default) + `NewsArticle` (berita)
+
+**B. Sitemap & Robots:**
+- [x] 4.5 `SitemapController` — generate `/sitemap.xml` dynamic (static + berita published + kompetensi active) dengan `lastmod` dari `updated_at`, cache 1 jam
+- [x] 4.6 `robots.txt` lengkap — allow public + disallow admin/deploy/build + block bot scraper agresif (Ahrefs, Semrush, MJ12) + sitemap reference
+
+**C. Favicon & Manifest:**
+- [x] 4.7 `<link rel="icon">` + `apple-touch-icon` di app.blade.php + theme-color #0d6e3f
+- [x] 4.8 `manifest.json` — PWA-lite (nama, color, icon, lang id-ID)
+
+**D. Accessibility:**
+- [x] 4.9 `alt` attribute audit — semua `<img>` sudah punya alt yang descriptive
+- [x] 4.10 `aria-label` di button icon-only (lightbox close/prev/next, dropdown menu, gallery thumbnails)
+- [x] 4.11 Skip-to-content link (`.skip-link`) di AppLayout + `id="main-content"` di `<main>`
+- [x] 4.12 `:focus-visible` ring-2 ring-accent + `prefers-reduced-motion` support
+
+**E. Error Page:**
+- [x] 4.13 `Errors/NotFound.vue` custom + register handler `NotFoundHttpException` di `bootstrap/app.php`
+
+**F. Dinamis Profil Sekolah:**
+- [x] 4.14 Migration `profil_unggulan` + Model + Filament Resource — group "Profil Sekolah" sort 4. Seeded 4 default (BUMA, Ayena, Markerspace, TEFA). `ProfilController::sekolah()` query dari DB.
+
+**Testing:**
+- [x] `SitemapTest` (7 test): sitemap dapat diakses, valid XML, include homepage/berita published/kompetensi active, exclude berita draft/kompetensi inactive
