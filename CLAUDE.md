@@ -503,29 +503,28 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 
 ---
 
-### Phase 2 — Medium Effort (3-5 jam, impact tinggi)
+### Phase 2 — Medium Effort (3-5 jam, impact tinggi) ✅ SELESAI
 
 **Performance:**
-- [ ] 1.2 Eager loading audit — fix N+1 di controllers (Berita, Kompetensi, Home)
-- [ ] 1.3 Image optimization Filament — auto-resize cover berita & hero (max 1200px + WebP) via `intervention/image`
-- [ ] 1.4 DB indexing — index kolom yang sering di-where: `beritas.slug`, `beritas.is_published`, `beritas.approval_status`, `beritas.kompetensi_id`, `beritas.divisi_id`, `kompetensis.slug`
-- [ ] 1.9 Font optimization — preload Inter & JetBrains Mono, hapus weight yang tidak dipakai
-- [ ] 1.10 Verifikasi Tailwind purge di production build
+- [x] 1.2 Eager loading audit — controllers sudah pakai `with()`, fix bug minor `cover_image` di DivisiController & PrestasiController formatBerita
+- [x] 1.3 Image optimization Filament — built-in `imageResize` + `imageEditor`: cover berita (1200×675), hero (1600×1200), profil sejarah (1600×900), foto kepsek (800×1066), gallery (1400×1400)
+- [x] 1.4 DB indexing — migration `add_indexes_for_performance` (8 index composite)
+- [x] 1.9 Font optimization — hapus weight Inter & Mono yang tidak dipakai (dari 9 ke 4 weight), tambah `<link rel="preload">`
+- [x] 1.10 Verifikasi Tailwind purge — JIT mode aktif, content[] sudah benar (cover blade+vue+js)
 
 **Security:**
-- [ ] 2.2 Rate limiting di route admin login, search, dll (selain form kontak yang sudah ada)
-- [ ] 2.4 HTML sanitization — install `mews/purifier` atau `stevebauman/purify` untuk strip XSS dari RichEditor output
-- [ ] 2.13 Password policy untuk UserResource — min 8 char, mixed case, angka
+- [x] 2.2 Rate limiting — 3 limiter di AppServiceProvider (`web` 120/min, `login` 5/min per email+IP, `api` 60/min)
+- [x] 2.4 HTML sanitization — `App\Support\HtmlSanitizer` wrapper Symfony HtmlSanitizer (sudah tersedia di Laravel 13). Auto-sanitize di `Berita::content`, `ProfilSejarah::content`, `ProfilKepalaSekolah::sambutan` via Attribute mutator
+- [x] 2.13 Password policy — `Password::defaults()` production: min 8 + mixedCase + numbers + uncompromised (HaveIBeenPwned)
 
 **Testing — Setup & Critical Tests:**
-- [ ] 3.1 Convert PHPUnit ke Pest (syntax lebih bersih)
-- [ ] 3.3 Buat factory untuk semua model (Berita, Kompetensi, User, Author, Kategori)
-- [ ] 3.4 Test routes publik return 200 — `/`, `/berita`, `/berita/{slug}`, `/kompetensi/{slug}`, `/kontak`
-- [ ] 3.5 Test form kontak — submit valid → tersimpan + email; submit invalid → error
-- [ ] 3.6 Test `Berita::published()` scope — hanya return berita `is_published=true AND approval_status=approved`
-- [ ] 3.7 Test approval workflow — pending → approve → published; pending → reject → not published
-- [ ] 3.8 Test RBAC — user kompetensi/divisi hanya lihat berita scope-nya
-- [ ] 3.10 Test akses admin Filament — guest ditolak, user tanpa role ditolak
+- [~] 3.1 ~~Convert ke Pest~~ — skip, tetap pakai PHPUnit 12 untuk avoid composer dep baru saat deploy
+- [x] 3.3 Factory: `BeritaFactory` (+ states: draft/pending/rejected/featured), `KompetensiFactory`, `KategoriFactory`, `AuthorFactory`, `DivisiFactory`
+- [x] 3.4 `PublicRoutesTest` — 10 test: homepage, berita index/show, 2 kompetensi, kontak, 3 profil, 404
+- [x] 3.5 `KontakFormTest` — 5 test: submit valid (DB + Mail::fake), validation errors, email invalid, subjek whitelist
+- [x] 3.6 `BeritaScopeTest` — 4 test: scope published filter approval/future_date/pending/rejected, scope featured
+- [x] 3.7 `ApprovalWorkflowTest` — 5 test: pending hidden, approved visible, rejected hidden, state transition approve/reject
+- [x] 3.8 + 3.10 `RbacTest` — 7 test: 3 role akses panel, user tanpa role ditolak, scope kompetensi/divisi, guest redirect
 
 ---
 

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Kompetensi extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'slug', 'code', 'name', 'tag', 'short_desc', 'lead',
         'about', 'sections', 'cta_label', 'cta_title', 'cta_text',

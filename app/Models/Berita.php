@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Support\HtmlSanitizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,8 @@ use Illuminate\Support\Str;
 
 class Berita extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'slug', 'title', 'excerpt', 'content', 'cover_image',
         'tags', 'reading_time_minutes', 'is_featured', 'is_published',
