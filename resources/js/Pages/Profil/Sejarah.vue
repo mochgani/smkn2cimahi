@@ -52,6 +52,8 @@ defineProps({
                 <img
                     :src="sejarah.image"
                     :alt="sejarah.title"
+                    loading="lazy"
+                    decoding="async"
                     class="w-full h-full object-cover"
                 />
             </div>

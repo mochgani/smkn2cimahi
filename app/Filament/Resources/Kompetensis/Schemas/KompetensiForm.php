@@ -107,7 +107,8 @@ class KompetensiForm
                         ->disk('public')
                         ->directory('kompetensi/logos')
                         ->maxSize(1024)
-                        ->helperText('Disarankan format kotak (1:1) PNG transparan, maks 1MB')
+                        ->acceptedFileTypes(['image/png', 'image/svg+xml', 'image/webp'])
+                        ->helperText('PNG transparan/SVG/WebP, kotak (1:1), maks 1MB.')
                         ->columnSpanFull(),
 
                     FileUpload::make('gallery')
@@ -118,6 +119,7 @@ class KompetensiForm
                         ->disk('public')
                         ->directory('kompetensi/gallery')
                         ->maxSize(3072)
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                         ->panelLayout('grid')
                         ->helperText('Bisa upload beberapa foto sekaligus. Drag untuk atur urutan. Maks 3MB per foto.')
                         ->columnSpanFull(),

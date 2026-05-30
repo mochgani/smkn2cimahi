@@ -7,11 +7,18 @@ use App\Models\KontakSetting;
 use App\Models\MenuItem;
 use App\Models\SchoolSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
     protected $rootView = 'app';
+
+    /**
+     * Cache TTL untuk shared global data (1 jam).
+     * Cache di-invalidate otomatis via observer saat data diupdate dari admin.
+     */
+    private const CACHE_TTL = 3600;
 
     public function version(Request $request): ?string
     {
@@ -24,24 +31,36 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error'),
+                'error'   => fn () => $request->session()->get('error'),
             ],
-            'navigation' => fn () => $this->buildNavigation(),
-            'kontakSetting' => fn () => KontakSetting::instance()->only([
-                'maps_address_short',
-                'maps_address_full',
-                'kanal',
-                'social',
-            ]),
-            'schoolSetting' => fn () => SchoolSetting::instance()->only([
-                'school_name',
-                'tagline',
-                'logo',
-                'tahun_berdiri',
-                'nss',
-                'npsn',
-                'copyright',
-            ]),
+            'navigation' => fn () => Cache::remember(
+                'shared.navigation',
+                self::CACHE_TTL,
+                fn () => $this->buildNavigation()
+            ),
+            'kontakSetting' => fn () => Cache::remember(
+                'shared.kontak_setting',
+                self::CACHE_TTL,
+                fn () => KontakSetting::instance()->only([
+                    'maps_address_short',
+                    'maps_address_full',
+                    'kanal',
+                    'social',
+                ])
+            ),
+            'schoolSetting' => fn () => Cache::remember(
+                'shared.school_setting',
+                self::CACHE_TTL,
+                fn () => SchoolSetting::instance()->only([
+                    'school_name',
+                    'tagline',
+                    'logo',
+                    'tahun_berdiri',
+                    'nss',
+                    'npsn',
+                    'copyright',
+                ])
+            ),
         ];
     }
 

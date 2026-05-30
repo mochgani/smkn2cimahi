@@ -32,6 +32,8 @@ defineProps({
                             v-if="kepala.foto"
                             :src="kepala.foto"
                             :alt="`Foto ${kepala.nama}`"
+                            loading="lazy"
+                            decoding="async"
                             class="w-full h-full object-cover"
                         />
                         <div v-else class="w-full h-full flex items-center justify-center text-muted font-mono text-xs tracking-mono">

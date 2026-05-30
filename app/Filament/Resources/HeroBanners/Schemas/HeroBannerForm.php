@@ -57,7 +57,8 @@ class HeroBannerForm
                         ->disk('public')
                         ->directory('hero-banners')
                         ->maxSize(3072)
-                        ->helperText('Opsional. Jika kosong, akan tampil pattern dekoratif. Ukuran ideal: 800×600px, maks 3MB.'),
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->helperText('Opsional. Format JPG/PNG/WebP. Ukuran ideal: 800×600px, maks 3MB.'),
                 ]),
 
             Section::make('CTA & Badge')

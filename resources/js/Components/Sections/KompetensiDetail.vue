@@ -127,6 +127,8 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                     <img
                         :src="img"
                         :alt="`${kompetensi.name} foto ${i + 1}`"
+                        loading="lazy"
+                        decoding="async"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div class="absolute inset-0 bg-ink/0 group-hover:bg-ink/20 transition-colors" />

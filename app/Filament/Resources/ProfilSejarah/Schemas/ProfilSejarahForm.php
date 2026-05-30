@@ -52,7 +52,8 @@ class ProfilSejarahForm
                         ->disk('public')
                         ->directory('profil/sejarah')
                         ->maxSize(3072)
-                        ->helperText('Maks 3MB. Disarankan landscape 16:9.')
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->helperText('JPG/PNG/WebP, maks 3MB. Disarankan landscape 16:9.')
                         ->columnSpanFull(),
 
                     TextInput::make('video_youtube_url')

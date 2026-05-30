@@ -474,4 +474,90 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 - [ ] Upload gambar berita (cover_image) via Filament file upload
 - [ ] SEO meta tags per halaman
 - [ ] Sitemap.xml & robots.txt
-- [ ] Deploy ke server produksi
+- [x] Deploy ke server produksi (staging: staging.smkn2cmi.sch.id)
+
+---
+
+## Optimasi Production — Performance, Security, Testing
+
+> Roadmap untuk hardening production. Dikerjakan bertahap per phase.
+> Konfirmasi user diperlukan sebelum lanjut ke phase berikutnya.
+
+### Phase 1 — Quick Wins (impact besar, effort rendah) ✅ SELESAI
+
+**Performance:**
+- [x] 1.1 Query caching untuk `KontakSetting`, `SchoolSetting`, `MenuItem` di middleware (TTL 1 jam, auto-flush via Observer)
+- [x] 1.7 Lazy load images — `loading="lazy"` + `decoding="async"` di semua `<img>`; LCP candidate pakai `fetchpriority="high"`
+- [ ] 1.12 Aktifkan OPcache di cPanel PHP Selector (perlu dilakukan manual di server)
+- [x] 1.13 GZIP/Brotli compression via `.htaccess` (mod_deflate + mod_brotli)
+- [x] 1.14 Browser cache headers via `.htaccess` (1 tahun untuk asset Vite ber-hash, 6 bulan untuk image)
+
+**Security:**
+- [x] 2.5 File upload validation ketat — `acceptedFileTypes()` MIME whitelist + `maxSize` di semua FileUpload
+- [x] 2.7 Block PHP execution di `public/storage/` via `.htaccess` (auto-generate via `deploy.php`)
+- [x] 2.8 Security header: `X-Frame-Options: SAMEORIGIN`
+- [x] 2.9 Security header: `X-Content-Type-Options: nosniff`
+- [x] 2.10 Security header: `Referrer-Policy: strict-origin-when-cross-origin`
+- [x] 2.11 Security header: `Strict-Transport-Security` (HSTS, 1 tahun + includeSubDomains)
+- [x] **Bonus:** `Permissions-Policy` (disable geo/mic/camera/payment), hapus `X-Powered-By`, block akses `.env`/`.git`/`composer.json`
+
+---
+
+### Phase 2 — Medium Effort (3-5 jam, impact tinggi)
+
+**Performance:**
+- [ ] 1.2 Eager loading audit — fix N+1 di controllers (Berita, Kompetensi, Home)
+- [ ] 1.3 Image optimization Filament — auto-resize cover berita & hero (max 1200px + WebP) via `intervention/image`
+- [ ] 1.4 DB indexing — index kolom yang sering di-where: `beritas.slug`, `beritas.is_published`, `beritas.approval_status`, `beritas.kompetensi_id`, `beritas.divisi_id`, `kompetensis.slug`
+- [ ] 1.9 Font optimization — preload Inter & JetBrains Mono, hapus weight yang tidak dipakai
+- [ ] 1.10 Verifikasi Tailwind purge di production build
+
+**Security:**
+- [ ] 2.2 Rate limiting di route admin login, search, dll (selain form kontak yang sudah ada)
+- [ ] 2.4 HTML sanitization — install `mews/purifier` atau `stevebauman/purify` untuk strip XSS dari RichEditor output
+- [ ] 2.13 Password policy untuk UserResource — min 8 char, mixed case, angka
+
+**Testing — Setup & Critical Tests:**
+- [ ] 3.1 Convert PHPUnit ke Pest (syntax lebih bersih)
+- [ ] 3.3 Buat factory untuk semua model (Berita, Kompetensi, User, Author, Kategori)
+- [ ] 3.4 Test routes publik return 200 — `/`, `/berita`, `/berita/{slug}`, `/kompetensi/{slug}`, `/kontak`
+- [ ] 3.5 Test form kontak — submit valid → tersimpan + email; submit invalid → error
+- [ ] 3.6 Test `Berita::published()` scope — hanya return berita `is_published=true AND approval_status=approved`
+- [ ] 3.7 Test approval workflow — pending → approve → published; pending → reject → not published
+- [ ] 3.8 Test RBAC — user kompetensi/divisi hanya lihat berita scope-nya
+- [ ] 3.10 Test akses admin Filament — guest ditolak, user tanpa role ditolak
+
+---
+
+### Phase 3 — Optional Enhancements
+
+**Performance:**
+- [ ] 1.5 `simplePaginate()` untuk list yang tidak butuh total count
+- [ ] 1.6 Inertia partial reload pakai `only: [...]`
+- [ ] 1.8 Code splitting Vite (verifikasi sudah optimal)
+- [ ] 1.11 Defer non-critical JS (lightbox, dropdown menu)
+- [ ] 1.15 Setup Cloudflare CDN (gratis, HTTPS + CDN + DDoS)
+
+**Security:**
+- [ ] 2.12 Content-Security-Policy (CSP) — restrictive, allow Inertia/Vite + Maps + YouTube
+- [ ] 2.14 2FA Filament — install `stechstudio/filament-otp`
+- [ ] 2.15 Audit log — install `spatie/laravel-activitylog`
+- [ ] 2.16 Session timeout — auto logout 2 jam idle
+- [ ] 2.17 Pastikan tidak ada route Telescope/Debugbar aktif di production
+- [ ] 2.18 `composer audit` untuk cek CVE
+
+**Testing — Extended:**
+- [ ] 3.2 Setup SQLite in-memory untuk test DB (verify `phpunit.xml`)
+- [ ] 3.9 Test auto-assign `created_by` saat input berita
+- [ ] 3.11 Test `KontakSetting::instance()` singleton pattern
+- [ ] 3.12 Test `youtubeEmbed()` helper
+- [ ] 3.13 Test slug auto-generate dari title
+- [ ] 3.14 GitHub Actions CI — auto run tests setiap push
+
+---
+
+### Catatan Phase Tracking
+
+- ✅ **Selesai phase X** = update checklist di atas + commit dengan message `Phase X: ...`
+- ⏸️ **Konfirmasi user** sebelum mulai phase berikutnya
+- 📝 Setiap item yang selesai, tambah catatan di "Riwayat Perubahan" dengan tanggal & detail singkat

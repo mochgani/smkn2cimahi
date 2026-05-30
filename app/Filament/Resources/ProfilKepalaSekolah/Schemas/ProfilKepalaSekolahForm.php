@@ -35,7 +35,8 @@ class ProfilKepalaSekolahForm
                         ->disk('public')
                         ->directory('profil/kepala-sekolah')
                         ->maxSize(2048)
-                        ->helperText('Maks 2MB. Disarankan format kotak (1:1) atau portrait.')
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->helperText('JPG/PNG/WebP, maks 2MB. Disarankan format kotak (1:1) atau portrait.')
                         ->columnSpanFull(),
                 ]),
 

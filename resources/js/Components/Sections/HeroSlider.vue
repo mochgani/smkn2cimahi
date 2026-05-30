@@ -73,6 +73,9 @@ onUnmounted(stopAutoplay);
                     v-if="slides[currentSlide].image"
                     :src="slides[currentSlide].image"
                     :alt="slides[currentSlide].title"
+                    :loading="currentSlide === 0 ? 'eager' : 'lazy'"
+                    fetchpriority="high"
+                    decoding="async"
                     class="absolute inset-0 w-full h-full object-cover"
                 />
                 <!-- Fallback pattern jika tidak ada gambar -->

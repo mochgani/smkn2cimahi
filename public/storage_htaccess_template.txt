@@ -1,0 +1,29 @@
+# ==============================================================================
+# IMPORTANT: Setelah deploy ke server, COPY file ini ke public/storage/.htaccess
+# ==============================================================================
+# Tujuan: Blokir eksekusi PHP/script di folder upload agar tidak bisa
+# diserang via upload file PHP berbahaya.
+#
+# Folder public/storage/ hanya boleh untuk konten static (image, pdf, dll).
+# Jika ada user upload file dengan extension .php, server tidak akan
+# mengeksekusinya — hanya served sebagai plain text atau diblokir.
+
+# Disable PHP execution
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|phar|inc|sh|cgi|pl|py|asp|aspx)$">
+    Require all denied
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes -ExecCGI
+
+# Hanya izinkan file dengan extension umum untuk media
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|pdf|doc|docx|xls|xlsx|zip|mp4|webm|mp3|ogg|woff|woff2|ttf|ico)$">
+    Require all granted
+</FilesMatch>
+
+# Force file ber-extension lain di-download (tidak di-render browser)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(htm|html|svg)$">
+        Header set Content-Disposition "attachment"
+    </FilesMatch>
+</IfModule>

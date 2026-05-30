@@ -61,6 +61,8 @@ defineProps({
                     v-if="berita.cover_image"
                     :src="berita.cover_image"
                     :alt="berita.title"
+                    fetchpriority="high"
+                    decoding="async"
                     class="absolute inset-0 w-full h-full object-cover"
                 />
                 <div

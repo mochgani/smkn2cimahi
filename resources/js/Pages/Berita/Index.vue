@@ -70,6 +70,8 @@ const goToPage = (url) => {
                             v-if="featured.cover_image"
                             :src="featured.cover_image"
                             :alt="featured.title"
+                            fetchpriority="high"
+                            decoding="async"
                             class="absolute inset-0 w-full h-full object-cover"
                         />
                         <div
@@ -135,7 +137,7 @@ const goToPage = (url) => {
                             v-if="item.cover_image"
                             class="relative aspect-video overflow-hidden bg-line-soft"
                         >
-                            <img :src="item.cover_image" :alt="item.title" class="w-full h-full object-cover" />
+                            <img :src="item.cover_image" :alt="item.title" loading="lazy" decoding="async" class="w-full h-full object-cover" />
                         </div>
                         <div class="p-7">
                         <div class="font-mono text-[11px] text-accent tracking-mono mb-3">

@@ -103,6 +103,8 @@ class BeritaForm
                         ->disk('public')
                         ->directory('berita/covers')
                         ->maxSize(2048)
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->helperText('JPG/PNG/WebP, maks 2MB.')
                         ->columnSpanFull(),
 
                     Toggle::make('is_featured')

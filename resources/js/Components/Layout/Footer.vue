@@ -25,7 +25,7 @@ const socialLinks = computed(() => kontakSetting.value.social ?? []);
     <footer class="bg-ink text-bg mt-24 pt-20 pb-8">
         <div class="container-page grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-white/10">
             <div>
-                <img :src="logoUrl" :alt="`Logo ${schoolSetting.school_name ?? 'SMKN 2 Cimahi'}`" class="w-14 h-14 object-contain brightness-110 mb-4" />
+                <img :src="logoUrl" :alt="`Logo ${schoolSetting.school_name ?? 'SMKN 2 Cimahi'}`" loading="lazy" decoding="async" class="w-14 h-14 object-contain brightness-110 mb-4" />
                 <div class="text-lg font-bold mb-2">{{ schoolSetting.school_name ?? 'SMK Negeri 2 Cimahi' }}</div>
                 <p class="font-mono text-xs text-white/60 tracking-mono mb-4">{{ schoolSetting.tagline ?? 'BMW: Bekerja · Melanjutkan · Wirausaha' }}</p>
                 <p class="font-mono text-[11px] text-accent tracking-mono-wide">EST. {{ schoolSetting.tahun_berdiri ?? '2007' }}</p>

@@ -43,7 +43,8 @@ class SchoolSettingForm
                         ->disk('public')
                         ->directory('school')
                         ->maxSize(1024)
-                        ->helperText('Rekomendasi: PNG transparan, min. 200×200px. Kosongkan untuk pakai logo default.'),
+                        ->acceptedFileTypes(['image/png', 'image/svg+xml', 'image/webp', 'image/jpeg'])
+                        ->helperText('PNG transparan/SVG/WebP/JPG, min. 200×200px. Kosongkan untuk pakai logo default.'),
                 ]),
 
             Section::make('Nomor Identifikasi')

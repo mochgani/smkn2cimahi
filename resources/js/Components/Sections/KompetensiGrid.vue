@@ -23,6 +23,8 @@ defineProps({
                         v-if="item.logo_image"
                         :src="item.logo_image"
                         :alt="`Logo ${item.name}`"
+                        loading="lazy"
+                        decoding="async"
                         class="h-16 object-contain"
                     />
                     <div v-else class="font-mono text-[36px] font-semibold text-accent leading-none tracking-tight">
