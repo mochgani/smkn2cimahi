@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Support\HtmlSanitizer;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class ProfilKepalaSekolah extends Model
@@ -16,5 +18,13 @@ class ProfilKepalaSekolah extends Model
             'nama'    => 'Kepala Sekolah',
             'jabatan' => 'Kepala Sekolah',
         ]);
+    }
+
+    /**
+     * Auto-sanitize HTML sambutan saat disimpan ke DB.
+     */
+    protected function sambutan(): Attribute
+    {
+        return Attribute::set(fn ($value) => HtmlSanitizer::sanitize($value));
     }
 }

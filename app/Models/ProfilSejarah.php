@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Support\HtmlSanitizer;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class ProfilSejarah extends Model
@@ -18,5 +20,13 @@ class ProfilSejarah extends Model
         return static::firstOrCreate(['id' => 1], [
             'title' => 'Sejarah SMK Negeri 2 Cimahi',
         ]);
+    }
+
+    /**
+     * Auto-sanitize HTML content saat disimpan ke DB.
+     */
+    protected function content(): Attribute
+    {
+        return Attribute::set(fn ($value) => HtmlSanitizer::sanitize($value));
     }
 }

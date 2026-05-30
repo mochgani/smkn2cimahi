@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Support\HtmlSanitizer;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\User;
 use Illuminate\Support\Str;
 
 class Berita extends Model
@@ -31,6 +33,15 @@ class Berita extends Model
         static::creating(function (Berita $berita) {
             $berita->slug ??= Str::slug($berita->title);
         });
+    }
+
+    /**
+     * Auto-sanitize HTML content saat disimpan ke DB.
+     * Mencegah XSS dari RichEditor.
+     */
+    protected function content(): Attribute
+    {
+        return Attribute::set(fn ($value) => HtmlSanitizer::sanitize($value));
     }
 
     public function kategoris(): BelongsToMany

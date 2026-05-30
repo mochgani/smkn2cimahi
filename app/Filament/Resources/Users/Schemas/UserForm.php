@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
 
 class UserForm
@@ -35,11 +36,13 @@ class UserForm
                         ->label('Password')
                         ->password()
                         ->revealable()
-                        ->minLength(8)
+                        ->rule(Password::default())
                         ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
                         ->dehydrated(fn ($state) => filled($state))
                         ->required(fn (string $operation) => $operation === 'create')
-                        ->helperText(fn (string $operation) => $operation === 'edit' ? 'Kosongkan jika tidak ingin mengubah password.' : null)
+                        ->helperText(fn (string $operation) => $operation === 'edit'
+                            ? 'Kosongkan jika tidak ingin mengubah password. Min 8 karakter, gabungan huruf besar+kecil+angka.'
+                            : 'Min 8 karakter, gabungan huruf besar+kecil+angka.')
                         ->columnSpanFull(),
                 ]),
 
