@@ -22,7 +22,7 @@ class ProfilController extends Controller
                 'image'             => $s->image ? '/storage/'.$s->image : null,
                 'tahun_berdiri'     => $s->tahun_berdiri,
                 'luas_lahan'        => $s->luas_lahan,
-                'video_embed_url'   => $this->youtubeEmbed($s->video_youtube_url),
+                'video_embed_url'   => \App\Support\Youtube::embedUrl($s->video_youtube_url),
                 'video_youtube_url' => $s->video_youtube_url,
             ],
         ]);
@@ -41,19 +41,6 @@ class ProfilController extends Controller
                 'sambutan' => $k->sambutan,
             ],
         ]);
-    }
-
-    private function youtubeEmbed(?string $url): ?string
-    {
-        if (! $url) {
-            return null;
-        }
-
-        if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([A-Za-z0-9_-]{11})~', $url, $m)) {
-            return 'https://www.youtube.com/embed/'.$m[1];
-        }
-
-        return null;
     }
 
     public function sekolah(): Response

@@ -528,30 +528,33 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 
 ---
 
-### Phase 3 — Optional Enhancements
+### Phase 3 — Optional Enhancements ✅ SELESAI
 
 **Performance:**
-- [ ] 1.5 `simplePaginate()` untuk list yang tidak butuh total count
-- [ ] 1.6 Inertia partial reload pakai `only: [...]`
-- [ ] 1.8 Code splitting Vite (verifikasi sudah optimal)
-- [ ] 1.11 Defer non-critical JS (lightbox, dropdown menu)
-- [ ] 1.15 Setup Cloudflare CDN (gratis, HTTPS + CDN + DDoS)
+- [~] 1.5 ~~simplePaginate~~ — skip, UI butuh `last_page` & `links` (full pagination)
+- [x] 1.6 Inertia partial reload `only: [...]` di Berita/Index, Divisi/Show, Prestasi/Show — shared cache navigation/setting tidak re-evaluate
+- [x] 1.8 Code splitting Vite — `manualChunks` vendor-vue & vendor-inertia, `cssCodeSplit: true`, target `es2020`
+- [~] 1.11 ~~Defer non-critical JS~~ — skip, Vite + Inertia sudah auto code-split per page
+- [ ] 1.15 Setup Cloudflare CDN — **manual user action** (perlu akses DNS domain)
 
 **Security:**
-- [ ] 2.12 Content-Security-Policy (CSP) — restrictive, allow Inertia/Vite + Maps + YouTube
-- [ ] 2.14 2FA Filament — install `stechstudio/filament-otp`
-- [ ] 2.15 Audit log — install `spatie/laravel-activitylog`
-- [ ] 2.16 Session timeout — auto logout 2 jam idle
-- [ ] 2.17 Pastikan tidak ada route Telescope/Debugbar aktif di production
-- [ ] 2.18 `composer audit` untuk cek CVE
+- [x] 2.12 Content-Security-Policy — restrictive policy via `.htaccess` (whitelist Google Fonts, YouTube, Google Maps)
+- [~] 2.14 ~~2FA Filament~~ — skip, butuh composer require baru (deploy lebih kompleks)
+- [~] 2.15 ~~Audit log~~ — skip, butuh composer require baru
+- [x] 2.16 Session timeout — `.env.example` SESSION_LIFETIME=120 + SESSION_HTTP_ONLY + SESSION_SAME_SITE + SESSION_SECURE_COOKIE
+- [x] 2.17 Tidak ada Telescope/Debugbar di project (verified)
+- [x] 2.18 `composer audit` — fix 13 CVE (symfony/html-sanitizer, http-foundation, http-kernel, mailer, routing) → 0 vulnerabilities
 
 **Testing — Extended:**
-- [ ] 3.2 Setup SQLite in-memory untuk test DB (verify `phpunit.xml`)
-- [ ] 3.9 Test auto-assign `created_by` saat input berita
-- [ ] 3.11 Test `KontakSetting::instance()` singleton pattern
-- [ ] 3.12 Test `youtubeEmbed()` helper
-- [ ] 3.13 Test slug auto-generate dari title
-- [ ] 3.14 GitHub Actions CI — auto run tests setiap push
+- [x] 3.2 SQLite in-memory verified di `phpunit.xml` (DB_CONNECTION=sqlite, DB_DATABASE=:memory:)
+- [x] 3.9 `AutoAssignCreatorTest` (3 test): created_by terisi dari user login, relasi creator, null handling
+- [x] 3.11 `SingletonModelsTest` (8 test): KontakSetting, SchoolSetting, ProfilSejarah, ProfilVisiMisi, ProfilKepalaSekolah, BkkSetting singleton + default values
+- [x] 3.12 `YoutubeTest` (8 test): null input, watch URL, youtu.be, embed, shorts, query params, invalid URL, short ID
+- [x] 3.13 `SlugGenerationTest` (4 test): Berita & Kategori slug auto-generate + explicit slug override
+- [x] 3.14 GitHub Actions CI — `.github/workflows/tests.yml` (PHP 8.4, composer cache, npm build, PHPUnit parallel)
+
+**Refactor:**
+- Move `youtubeEmbed()` dari ProfilController ke `App\Support\Youtube` (testable, reusable)
 
 ---
 

@@ -13,17 +13,26 @@ const props = defineProps({
     totalCount: { type: Number, default: 0 },
 });
 
+// Partial reload — hanya re-fetch props berita+featured+currentKategori
+// (navigation/setting tetap pakai cache shared di Inertia)
+const PARTIAL_KEYS = ['featured', 'berita', 'currentKategori', 'totalCount'];
+
 const filterBy = (kat) => {
     router.get('/berita', kat === 'all' ? {} : { kategori: kat }, {
         preserveScroll: true,
         preserveState: true,
         replace: true,
+        only: PARTIAL_KEYS,
     });
 };
 
 const goToPage = (url) => {
     if (!url) return;
-    router.get(url, {}, { preserveScroll: true, preserveState: true });
+    router.get(url, {}, {
+        preserveScroll: true,
+        preserveState: true,
+        only: PARTIAL_KEYS,
+    });
 };
 </script>
 

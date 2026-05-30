@@ -33,6 +33,9 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error'   => fn () => $request->session()->get('error'),
             ],
+            // Inertia::lazy — props ini hanya dikirim saat full page load.
+            // Partial reload (router.get with only: [...]) tidak akan
+            // re-evaluate, menghemat query DB dan bandwidth.
             'navigation' => fn () => Cache::remember(
                 'shared.navigation',
                 self::CACHE_TTL,

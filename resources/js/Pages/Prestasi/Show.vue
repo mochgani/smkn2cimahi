@@ -14,7 +14,11 @@ const props = defineProps({
 
 const goToPage = (url) => {
     if (!url) return;
-    router.get(url, {}, { preserveScroll: true, preserveState: true });
+    router.get(url, {}, {
+        preserveScroll: true,
+        preserveState: true,
+        only: ['featured', 'berita', 'totalCount'],
+    });
 };
 
 const breadcrumbMap = {
