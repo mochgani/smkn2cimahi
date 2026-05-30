@@ -48,6 +48,7 @@ class DivisiController extends Controller
             'slug'         => $b->slug,
             'title'        => $b->title,
             'excerpt'      => $b->excerpt,
+            'cover_image'  => $b->cover_image ? '/storage/'.$b->cover_image : null,
             'date'         => $b->published_at->format('d.m.Y'),
             'date_full'    => $b->published_at->locale('id')->translatedFormat('d F Y'),
             'reading_time' => "{$b->reading_time_minutes} menit",

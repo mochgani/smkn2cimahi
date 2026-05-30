@@ -120,6 +120,9 @@ class KompetensiForm
                         ->directory('kompetensi/gallery')
                         ->maxSize(3072)
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->imageResizeMode('cover')
+                        ->imageResizeTargetWidth('1400')
+                        ->imageResizeTargetHeight('1400')
                         ->panelLayout('grid')
                         ->helperText('Bisa upload beberapa foto sekaligus. Drag untuk atur urutan. Maks 3MB per foto.')
                         ->columnSpanFull(),

@@ -104,7 +104,12 @@ class BeritaForm
                         ->directory('berita/covers')
                         ->maxSize(2048)
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                        ->helperText('JPG/PNG/WebP, maks 2MB.')
+                        ->imageResizeMode('cover')
+                        ->imageResizeTargetWidth('1200')
+                        ->imageResizeTargetHeight('675')
+                        ->imageEditor()
+                        ->imageEditorAspectRatios(['16:9', '4:3', '1:1'])
+                        ->helperText('JPG/PNG/WebP, maks 2MB. Auto-resize ke 1200×675 (16:9).')
                         ->columnSpanFull(),
 
                     Toggle::make('is_featured')

@@ -36,7 +36,12 @@ class ProfilKepalaSekolahForm
                         ->directory('profil/kepala-sekolah')
                         ->maxSize(2048)
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                        ->helperText('JPG/PNG/WebP, maks 2MB. Disarankan format kotak (1:1) atau portrait.')
+                        ->imageResizeMode('cover')
+                        ->imageResizeTargetWidth('800')
+                        ->imageResizeTargetHeight('1066')
+                        ->imageEditor()
+                        ->imageEditorAspectRatios(['3:4', '1:1'])
+                        ->helperText('JPG/PNG/WebP, maks 2MB. Auto-resize ke 800×1066 (3:4).')
                         ->columnSpanFull(),
                 ]),
 

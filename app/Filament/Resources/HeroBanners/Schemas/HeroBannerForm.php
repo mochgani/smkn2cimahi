@@ -58,7 +58,12 @@ class HeroBannerForm
                         ->directory('hero-banners')
                         ->maxSize(3072)
                         ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
-                        ->helperText('Opsional. Format JPG/PNG/WebP. Ukuran ideal: 800×600px, maks 3MB.'),
+                        ->imageResizeMode('cover')
+                        ->imageResizeTargetWidth('1600')
+                        ->imageResizeTargetHeight('1200')
+                        ->imageEditor()
+                        ->imageEditorAspectRatios(['4:3', '16:9'])
+                        ->helperText('Opsional. JPG/PNG/WebP. Auto-resize ke 1600×1200, maks 3MB.'),
                 ]),
 
             Section::make('CTA & Badge')
