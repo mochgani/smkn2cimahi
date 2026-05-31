@@ -44,7 +44,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
 
     <AppLayout>
         <section class="page-header">
-            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 items-start">
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 md:gap-12 items-start">
                 <div>
                     <Breadcrumb
                         :items="[
@@ -52,11 +52,11 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                             { label: 'Kompetensi' },
                             { label: kompetensi.name },
                         ]"
-                        class="mb-6"
+                        class="mb-4 sm:mb-6"
                     />
-                    <div class="inline-flex items-center gap-2 bg-white border border-line px-3 py-1 mb-6">
-                        <span class="w-2 h-2 rounded-full bg-accent"></span>
-                        <span class="font-mono text-[11px] text-ink tracking-mono">
+                    <div class="inline-flex items-center gap-2 bg-white border border-line px-3 py-1 mb-4 sm:mb-6 flex-wrap">
+                        <span class="w-2 h-2 rounded-full bg-accent shrink-0"></span>
+                        <span class="font-mono text-[10px] sm:text-[11px] text-ink tracking-mono">
                             {{ kompetensi.tag.toUpperCase() }} · KOMPETENSI KEAHLIAN
                         </span>
                     </div>
@@ -160,7 +160,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                     type="button"
                     aria-label="Tutup galeri"
                     @click="closeLightbox"
-                    class="absolute top-4 right-4 text-bg font-mono text-sm hover:text-accent"
+                    class="absolute top-3 right-3 sm:top-4 sm:right-4 text-bg font-mono text-[12px] sm:text-sm hover:text-accent bg-ink/60 sm:bg-transparent px-3 py-2 sm:p-0"
                 >
                     ✕ Tutup
                 </button>
@@ -169,7 +169,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                     type="button"
                     aria-label="Foto sebelumnya"
                     @click="lightboxPrev"
-                    class="absolute left-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2"
+                    class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2 bg-ink/60 sm:bg-transparent"
                 >
                     ←
                 </button>
@@ -183,7 +183,7 @@ const lainnyaNum = computed(() => String(sectionCount.value + 4).padStart(2, '0'
                     type="button"
                     aria-label="Foto berikutnya"
                     @click="lightboxNext"
-                    class="absolute right-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2"
+                    class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-bg font-mono text-2xl hover:text-accent px-3 py-2 bg-ink/60 sm:bg-transparent"
                 >
                     →
                 </button>

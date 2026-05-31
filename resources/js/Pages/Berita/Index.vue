@@ -54,31 +54,31 @@ const goToPage = (url) => {
             lead="Berita, kegiatan, prestasi siswa, dan informasi terbaru dari SMK Negeri 2 Cimahi."
         />
 
-        <section v-if="featured" class="container-page py-12">
+        <section v-if="featured" class="container-page py-8 sm:py-10 lg:py-12">
             <Link
                 :href="`/berita/${featured.slug}`"
                 class="block bg-white border border-line transition-colors hover:bg-bg-alt"
             >
                 <div class="grid grid-cols-1 md:grid-cols-[1.4fr_1fr]">
-                    <div class="p-10 lg:p-12">
-                        <div class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1 mb-6">
+                    <div class="order-2 md:order-1 p-5 sm:p-8 lg:p-10 xl:p-12">
+                        <div class="inline-flex items-center gap-2 bg-bg-alt px-3 py-1 mb-4 sm:mb-6">
                             <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                            <span class="font-mono text-[11px] text-ink tracking-mono">FEATURED · TERBARU</span>
+                            <span class="font-mono text-[10px] sm:text-[11px] text-ink tracking-mono">FEATURED · TERBARU</span>
                         </div>
-                        <div class="flex items-center gap-3 font-mono text-[11px] text-muted tracking-mono mb-4">
+                        <div class="flex items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-muted tracking-mono mb-3 sm:mb-4 flex-wrap">
                             <span>{{ featured.date_full }}</span>
                             <span class="text-line">·</span>
                             <span>{{ featured.categories.join(' · ') }}</span>
                         </div>
-                        <h2 class="text-3xl lg:text-4xl font-extrabold text-ink leading-tight tracking-tighter mb-5">
+                        <h2 class="text-[22px] sm:text-[28px] lg:text-3xl xl:text-4xl font-extrabold text-ink leading-tight tracking-tighter mb-4 sm:mb-5">
                             {{ featured.title }}
                         </h2>
-                        <p class="text-[15px] text-muted-soft leading-relaxed mb-6">{{ featured.excerpt }}</p>
-                        <div class="inline-flex items-center gap-2 font-mono text-[13px] text-ink">
+                        <p class="text-[14px] sm:text-[15px] text-muted-soft leading-relaxed mb-4 sm:mb-6">{{ featured.excerpt }}</p>
+                        <div class="inline-flex items-center gap-2 font-mono text-[12px] sm:text-[13px] text-ink">
                             Baca Selengkapnya <span>→</span>
                         </div>
                     </div>
-                    <div class="relative min-h-[280px] md:min-h-[400px] bg-line-soft overflow-hidden">
+                    <div class="order-1 md:order-2 relative min-h-[200px] sm:min-h-[280px] md:min-h-[400px] bg-line-soft overflow-hidden">
                         <img
                             v-if="featured.cover_image"
                             :src="featured.cover_image"
@@ -108,13 +108,13 @@ const goToPage = (url) => {
             </Link>
         </section>
 
-        <section class="container-page pt-8 pb-4">
+        <section class="container-page pt-6 sm:pt-8 pb-4">
             <SectionLabel num="2" title="Filter Kategori" />
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-1.5 sm:gap-2">
                 <button
                     type="button"
                     @click="filterBy('all')"
-                    class="inline-flex items-center gap-2 px-4 py-2 border font-mono text-[11px] tracking-mono uppercase transition-colors"
+                    class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 border font-mono text-[10px] sm:text-[11px] tracking-mono uppercase transition-colors"
                     :class="currentKategori === 'all'
                         ? 'bg-ink text-bg border-ink'
                         : 'bg-white text-ink border-line hover:border-ink'"
@@ -127,7 +127,7 @@ const goToPage = (url) => {
                     :key="k.name"
                     type="button"
                     @click="filterBy(k.name)"
-                    class="inline-flex items-center gap-2 px-4 py-2 border font-mono text-[11px] tracking-mono uppercase transition-colors"
+                    class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 border font-mono text-[10px] sm:text-[11px] tracking-mono uppercase transition-colors"
                     :class="currentKategori === k.name
                         ? 'bg-ink text-bg border-ink'
                         : 'bg-white text-ink border-line hover:border-ink'"
@@ -182,38 +182,38 @@ const goToPage = (url) => {
 
             <div
                 v-if="berita.last_page > 1"
-                class="flex justify-between items-center mt-12 font-mono text-[12px] tracking-mono flex-wrap gap-4"
+                class="flex justify-between items-center mt-8 sm:mt-12 font-mono text-[11px] sm:text-[12px] tracking-mono gap-2 sm:gap-4"
             >
                 <button
                     type="button"
                     :disabled="!berita.prev_page_url"
                     @click="goToPage(berita.prev_page_url)"
-                    class="px-4 py-2 border border-line transition-colors"
+                    class="px-3 sm:px-4 py-2 border border-line transition-colors shrink-0"
                     :class="berita.prev_page_url ? 'text-ink hover:border-ink' : 'text-muted cursor-not-allowed'"
                 >
-                    ← Prev
+                    ← <span class="hidden sm:inline">Prev</span>
                 </button>
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 sm:gap-2 overflow-x-auto -mx-1 px-1 max-w-full">
                     <template v-for="(link, i) in berita.links.slice(1, -1)" :key="i">
                         <button
                             v-if="link.url"
                             type="button"
                             @click="goToPage(link.url)"
-                            class="w-9 h-9 transition-colors"
+                            class="w-8 h-8 sm:w-9 sm:h-9 transition-colors shrink-0"
                             :class="link.active ? 'bg-ink text-bg' : 'border border-line text-ink hover:border-ink'"
                             v-html="link.label"
                         />
-                        <span v-else class="text-muted px-2" v-html="link.label" />
+                        <span v-else class="text-muted px-1 sm:px-2 shrink-0" v-html="link.label" />
                     </template>
                 </div>
                 <button
                     type="button"
                     :disabled="!berita.next_page_url"
                     @click="goToPage(berita.next_page_url)"
-                    class="px-4 py-2 border border-line transition-colors"
+                    class="px-3 sm:px-4 py-2 border border-line transition-colors shrink-0"
                     :class="berita.next_page_url ? 'text-ink hover:border-ink' : 'text-muted cursor-not-allowed'"
                 >
-                    Next →
+                    <span class="hidden sm:inline">Next</span> →
                 </button>
             </div>
         </section>

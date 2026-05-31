@@ -45,7 +45,7 @@ const props = defineProps({
                 <div class="statement-label">MISI · {{ misi.length }} PILAR</div>
             </aside>
             <div>
-                <ol class="list-decimal list-outside pl-5 space-y-3 text-[16px] leading-relaxed text-ink-soft max-w-[720px]">
+                <ol class="list-decimal list-outside pl-5 space-y-2 sm:space-y-3 text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed text-ink-soft max-w-[720px]">
                     <li v-for="(item, i) in misi" :key="i">{{ item }}</li>
                 </ol>
             </div>
@@ -57,7 +57,7 @@ const props = defineProps({
                 <div class="statement-label">TUJUAN · TARGET LULUSAN</div>
             </aside>
             <div>
-                <ol class="list-decimal list-outside pl-5 space-y-3 text-[16px] leading-relaxed text-ink-soft max-w-[720px]">
+                <ol class="list-decimal list-outside pl-5 space-y-2 sm:space-y-3 text-[14px] sm:text-[15px] lg:text-[16px] leading-relaxed text-ink-soft max-w-[720px]">
                     <li v-for="(item, i) in tujuan" :key="i">{{ item }}</li>
                 </ol>
             </div>

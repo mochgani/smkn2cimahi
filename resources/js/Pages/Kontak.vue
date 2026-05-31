@@ -57,7 +57,7 @@ const submit = () => {
         />
 
         <!-- Kanal Kontak -->
-        <section v-if="kanal.length" class="container-page py-12">
+        <section v-if="kanal.length" class="container-page py-8 sm:py-10 lg:py-12">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-line">
                 <a
                     v-for="k in kanal"
@@ -77,9 +77,9 @@ const submit = () => {
         </section>
 
         <!-- Peta & Form -->
-        <section class="container-page pt-12 pb-0">
+        <section class="container-page pt-8 sm:pt-10 lg:pt-12 pb-0">
             <SectionLabel num="2" title="Lokasi & Pesan" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">Kunjungi kami atau kirim pesan langsung.</h2>
                 <p class="section-sub">Berlokasi strategis di Cimahi Utara, mudah diakses dengan kendaraan pribadi maupun transportasi umum.</p>
             </div>
@@ -88,7 +88,7 @@ const submit = () => {
         <div class="container-page">
             <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] border border-line">
                 <!-- Peta -->
-                <div class="relative min-h-[480px]">
+                <div class="relative min-h-[300px] sm:min-h-[400px] lg:min-h-[480px]">
                     <iframe
                         v-if="maps_embed_url"
                         :src="maps_embed_url"
@@ -101,10 +101,10 @@ const submit = () => {
                     <div v-else class="absolute inset-0 bg-line-soft flex items-center justify-center">
                         <span class="font-mono text-[12px] text-muted tracking-mono">PETA BELUM DIKONFIGURASI</span>
                     </div>
-                    <div v-if="maps_address_short" class="absolute top-6 left-6 bg-white/95 px-5 py-4 border border-line max-w-[280px]">
-                        <div class="font-mono text-[10px] text-accent tracking-mono-wide mb-2">📍 LOKASI SEKOLAH</div>
-                        <div class="text-[15px] font-bold text-ink leading-tight tracking-tighter mb-2">SMK Negeri 2 Cimahi</div>
-                        <p class="text-[12px] text-muted leading-relaxed mb-3">{{ maps_address_short }}</p>
+                    <div v-if="maps_address_short" class="absolute top-3 left-3 sm:top-6 sm:left-6 bg-white/95 px-3 sm:px-5 py-3 sm:py-4 border border-line max-w-[240px] sm:max-w-[280px]">
+                        <div class="font-mono text-[9px] sm:text-[10px] text-accent tracking-mono-wide mb-1.5 sm:mb-2">📍 LOKASI SEKOLAH</div>
+                        <div class="text-[13px] sm:text-[15px] font-bold text-ink leading-tight tracking-tighter mb-1.5 sm:mb-2">SMK Negeri 2 Cimahi</div>
+                        <p class="text-[11px] sm:text-[12px] text-muted leading-relaxed mb-2 sm:mb-3">{{ maps_address_short }}</p>
                         <a
                             v-if="kanal.find(k => k.label === 'ALAMAT')"
                             :href="kanal.find(k => k.label === 'ALAMAT').href"
@@ -118,11 +118,11 @@ const submit = () => {
                 </div>
 
                 <!-- Form -->
-                <form @submit.prevent="submit" class="bg-white p-8 lg:p-10 border-l border-line">
-                    <div class="mb-6">
-                        <div class="font-mono text-[11px] text-accent tracking-mono-wide uppercase mb-2">KIRIM PESAN</div>
-                        <h3 class="text-2xl font-bold text-ink tracking-tighter mb-1">Tulis pesan Anda</h3>
-                        <p class="text-[13px] text-muted">Kami akan merespon dalam 1×24 jam kerja.</p>
+                <form @submit.prevent="submit" class="bg-white p-5 sm:p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-line">
+                    <div class="mb-5 sm:mb-6">
+                        <div class="font-mono text-[10px] sm:text-[11px] text-accent tracking-mono-wide uppercase mb-2">KIRIM PESAN</div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-ink tracking-tighter mb-1">Tulis pesan Anda</h3>
+                        <p class="text-[12px] sm:text-[13px] text-muted">Kami akan merespon dalam 1×24 jam kerja.</p>
                     </div>
 
                     <div
@@ -171,9 +171,9 @@ const submit = () => {
                         <div v-if="form.errors.pesan" class="font-mono text-[11px] text-red-600 mt-1">{{ form.errors.pesan }}</div>
                     </div>
 
-                    <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <p class="font-mono text-[10px] text-muted tracking-mono">* Wajib diisi. Data Anda akan dijaga kerahasiaannya.</p>
-                        <button type="submit" :disabled="form.processing" class="btn-primary disabled:opacity-50">
+                        <button type="submit" :disabled="form.processing" class="btn-primary disabled:opacity-50 w-full sm:w-auto justify-center">
                             {{ form.processing ? 'Mengirim…' : 'Kirim Pesan →' }}
                         </button>
                     </div>
@@ -182,9 +182,9 @@ const submit = () => {
         </div>
 
         <!-- Kontak per Bagian -->
-        <section v-if="bagian.length" class="container-page pt-16 pb-0">
+        <section v-if="bagian.length" class="container-page pt-10 sm:pt-14 lg:pt-16 pb-0">
             <SectionLabel num="3" title="Kontak per Bagian" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">Hubungi bagian yang tepat untuk respon lebih cepat.</h2>
                 <p class="section-sub">Setiap unit kerja di SMKN 2 Cimahi memiliki tim khusus yang siap melayani sesuai bidang.</p>
             </div>
@@ -205,9 +205,9 @@ const submit = () => {
         </div>
 
         <!-- Bidang Studi (dari DB kompetensi) -->
-        <section v-if="kompetensiByBidang.length" class="container-page pt-16 pb-0">
+        <section v-if="kompetensiByBidang.length" class="container-page pt-10 sm:pt-14 lg:pt-16 pb-0">
             <SectionLabel num="4" title="Bidang Studi Keahlian" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">{{ kompetensiByBidang.length }} bidang keahlian unggulan.</h2>
                 <p class="section-sub">SMKN 2 Cimahi mencakup beberapa bidang studi keahlian dengan kompetensi unggulan.</p>
             </div>
@@ -237,9 +237,9 @@ const submit = () => {
         </div>
 
         <!-- Sosial Media -->
-        <section v-if="social.length" class="container-page pt-16 pb-0">
+        <section v-if="social.length" class="container-page pt-10 sm:pt-14 lg:pt-16 pb-0">
             <SectionLabel num="5" title="Sosial Media" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">Ikuti kami di sosial media.</h2>
                 <p class="section-sub">Update kegiatan, prestasi, dan momen-momen penting di SMKN 2 Cimahi.</p>
             </div>

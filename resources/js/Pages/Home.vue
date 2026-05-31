@@ -27,9 +27,9 @@ defineProps({
 
         <StatsBar :stats="stats" />
 
-        <section class="container-page py-16">
+        <section class="container-page py-10 sm:py-12 lg:py-16">
             <SectionLabel num="1" title="Kompetensi Keahlian" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-8 sm:mb-12">
                 <h2 class="section-h2">
                     Enam kompetensi keahlian, lulusan siap industri.
                 </h2>
@@ -42,36 +42,36 @@ defineProps({
 
         <KompetensiGrid :items="kompetensi" />
 
-        <section v-if="beritaTerbaru.length" class="container-page py-16">
+        <section v-if="beritaTerbaru.length" class="container-page py-10 sm:py-12 lg:py-16">
             <SectionLabel num="2" title="Berita Terbaru" />
-            <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+            <div class="flex items-end justify-between mb-8 sm:mb-12 flex-wrap gap-3 sm:gap-4">
                 <h2 class="section-h2 max-w-xl">Kabar terbaru dari sekolah.</h2>
                 <Link href="/berita" class="font-mono text-[13px] text-ink hover:text-accent">
                     Semua Berita →
                 </Link>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 border-t border-l border-line">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 border-t border-l border-line">
                 <article
                     v-for="(item, i) in beritaTerbaru"
                     :key="item.slug"
                     class="border-r border-b border-line bg-white"
                 >
-                    <Link :href="`/berita/${item.slug}`" class="block p-7 transition-colors hover:bg-bg-alt">
+                    <Link :href="`/berita/${item.slug}`" class="block p-5 sm:p-7 transition-colors hover:bg-bg-alt">
                         <div class="font-mono text-[11px] text-accent tracking-mono mb-3">
                             [{{ String(i + 1).padStart(2, '0') }}]
                         </div>
-                        <div class="flex items-center gap-3 font-mono text-[11px] text-muted tracking-mono mb-4">
+                        <div class="flex items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-muted tracking-mono mb-3 sm:mb-4 flex-wrap">
                             <span>{{ item.date }}</span>
                             <span class="text-line">·</span>
                             <span>{{ item.categories.join(' · ') }}</span>
                         </div>
-                        <h3 class="text-lg font-bold text-ink leading-tight tracking-tighter mb-3">
+                        <h3 class="text-[16px] sm:text-lg font-bold text-ink leading-tight tracking-tighter mb-2 sm:mb-3">
                             {{ item.title }}
                         </h3>
-                        <p class="text-sm text-muted-soft leading-relaxed line-clamp-3">
+                        <p class="text-[13px] sm:text-sm text-muted-soft leading-relaxed line-clamp-3">
                             {{ item.excerpt }}
                         </p>
-                        <div class="mt-5 font-mono text-[11px] text-ink tracking-mono">
+                        <div class="mt-4 sm:mt-5 font-mono text-[11px] text-ink tracking-mono">
                             Baca →
                         </div>
                     </Link>

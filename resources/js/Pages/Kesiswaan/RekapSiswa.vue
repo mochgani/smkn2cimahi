@@ -28,7 +28,7 @@ defineProps({
         />
 
         <!-- Summary cards per kelas -->
-        <section class="container-page py-12">
+        <section class="container-page py-8 sm:py-10 lg:py-12">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-line">
                 <div
                     v-for="(s, i) in summary"
@@ -87,8 +87,9 @@ defineProps({
             </div>
         </section>
 
-        <div class="container-page pb-8 overflow-x-auto">
-            <table class="w-full border-t border-l border-line text-[14px]">
+        <div class="container-page pb-8">
+            <div class="-mx-4 sm:-mx-6 md:-mx-8 lg:mx-0 overflow-x-auto">
+                <table class="w-full min-w-[640px] border-t border-l border-line text-[13px] sm:text-[14px]">
                 <thead class="bg-bg-alt font-mono text-[11px] text-muted tracking-mono-wide uppercase">
                     <tr>
                         <th class="border-r border-b border-line px-4 py-3 text-left w-12">No</th>
@@ -118,7 +119,8 @@ defineProps({
                         <td class="border-r border-b border-line px-4 py-3 text-right">{{ totalRow.total }}</td>
                     </tr>
                 </tfoot>
-            </table>
+                </table>
+            </div>
         </div>
 
         <Callout

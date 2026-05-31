@@ -46,41 +46,64 @@
 
 @layer components {
     .container-page {
-        @apply max-w-page mx-auto px-page;
+        @apply max-w-page mx-auto;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    @media (min-width: 640px) {
+        .container-page {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .container-page {
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .container-page {
+            padding-left: 56px;
+            padding-right: 56px;
+        }
     }
 
     .section-label {
-        @apply flex items-center gap-3 mb-8;
+        @apply flex items-center gap-2 sm:gap-3 mb-6 sm:mb-8;
     }
 
     .section-label .label-num {
-        @apply font-mono text-[11px] text-accent tracking-mono;
+        @apply font-mono text-[10px] sm:text-[11px] text-accent tracking-mono;
     }
 
     .section-label .label-line {
-        @apply flex-none w-[60px] h-px bg-line;
+        @apply flex-none w-[40px] sm:w-[60px] h-px bg-line;
     }
 
     .section-label .label-title {
-        @apply font-mono text-[11px] text-muted tracking-mono-wide uppercase;
+        @apply font-mono text-[10px] sm:text-[11px] text-muted tracking-mono-wide uppercase;
     }
 
     .section-h2 {
-        @apply text-[40px] font-bold leading-[1.15] tracking-tightest text-ink;
+        @apply text-[26px] sm:text-[32px] lg:text-[40px] font-bold leading-[1.15] tracking-tightest text-ink;
     }
 
     .section-sub {
-        @apply text-base text-muted-soft max-w-[560px];
+        @apply text-[14px] sm:text-base text-muted-soft max-w-[560px];
     }
 
     .btn-primary {
-        @apply bg-ink text-white px-6 py-3.5 text-sm font-medium
+        @apply bg-ink text-white px-5 sm:px-6 py-3 sm:py-3.5 text-[13px] sm:text-sm font-medium
                inline-flex items-center gap-2 transition-colors hover:bg-accent;
     }
 
     .btn-secondary {
-        @apply text-ink border border-ink px-6 py-3.5 text-sm font-medium
-               transition-all hover:bg-ink hover:text-white;
+        @apply text-ink border border-ink px-5 sm:px-6 py-3 sm:py-3.5 text-[13px] sm:text-sm font-medium
+               inline-flex items-center gap-2 transition-all hover:bg-ink hover:text-white;
     }
 
     .btn-spmb {
@@ -106,25 +129,27 @@
     }
 
     .page-header {
-        @apply container-page py-16 border-b border-line;
+        @apply container-page py-10 sm:py-12 lg:py-16 border-b border-line;
     }
 
     .page-title {
-        @apply text-[56px] font-extrabold leading-[1.05]
+        @apply text-[36px] sm:text-[44px] lg:text-[56px] font-extrabold leading-[1.05]
                tracking-tightest text-ink mb-4 max-w-[900px];
     }
 
     .page-lead {
-        @apply text-lg leading-relaxed text-muted-soft max-w-[720px];
+        @apply text-[15px] sm:text-base lg:text-lg leading-relaxed text-muted-soft max-w-[720px];
     }
 
     .topbar {
-        @apply bg-ink text-bg flex justify-between items-center
-               px-page py-2 font-mono text-[11px] tracking-mono;
+        @apply bg-ink text-bg flex flex-col sm:flex-row gap-1 sm:gap-0
+               justify-between items-start sm:items-center
+               px-4 sm:px-6 md:px-8 lg:px-[56px] py-2
+               font-mono text-[10px] sm:text-[11px] tracking-mono;
     }
 
     .prose-section {
-        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-12 py-12;
+        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 sm:gap-6 md:gap-12 py-8 sm:py-10 md:py-12;
     }
 
     .prose-aside {
@@ -132,7 +157,7 @@
     }
 
     .prose-body {
-        @apply max-w-[720px] text-[15px] leading-[1.75] text-muted-soft;
+        @apply max-w-[720px] text-[14px] sm:text-[15px] leading-[1.7] sm:leading-[1.75] text-muted-soft;
     }
 
     .prose-body h2 {
@@ -160,60 +185,61 @@
     }
 
     .highlight-card {
-        @apply bg-white p-7 border-r border-b border-line transition-colors hover:bg-bg-alt;
+        @apply bg-white p-5 sm:p-7 border-r border-b border-line transition-colors hover:bg-bg-alt;
     }
 
     .highlight-num {
-        @apply font-mono text-[10px] text-accent tracking-mono-wide uppercase mb-4;
+        @apply font-mono text-[10px] text-accent tracking-mono-wide uppercase mb-3 sm:mb-4;
     }
 
     .highlight-title {
-        @apply text-xl font-bold leading-tight tracking-tighter text-ink mb-3;
+        @apply text-lg sm:text-xl font-bold leading-tight tracking-tighter text-ink mb-2 sm:mb-3;
     }
 
     .highlight-desc {
-        @apply text-[14px] leading-relaxed text-muted-soft;
+        @apply text-[13px] sm:text-[14px] leading-relaxed text-muted-soft;
     }
 
     .detail-card {
-        @apply bg-white p-6 border-r border-b border-line;
+        @apply bg-white p-4 sm:p-6 border-r border-b border-line;
     }
 
     .detail-num {
-        @apply font-mono text-[24px] font-semibold text-accent leading-none tracking-tight mb-4;
+        @apply font-mono text-[20px] sm:text-[24px] font-semibold text-accent leading-none tracking-tight mb-3 sm:mb-4;
     }
 
     .detail-title {
-        @apply text-base font-bold leading-tight tracking-tighter text-ink mb-2;
+        @apply text-[15px] sm:text-base font-bold leading-tight tracking-tighter text-ink mb-2;
     }
 
     .detail-desc {
-        @apply text-[13px] leading-relaxed text-muted-soft;
+        @apply text-[12px] sm:text-[13px] leading-relaxed text-muted-soft;
     }
 
     .statement-block {
-        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-12 py-10 border-b border-line;
+        @apply container-page grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 md:gap-12 py-8 md:py-10 border-b border-line;
     }
 
     .statement-num {
-        @apply font-mono text-[40px] font-extrabold text-accent leading-none tracking-tightest mb-2;
+        @apply font-mono text-[28px] sm:text-[36px] md:text-[40px] font-extrabold text-accent leading-none tracking-tightest mb-2;
     }
 
     .statement-label {
-        @apply font-mono text-[11px] text-muted tracking-mono-wide uppercase;
+        @apply font-mono text-[10px] sm:text-[11px] text-muted tracking-mono-wide uppercase;
     }
 
     .statement-text {
-        @apply text-[22px] leading-snug tracking-tighter text-ink font-medium max-w-[720px];
+        @apply text-[17px] sm:text-[19px] md:text-[22px] leading-snug tracking-tighter text-ink font-medium max-w-[720px];
     }
 
     .form-input {
-        @apply w-full bg-white border border-line px-4 py-3 text-[14px] text-ink
+        /* text-base (16px) di mobile penting agar iOS Safari tidak auto-zoom saat focus */
+        @apply w-full bg-white border border-line px-4 py-3 text-base sm:text-[14px] text-ink
                placeholder:text-muted/60 focus:outline-none focus:border-ink transition-colors;
     }
 
     .form-label {
-        @apply block font-mono text-[11px] text-muted tracking-mono-wide uppercase mb-2;
+        @apply block font-mono text-[10px] sm:text-[11px] text-muted tracking-mono-wide uppercase mb-1.5 sm:mb-2;
     }
 }
 

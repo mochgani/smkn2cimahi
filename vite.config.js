@@ -27,17 +27,18 @@ export default defineConfig({
         target: 'es2020',
         // CSS per chunk → page-specific CSS hanya load saat dibutuhkan
         cssCodeSplit: true,
-        // Minify lebih agresif
-        minify: 'esbuild',
         // Naikkan limit warning chunk untuk Inertia + Vue (default 500kb)
         chunkSizeWarningLimit: 800,
         rollupOptions: {
             output: {
                 // Manual chunking — pisahkan vendor jadi chunk sendiri
                 // agar browser bisa cache vendor lebih lama (jarang berubah)
-                manualChunks: {
-                    'vendor-vue':     ['vue'],
-                    'vendor-inertia': ['@inertiajs/vue3'],
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        if (id.includes('@inertiajs')) return 'vendor-inertia';
+                        if (id.includes('vue')) return 'vendor-vue';
+                        return 'vendor';
+                    }
                 },
             },
         },

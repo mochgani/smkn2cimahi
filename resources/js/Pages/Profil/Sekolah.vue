@@ -49,9 +49,9 @@ defineProps({
             </div>
         </section>
 
-        <section class="container-page pt-8 pb-0">
+        <section class="container-page pt-6 sm:pt-8 pb-0">
             <SectionLabel num="2" title="Program Unggulan" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">Daya tarik utama, kemitraan industri yang nyata.</h2>
                 <p class="section-sub">Beberapa program unggulan yang membedakan SMKN 2 Cimahi dengan SMK lainnya.</p>
             </div>
@@ -67,7 +67,7 @@ defineProps({
             </div>
         </div>
 
-        <div class="mt-16" />
+        <div class="mt-10 sm:mt-12 lg:mt-16" />
 
         <Callout
             label="INFORMASI SEKOLAH"

@@ -22,8 +22,8 @@ const socialLinks = computed(() => kontakSetting.value.social ?? []);
 </script>
 
 <template>
-    <footer class="bg-ink text-bg mt-24 pt-20 pb-8">
-        <div class="container-page grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-white/10">
+    <footer class="bg-ink text-bg mt-16 sm:mt-20 lg:mt-24 pt-12 sm:pt-16 lg:pt-20 pb-6 sm:pb-8">
+        <div class="container-page grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 pb-8 sm:pb-12 lg:pb-14 border-b border-white/10">
             <div>
                 <img :src="logoUrl" :alt="`Logo ${schoolSetting.school_name ?? 'SMKN 2 Cimahi'}`" loading="lazy" decoding="async" class="w-14 h-14 object-contain brightness-110 mb-4" />
                 <div class="text-lg font-bold mb-2">{{ schoolSetting.school_name ?? 'SMK Negeri 2 Cimahi' }}</div>
@@ -73,9 +73,9 @@ const socialLinks = computed(() => kontakSetting.value.social ?? []);
             </div>
         </div>
 
-        <div class="container-page mt-8 flex justify-between items-center font-mono text-[11px] text-white/50 tracking-mono flex-wrap gap-4">
+        <div class="container-page mt-6 sm:mt-8 flex flex-col md:flex-row justify-between md:items-center font-mono text-[10px] sm:text-[11px] text-white/50 tracking-mono gap-2 sm:gap-4">
             <span>{{ schoolSetting.copyright ?? '© 2026 SMK NEGERI 2 CIMAHI' }}</span>
-            <span>SEKOLAH MENENGAH KEJURUAN NEGERI</span>
+            <span class="hidden md:inline">SEKOLAH MENENGAH KEJURUAN NEGERI</span>
             <span v-if="schoolSetting.nss || schoolSetting.npsn">
                 <template v-if="schoolSetting.nss">NSS {{ schoolSetting.nss }}</template>
                 <template v-if="schoolSetting.nss && schoolSetting.npsn"> / </template>

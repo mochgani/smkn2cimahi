@@ -43,7 +43,7 @@ const articleSchema = computed(() => ({
     />
 
     <AppLayout>
-        <article class="container-page pt-12 pb-8">
+        <article class="container-page pt-8 sm:pt-10 lg:pt-12 pb-6 sm:pb-8">
             <header class="max-w-[860px]">
                 <Breadcrumb
                     :items="[
@@ -51,40 +51,40 @@ const articleSchema = computed(() => ({
                         { label: 'Berita', href: '/berita' },
                         { label: berita.title.length > 30 ? berita.title.slice(0, 30) + '…' : berita.title },
                     ]"
-                    class="mb-6"
+                    class="mb-4 sm:mb-6"
                 />
 
-                <div class="flex items-center gap-2 mb-6">
+                <div class="flex items-center gap-2 mb-4 sm:mb-6 flex-wrap">
                     <span
                         v-for="cat in berita.categories"
                         :key="cat"
-                        class="inline-block px-3 py-1 bg-bg-alt font-mono text-[11px] text-ink tracking-mono uppercase"
+                        class="inline-block px-2.5 sm:px-3 py-1 bg-bg-alt font-mono text-[10px] sm:text-[11px] text-ink tracking-mono uppercase"
                     >
                         {{ cat }}
                     </span>
                 </div>
 
-                <h1 class="text-4xl lg:text-5xl font-extrabold text-ink leading-[1.1] tracking-tightest mb-8">
+                <h1 class="text-[26px] sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-ink leading-[1.1] tracking-tightest mb-6 sm:mb-8">
                     {{ berita.title }}
                 </h1>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 pb-8 border-b border-line">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 pb-6 sm:pb-8 border-b border-line">
                     <div>
                         <div class="font-mono text-[10px] text-muted tracking-mono-wide uppercase mb-1">Ditulis Oleh</div>
-                        <div class="text-[14px] font-semibold text-ink">{{ berita.author?.name ?? 'Tim Penulis' }}</div>
+                        <div class="text-[13px] sm:text-[14px] font-semibold text-ink">{{ berita.author?.name ?? 'Tim Penulis' }}</div>
                     </div>
                     <div>
                         <div class="font-mono text-[10px] text-muted tracking-mono-wide uppercase mb-1">Tanggal</div>
-                        <div class="text-[14px] font-semibold text-ink">{{ berita.date_full }}</div>
+                        <div class="text-[13px] sm:text-[14px] font-semibold text-ink">{{ berita.date_full }}</div>
                     </div>
-                    <div>
+                    <div class="col-span-2 md:col-span-1">
                         <div class="font-mono text-[10px] text-muted tracking-mono-wide uppercase mb-1">Durasi Baca</div>
-                        <div class="text-[14px] font-semibold text-ink">{{ berita.reading_time }}</div>
+                        <div class="text-[13px] sm:text-[14px] font-semibold text-ink">{{ berita.reading_time }}</div>
                     </div>
                 </div>
             </header>
 
-            <div class="relative min-h-[280px] md:min-h-[400px] my-12 bg-line-soft overflow-hidden">
+            <div class="relative min-h-[200px] sm:min-h-[280px] md:min-h-[400px] my-8 sm:my-10 lg:my-12 bg-line-soft overflow-hidden">
                 <img
                     v-if="berita.cover_image"
                     :src="berita.cover_image"
@@ -103,17 +103,17 @@ const articleSchema = computed(() => ({
                         style="background: radial-gradient(circle at 30% 30%, rgba(13,110,63,0.18) 0%, transparent 55%);"
                     ></div>
                 </div>
-                <div class="absolute bottom-6 left-6 bg-white/95 px-5 py-3.5 border border-line">
-                    <div class="font-mono text-[26px] font-bold text-ink tracking-tight leading-none mb-1">
+                <div class="absolute bottom-3 left-3 sm:bottom-6 sm:left-6 bg-white/95 px-3 sm:px-5 py-2 sm:py-3.5 border border-line">
+                    <div class="font-mono text-[20px] sm:text-[26px] font-bold text-ink tracking-tight leading-none mb-1">
                         {{ new Date(berita.date_iso).getFullYear() }}
                     </div>
-                    <div class="font-mono text-[10px] text-muted tracking-mono-wide uppercase">
+                    <div class="font-mono text-[9px] sm:text-[10px] text-muted tracking-mono-wide uppercase">
                         {{ berita.categories[0] || 'BERITA' }}
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-6 lg:gap-12">
                 <aside class="lg:sticky lg:top-24 self-start hidden lg:block">
                     <div class="font-mono text-[11px] text-muted tracking-mono-wide uppercase mb-4">Bagikan</div>
                     <div class="flex gap-2">

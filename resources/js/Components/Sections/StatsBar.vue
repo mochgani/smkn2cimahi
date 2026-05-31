@@ -20,13 +20,19 @@ defineProps({
             <div
                 v-for="(stat, i) in stats"
                 :key="i"
-                class="px-5 py-8 lg:border-r border-line last:border-r-0"
-                :class="{ 'border-b lg:border-b-0': i < stats.length - (stats.length % 3 || 3) }"
+                class="px-3 sm:px-5 py-5 sm:py-7 lg:py-8 border-r border-b border-line"
+                :class="{
+                    'border-r-0': (i + 1) % 2 === 0,
+                    'sm:border-r': (i + 1) % 2 === 0 && (i + 1) % 3 !== 0,
+                    'sm:border-r-0': (i + 1) % 3 === 0,
+                    'lg:border-r': (i + 1) % 3 === 0 && i !== stats.length - 1,
+                    'lg:border-b-0': true,
+                }"
             >
-                <div class="text-[40px] font-extrabold leading-none tracking-tightest text-ink mb-2">
+                <div class="text-[28px] sm:text-[34px] lg:text-[40px] font-extrabold leading-none tracking-tightest text-ink mb-1.5 sm:mb-2">
                     {{ stat.value }}
                 </div>
-                <div class="font-mono text-[11px] text-muted tracking-mono uppercase">
+                <div class="font-mono text-[10px] sm:text-[11px] text-muted tracking-mono uppercase">
                     {{ stat.label }}
                 </div>
             </div>

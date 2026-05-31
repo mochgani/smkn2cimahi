@@ -12,8 +12,14 @@ const emailKanal = computed(() => kontakSetting.value.kanal?.find(k => k.label =
 
 <template>
     <div class="topbar">
-        <span>{{ schoolSetting.school_name?.toUpperCase() ?? 'SMK NEGERI 2 CIMAHI' }} · {{ schoolSetting.tagline?.toUpperCase() ?? 'BMW: BEKERJA · MELANJUTKAN · WIRAUSAHA' }}</span>
-        <span>
+        <span class="truncate max-w-full">
+            <span class="sm:hidden">{{ schoolSetting.school_name?.toUpperCase() ?? 'SMK NEGERI 2 CIMAHI' }}</span>
+            <span class="hidden sm:inline">
+                {{ schoolSetting.school_name?.toUpperCase() ?? 'SMK NEGERI 2 CIMAHI' }}
+                · {{ schoolSetting.tagline?.toUpperCase() ?? 'BMW: BEKERJA · MELANJUTKAN · WIRAUSAHA' }}
+            </span>
+        </span>
+        <span class="hidden sm:inline truncate">
             <template v-if="teleponKanal">{{ teleponKanal.value }}</template>
             <template v-if="teleponKanal && emailKanal"> · </template>
             <template v-if="emailKanal">{{ emailKanal.value }}</template>

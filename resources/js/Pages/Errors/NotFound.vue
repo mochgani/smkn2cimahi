@@ -17,7 +17,7 @@ import SeoTag from '@/Components/UI/SeoTag.vue';
                     ERROR 404
                 </div>
 
-                <h1 class="text-[64px] lg:text-[96px] font-extrabold text-ink leading-[1] tracking-tightest mb-6">
+                <h1 class="text-[44px] sm:text-[64px] lg:text-[96px] font-extrabold text-ink leading-[1] tracking-tightest mb-4 sm:mb-6">
                     Halaman tidak ditemukan.
                 </h1>
 

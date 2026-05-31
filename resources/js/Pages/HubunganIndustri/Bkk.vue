@@ -38,9 +38,9 @@ defineProps({
         </section>
 
         <!-- Tujuan -->
-        <section v-if="tujuan.length" class="container-page pt-8 pb-0">
+        <section v-if="tujuan.length" class="container-page pt-6 sm:pt-8 pb-0">
             <SectionLabel num="2" title="Tujuan Pembentukan" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">{{ tujuan.length }} tujuan utama yang menjadi pilar kerja BKK.</h2>
                 <p class="section-sub">Setiap aktivitas BKK dirancang untuk menyiapkan lulusan menghadapi dunia kerja secara profesional.</p>
             </div>
@@ -57,9 +57,9 @@ defineProps({
         </div>
 
         <!-- Perusahaan Mitra -->
-        <section v-if="perusahaan.length" class="container-page pt-16 pb-0">
+        <section v-if="perusahaan.length" class="container-page pt-10 sm:pt-14 lg:pt-16 pb-0">
             <SectionLabel num="3" title="Perusahaan Mitra" />
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <h2 class="section-h2">{{ perusahaan.length }} perusahaan industri menjadi mitra strategis BKK.</h2>
                 <p class="section-sub">Daftar perusahaan yang bekerja sama dengan SMK Negeri 2 Cimahi dalam penyaluran tenaga kerja lulusan.</p>
             </div>
@@ -83,7 +83,7 @@ defineProps({
         </div>
 
         <!-- Lowongan -->
-        <section class="container-page pt-16 pb-0">
+        <section class="container-page pt-10 sm:pt-14 lg:pt-16 pb-0">
             <SectionLabel num="4" title="Informasi Lowongan" />
             <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
                 <div>

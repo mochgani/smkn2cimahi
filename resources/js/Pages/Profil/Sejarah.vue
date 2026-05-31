@@ -30,28 +30,28 @@ defineProps({
         <!-- Info Cards -->
         <section
             v-if="sejarah.tahun_berdiri || sejarah.luas_lahan"
-            class="container-page pb-8"
+            class="container-page pb-6 sm:pb-8"
         >
             <div class="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-line">
-                <div v-if="sejarah.tahun_berdiri" class="border-r border-b border-line p-7 bg-white">
-                    <div class="font-mono text-[11px] text-accent tracking-mono mb-3">[01] BERDIRI</div>
-                    <div class="font-mono text-[44px] font-semibold text-ink leading-none mb-2">
+                <div v-if="sejarah.tahun_berdiri" class="border-r border-b border-line p-5 sm:p-7 bg-white">
+                    <div class="font-mono text-[11px] text-accent tracking-mono mb-2 sm:mb-3">[01] BERDIRI</div>
+                    <div class="font-mono text-[32px] sm:text-[44px] font-semibold text-ink leading-none mb-1.5 sm:mb-2">
                         {{ sejarah.tahun_berdiri }}
                     </div>
-                    <div class="text-[13px] text-muted-soft">Tahun pendirian institusi</div>
+                    <div class="text-[12px] sm:text-[13px] text-muted-soft">Tahun pendirian institusi</div>
                 </div>
-                <div v-if="sejarah.luas_lahan" class="border-r border-b border-line p-7 bg-white">
-                    <div class="font-mono text-[11px] text-accent tracking-mono mb-3">[02] LUAS LAHAN</div>
-                    <div class="font-mono text-[44px] font-semibold text-ink leading-none mb-2">
+                <div v-if="sejarah.luas_lahan" class="border-r border-b border-line p-5 sm:p-7 bg-white">
+                    <div class="font-mono text-[11px] text-accent tracking-mono mb-2 sm:mb-3">[02] LUAS LAHAN</div>
+                    <div class="font-mono text-[32px] sm:text-[44px] font-semibold text-ink leading-none mb-1.5 sm:mb-2">
                         {{ sejarah.luas_lahan }}
                     </div>
-                    <div class="text-[13px] text-muted-soft">Luas total area sekolah</div>
+                    <div class="text-[12px] sm:text-[13px] text-muted-soft">Luas total area sekolah</div>
                 </div>
             </div>
         </section>
 
         <!-- Featured Image -->
-        <section v-if="sejarah.image" class="container-page pb-8">
+        <section v-if="sejarah.image" class="container-page pb-6 sm:pb-8">
             <div class="aspect-[16/9] overflow-hidden bg-line-soft border border-line">
                 <img
                     :src="sejarah.image"
@@ -73,10 +73,10 @@ defineProps({
         </section>
 
         <!-- Video -->
-        <section v-if="sejarah.video_embed_url" class="container-page py-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-10">
+        <section v-if="sejarah.video_embed_url" class="container-page py-10 sm:py-12 lg:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 mb-6 sm:mb-10">
                 <div>
-                    <div class="font-mono text-[11px] text-accent tracking-mono mb-3">[04] VIDEO</div>
+                    <div class="font-mono text-[11px] text-accent tracking-mono mb-2 sm:mb-3">[04] VIDEO</div>
                     <h2 class="section-h2">Profil dalam video.</h2>
                 </div>
                 <p class="section-sub">Lihat profil dan keseharian SMK Negeri 2 Cimahi melalui video berikut.</p>
