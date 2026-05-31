@@ -596,3 +596,63 @@ Migrasi penuh dari static HTML ke Laravel 13 + Inertia.js + Vue 3 + Filament v4:
 
 **Testing:**
 - [x] `SitemapTest` (7 test): sitemap dapat diakses, valid XML, include homepage/berita published/kompetensi active, exclude berita draft/kompetensi inactive
+
+---
+
+### Sesi 2026-05-31 (Claude Code — Fitur & Fixes Post-Deploy)
+
+**Perbaikan Berita & Penulis:**
+- `BeritaController::format()` — tambah `cover_image`, `author` (dari relasi `creator` bukan `author`)
+- Tambah kolom `created_by` (FK users) di tabel `beritas` via migration
+- `CreateBerita::mutateFormDataBeforeCreate()` — auto-assign `created_by = auth()->id()`
+- Frontend (Index/Show) — tampilkan nama penulis dari `berita.author.name`
+
+**Dinamis-kan Kontak, Footer, Header, Topbar:**
+- `KontakSetting` — shared ke semua halaman via `HandleInertiaRequests` (key `kontakSetting`)
+- `SchoolSetting` — shared ke semua halaman (key `schoolSetting`)
+- `Footer.vue` — alamat, telepon, email, sosmed dari DB
+- `Topbar.vue` — nama sekolah + tagline dari DB, hide detail di mobile
+- `Header.vue` — nama sekolah, logo, EST dari DB
+
+**School Settings Admin:**
+- Tabel `school_settings` (singleton): school_name, tagline, logo, tahun_berdiri, nss, npsn, copyright
+- Filament `/admin/pengaturan/sekolah` — group Pengaturan, sort 0
+
+**Fitur Approval Berita:**
+- Kolom `approval_status` enum(draft/pending/approved/rejected), `approved_by`, `approved_at`
+- Non-super_admin create berita → otomatis `pending`, `is_published=false`
+- Super admin: tombol Approve/Reject langsung dari tabel admin
+- Approve → `is_published=true`, Reject → tidak tayang
+- `Berita::scopePublished()` tambah kondisi `approval_status=approved`
+- Toggle Publish/Featured disembunyikan dari form non-super_admin
+
+**Deploy ke cPanel:**
+- Struktur: `/public_html/` (isi folder `public/`) + `laravel_app/` (seluruh Laravel)
+- `index.php` di-edit untuk point ke `laravel_app/`
+- `public/storage/.htaccess` block PHP execution (auto via `deploy.php`)
+- `config/filesystems.php` disk `public` → `public_path('storage')` (no symlink)
+- `APP_URL` + `ASSET_URL` = https, `URL::forceScheme('https')` di AppServiceProvider
+- `deploy.php` — script post-deploy (buat folder storage + .htaccess + rebuild cache)
+
+**Phase 5 — Mobile Responsive:**
+
+Overhaul lengkap 24 file untuk mobile-friendly di semua breakpoint.
+
+- **Header**: Hamburger button + mobile drawer accordion, body scroll lock, auto-close on navigate
+- **Topbar**: Stack vertical < sm, hide telepon/email < sm
+- **Footer**: 1→2→4 cols, copyright stack vertical
+- **app.css**: `container-page` padding responsive 16/24/32/56px, typography scale (page-title 36/44/56, section-h2 26/32/40), `.form-input` text-base (anti iOS zoom), btn responsive, section-label responsive
+- **Hero slider**: Image order-1 (atas) di mobile, dots scroll horizontal
+- **Featured berita card**: Image di atas, text di bawah, padding scale
+- **Grid cards**: 1→2→3 cols dengan padding/font responsive
+- **StatsBar**: 2→3→6 cols
+- **KompetensiGrid**: Logo responsive, padding 5/7/8
+- **Berita/Divisi/Prestasi pagination**: Icon-only Prev/Next < sm, nomor scrollable
+- **Kontak**: Map height 300/400/480px, form border-top, submit full-width
+- **RekapSiswa**: Table min-width 640px + horizontal scroll
+- **KepalaSekolah**: Foto centered max-w-240 di mobile
+- **NotFound**: Heading 44/64/96px
+- **Lightbox**: Button bg semi-transparent di mobile, position 2/4px
+- **Vite config**: `manualChunks` via function (Rolldown/Vite 8 compatible)
+
+**Files diubah (mobile):** `app.css`, `Header.vue`, `Topbar.vue`, `Footer.vue`, `HeroSlider.vue`, `KompetensiDetail.vue`, `KompetensiGrid.vue`, `StatsBar.vue`, `Breadcrumb.vue`, `Callout.vue`, `Berita/Index.vue`, `Berita/Show.vue`, `Divisi/Show.vue`, `Prestasi/Show.vue`, `Home.vue`, `Bkk.vue`, `RekapSiswa.vue`, `Kontak.vue`, `KepalaSekolah.vue`, `Sejarah.vue`, `Sekolah.vue`, `VisiMisi.vue`, `Errors/NotFound.vue`, `vite.config.js`
