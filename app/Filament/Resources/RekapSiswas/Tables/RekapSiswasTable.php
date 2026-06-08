@@ -34,26 +34,22 @@ class RekapSiswasTable
 
                 TextColumn::make('rombel')
                     ->label('Rombel')
-                    ->numeric()
                     ->alignRight()
                     ->sortable(),
 
                 TextColumn::make('laki_laki')
                     ->label('L')
-                    ->numeric()
                     ->alignRight()
                     ->sortable(),
 
                 TextColumn::make('perempuan')
                     ->label('P')
-                    ->numeric()
                     ->alignRight()
                     ->sortable(),
 
                 TextColumn::make('total')
                     ->label('Total')
                     ->getStateUsing(fn ($record) => $record->laki_laki + $record->perempuan)
-                    ->numeric()
                     ->alignRight()
                     ->weight('bold'),
             ])
