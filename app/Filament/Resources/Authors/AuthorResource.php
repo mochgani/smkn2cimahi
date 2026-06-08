@@ -33,6 +33,9 @@ class AuthorResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    // Modul Author tidak lagi digunakan (digantikan oleh User/created_by)
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -76,8 +79,8 @@ class AuthorResource extends Resource
         ];
     }
 
-    public static function canViewAny(): bool
-    {
-        return auth()->user()?->isSuperAdmin() ?? false;
-    }
+    public static function canViewAny(): bool   { return false; }
+    public static function canCreate(): bool    { return false; }
+    public static function canEdit($record): bool   { return false; }
+    public static function canDelete($record): bool { return false; }
 }
