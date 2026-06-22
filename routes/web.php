@@ -55,6 +55,7 @@ $placeholder = fn (string $title, string $breadcrumb = '') =>
 Route::get('/kurikulum',                    [KurikulumController::class, 'tentang'])->name('kurikulum.tentang');
 Route::get('/kurikulum/struktur',           [KurikulumController::class, 'struktur'])->name('kurikulum.struktur');
 Route::get('/kurikulum/program-keahlian',   [KurikulumController::class, 'programKeahlian'])->name('kurikulum.program');
+Route::get('/kurikulum/kelas-kerja-sama',   [KurikulumController::class, 'kelasKerjaSama'])->name('kurikulum.kelas-kerja-sama');
 
 // Kesiswaan
 Route::get('/kesiswaan/program', fn () => app(DivisiController::class)->show('kesiswaan'))->name('kesiswaan.program');

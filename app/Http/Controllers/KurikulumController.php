@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KurikulumTentang;
 use App\Models\KurikulumStruktur;
+use App\Models\KurikulumMitra;
 use App\Models\Kompetensi;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -44,6 +45,26 @@ class KurikulumController extends Controller
                 'groups'     => $data->groups     ?? [],
                 'allocation' => $data->allocation ?? [],
             ],
+        ]);
+    }
+
+    public function kelasKerjaSama(): Response
+    {
+        $mitras = KurikulumMitra::active()
+            ->orderBy('display_order')
+            ->get()
+            ->map(fn (KurikulumMitra $m) => [
+                'id'    => $m->id,
+                'nama'  => $m->nama,
+                'field' => $m->field,
+                'desc'  => $m->desc,
+                'tags'  => $m->tags ?? [],
+                'logo'  => $m->logo ? '/storage/' . $m->logo : null,
+            ])
+            ->all();
+
+        return Inertia::render('Kurikulum/KelasKerjaSama', [
+            'mitras' => $mitras,
         ]);
     }
 
