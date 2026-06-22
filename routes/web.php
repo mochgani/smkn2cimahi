@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KesiswaanController;
 use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\SitemapController;
@@ -50,8 +51,8 @@ Route::post('/kontak', [KontakController::class, 'store'])
 $placeholder = fn (string $title, string $breadcrumb = '') =>
     fn () => Inertia::render('Placeholder', ['title' => $title, 'breadcrumb' => $breadcrumb ?: $title]);
 
-// Kurikulum — berita dari Divisi Kurikulum
-Route::get('/kurikulum', fn () => app(DivisiController::class)->show('kurikulum'))->name('kurikulum.index');
+// Kurikulum
+Route::get('/kurikulum', [KurikulumController::class, 'tentang'])->name('kurikulum.tentang');
 
 // Kesiswaan
 Route::get('/kesiswaan/program', fn () => app(DivisiController::class)->show('kesiswaan'))->name('kesiswaan.program');
