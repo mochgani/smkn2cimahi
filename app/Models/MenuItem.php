@@ -13,12 +13,15 @@ class MenuItem extends Model
         'label',
         'url',
         'type',
+        'location',
+        'is_mega_menu',
         'display_order',
         'is_active',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active'    => 'boolean',
+        'is_mega_menu' => 'boolean',
         'display_order' => 'integer',
     ];
 

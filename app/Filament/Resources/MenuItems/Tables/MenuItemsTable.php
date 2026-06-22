@@ -23,22 +23,30 @@ class MenuItemsTable
                     ->label('Label')
                     ->searchable()
                     ->formatStateUsing(function ($state, $record) {
-                        if ($record->parent_id) {
-                            return '↳ ' . $state;
-                        }
-                        return '▸ ' . $state;
+                        if (!$record->parent_id) return '▸ ' . $state;
+                        if ($record->parent?->parent_id) return '  ↳↳ ' . $state;
+                        return '↳ ' . $state;
                     })
                     ->weight(fn ($record) => $record->parent_id ? null : 'bold'),
 
+                TextColumn::make('location')
+                    ->label('Lokasi')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state) => match ($state) {
+                        'topbar' => 'Topbar',
+                        default  => 'Navbar',
+                    })
+                    ->color(fn (?string $state) => $state === 'topbar' ? 'warning' : 'info'),
+
                 TextColumn::make('parent.label')
-                    ->label('Grup / Parent')
+                    ->label('Parent')
                     ->placeholder('—')
                     ->badge()
-                    ->color('info'),
+                    ->color('gray'),
 
                 TextColumn::make('url')
                     ->label('URL')
-                    ->limit(40)
+                    ->limit(35)
                     ->color('gray')
                     ->fontFamily('mono'),
 
@@ -46,16 +54,27 @@ class MenuItemsTable
                     ->label('Tipe')
                     ->badge()
                     ->formatStateUsing(fn (string $state) => match ($state) {
-                        'kompetensi_list' => 'Auto Kompetensi',
-                        default => 'Statis',
+                        'kompetensi_list' => 'Auto',
+                        default           => 'Statis',
                     })
                     ->color(fn (string $state) => $state === 'kompetensi_list' ? 'warning' : 'gray'),
+
+                IconColumn::make('is_mega_menu')
+                    ->label('Mega')
+                    ->boolean(),
 
                 IconColumn::make('is_active')
                     ->label('Aktif')
                     ->boolean(),
             ])
             ->filters([
+                SelectFilter::make('location')
+                    ->label('Lokasi')
+                    ->options([
+                        'navbar' => 'Navbar',
+                        'topbar' => 'Topbar',
+                    ])
+                    ->placeholder('Semua'),
                 SelectFilter::make('parent_id')
                     ->label('Filter Parent')
                     ->relationship('parent', 'label')

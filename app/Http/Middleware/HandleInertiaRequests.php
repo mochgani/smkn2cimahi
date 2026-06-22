@@ -71,15 +71,48 @@ class HandleInertiaRequests extends Middleware
     {
         $topLevel = MenuItem::topLevel()
             ->active()
-            ->with(['children' => fn ($q) => $q->orderBy('display_order')])
+            ->with(['children' => fn ($q) => $q
+                ->active()
+                ->with(['children' => fn ($q2) => $q2->active()->orderBy('display_order')])
+                ->orderBy('display_order')
+            ])
             ->orderBy('display_order')
             ->get();
 
         $kompetensiList = null;
 
-        return $topLevel->map(function (MenuItem $item) use (&$kompetensiList) {
-            $children = [];
+        $mapped = $topLevel->map(function (MenuItem $item) use (&$kompetensiList) {
+            // Topbar item — hanya label + url + children flat
+            if ($item->location === 'topbar') {
+                return [
+                    'location' => 'topbar',
+                    'label'    => $item->label,
+                    'url'      => $item->url,
+                    'children' => $item->children->map(fn (MenuItem $c) => [
+                        'label' => $c->label,
+                        'url'   => $c->url,
+                    ])->all(),
+                ];
+            }
 
+            // Mega menu — children adalah judul kolom, grandchildren adalah link
+            if ($item->is_mega_menu) {
+                return [
+                    'location'     => 'navbar',
+                    'label'        => $item->label,
+                    'url'          => $item->url,
+                    'is_mega_menu' => true,
+                    'columns'      => $item->children->map(fn (MenuItem $col) => [
+                        'title' => $col->label,
+                        'links' => $col->children->map(fn (MenuItem $link) => [
+                            'label' => $link->label,
+                            'url'   => $link->url,
+                        ])->all(),
+                    ])->all(),
+                ];
+            }
+
+            // Navbar biasa — dropdown atau kompetensi_list
             if ($item->type === 'kompetensi_list') {
                 $kompetensiList ??= Kompetensi::active()
                     ->orderBy('display_order')
@@ -98,10 +131,17 @@ class HandleInertiaRequests extends Middleware
             }
 
             return [
-                'label'    => $item->label,
-                'url'      => $item->url,
-                'children' => $children,
+                'location'     => 'navbar',
+                'label'        => $item->label,
+                'url'          => $item->url,
+                'is_mega_menu' => false,
+                'children'     => $children,
             ];
-        })->all();
+        });
+
+        return [
+            'topbar' => $mapped->where('location', 'topbar')->values()->all(),
+            'navbar' => $mapped->where('location', 'navbar')->values()->all(),
+        ];
     }
 }
