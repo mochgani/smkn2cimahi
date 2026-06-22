@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\KurikulumTentang;
 use App\Models\KurikulumStruktur;
 use App\Models\KurikulumMitra;
+use App\Models\KurikulumTeachingFactory;
+use App\Models\KurikulumSertifikasiPkl;
+use App\Models\KurikulumKalender;
 use App\Models\Kompetensi;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -83,6 +86,55 @@ class KurikulumController extends Controller
                 'jumlah_program' => Kompetensi::active()->count(),
                 'stats'          => $data->stats ?? [],
                 'filosofi'       => $data->filosofi ?? [],
+            ],
+        ]);
+    }
+
+    public function teachingFactory(): Response
+    {
+        $data = KurikulumTeachingFactory::instance();
+
+        return Inertia::render('Kurikulum/TeachingFactory', [
+            'tefa' => [
+                'title'     => $data->title,
+                'lead'      => $data->lead,
+                'tagline'   => $data->tagline,
+                'about'     => $data->about,
+                'produk'    => $data->produk    ?? [],
+                'fasilitas' => $data->fasilitas ?? [],
+                'stats'     => $data->stats     ?? [],
+            ],
+        ]);
+    }
+
+    public function sertifikasiPkl(): Response
+    {
+        $data = KurikulumSertifikasiPkl::instance();
+
+        return Inertia::render('Kurikulum/SertifikasiPkl', [
+            'data' => [
+                'title'        => $data->title,
+                'lead'         => $data->lead,
+                'sertifikasi'  => $data->sertifikasi  ?? [],
+                'pkl_deskripsi'=> $data->pkl_deskripsi,
+                'pkl_durasi'   => $data->pkl_durasi,
+                'pkl_min_nilai'=> $data->pkl_min_nilai,
+                'alur_pkl'     => $data->alur_pkl      ?? [],
+            ],
+        ]);
+    }
+
+    public function kalender(): Response
+    {
+        $data = KurikulumKalender::instance();
+
+        return Inertia::render('Kurikulum/Kalender', [
+            'kalender' => [
+                'title'      => $data->title,
+                'lead'       => $data->lead,
+                'embed_url'  => $data->embed_url,
+                'public_url' => $data->public_url,
+                'catatan'    => $data->catatan,
             ],
         ]);
     }

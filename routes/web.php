@@ -56,6 +56,9 @@ Route::get('/kurikulum',                    [KurikulumController::class, 'tentan
 Route::get('/kurikulum/struktur',           [KurikulumController::class, 'struktur'])->name('kurikulum.struktur');
 Route::get('/kurikulum/program-keahlian',   [KurikulumController::class, 'programKeahlian'])->name('kurikulum.program');
 Route::get('/kurikulum/kelas-kerja-sama',   [KurikulumController::class, 'kelasKerjaSama'])->name('kurikulum.kelas-kerja-sama');
+Route::get('/kurikulum/teaching-factory',   [KurikulumController::class, 'teachingFactory'])->name('kurikulum.teaching-factory');
+Route::get('/kurikulum/sertifikasi-pkl',    [KurikulumController::class, 'sertifikasiPkl'])->name('kurikulum.sertifikasi-pkl');
+Route::get('/kurikulum/kalender',           [KurikulumController::class, 'kalender'])->name('kurikulum.kalender');
 
 // Kesiswaan
 Route::get('/kesiswaan/program', fn () => app(DivisiController::class)->show('kesiswaan'))->name('kesiswaan.program');
