@@ -10,6 +10,28 @@ use Inertia\Response;
 
 class KurikulumController extends Controller
 {
+    public function programKeahlian(): Response
+    {
+        $programs = Kompetensi::active()
+            ->orderBy('display_order')
+            ->get()
+            ->map(fn (Kompetensi $k, int $i) => [
+                'slug'       => $k->slug,
+                'code'       => $k->code,
+                'name'       => $k->name,
+                'tag'        => $k->tag,
+                'short_desc' => $k->short_desc,
+                'lead'       => $k->lead,
+                'logo_image' => $k->logo_image ? '/storage/' . $k->logo_image : null,
+                'num'        => 'P-' . str_pad($i + 1, 2, '0', STR_PAD_LEFT),
+            ])
+            ->all();
+
+        return Inertia::render('Kurikulum/ProgramKeahlian', [
+            'programs' => $programs,
+        ]);
+    }
+
     public function struktur(): Response
     {
         $data = KurikulumStruktur::instance();

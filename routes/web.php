@@ -52,8 +52,9 @@ $placeholder = fn (string $title, string $breadcrumb = '') =>
     fn () => Inertia::render('Placeholder', ['title' => $title, 'breadcrumb' => $breadcrumb ?: $title]);
 
 // Kurikulum
-Route::get('/kurikulum',           [KurikulumController::class, 'tentang'])->name('kurikulum.tentang');
-Route::get('/kurikulum/struktur',  [KurikulumController::class, 'struktur'])->name('kurikulum.struktur');
+Route::get('/kurikulum',                    [KurikulumController::class, 'tentang'])->name('kurikulum.tentang');
+Route::get('/kurikulum/struktur',           [KurikulumController::class, 'struktur'])->name('kurikulum.struktur');
+Route::get('/kurikulum/program-keahlian',   [KurikulumController::class, 'programKeahlian'])->name('kurikulum.program');
 
 // Kesiswaan
 Route::get('/kesiswaan/program', fn () => app(DivisiController::class)->show('kesiswaan'))->name('kesiswaan.program');
