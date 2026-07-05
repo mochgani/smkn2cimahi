@@ -163,7 +163,7 @@ const flattenMegaLinks = (item) => {
                     <Link
                         v-else
                         :href="item.url || '#'"
-                        class="text-[13px] font-medium text-ink-soft hover:text-accent transition-colors px-2.5 py-2"
+                        class="inline-flex items-center text-[13px] font-medium text-ink-soft hover:text-accent transition-colors px-2.5 py-2"
                         :class="{ 'text-accent': isActive(item) }"
                     >
                         {{ item.label }}

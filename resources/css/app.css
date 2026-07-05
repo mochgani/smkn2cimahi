@@ -149,7 +149,7 @@
     }
 
     .topbar-link {
-        @apply text-bg/70 hover:text-bg transition-colors cursor-pointer;
+        @apply text-bg hover:text-accent transition-colors cursor-pointer;
     }
 
     .topbar-divider {

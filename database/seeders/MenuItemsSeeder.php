@@ -13,12 +13,13 @@ class MenuItemsSeeder extends Seeder
      * Struktur menu final — sesi 2026-07-06.
      * Reset penuh: hapus semua menu_items lama lalu buat ulang dari struktur ini.
      *
-     * Navbar (menu utama, 2 baris): Beranda, Profil, Kurikulum (mega menu),
-     * Kesiswaan, Hubungan Industri, Sarana Prasarana, Kompetensi Keahlian,
-     * Prestasi, Berita & Info, Kontak.
+     * Navbar (menu utama, 2 baris): Profil, Kurikulum (mega menu), Kesiswaan,
+     * Hubungan Industri, Sarana Prasarana, Kompetensi Keahlian, Prestasi,
+     * Berita & Info.
      *
      * Topbar (baris atas kecil, utility): SPMB, Aplikasi (dropdown SSO),
-     * Agenda Kegiatan Sekolah (reuse /kurikulum/kalender), Virtual Tour.
+     * Agenda Kegiatan Sekolah (reuse /kurikulum/kalender), Virtual Tour, Kontak.
+     * Kontak dipindah ke topbar (paling akhir) supaya navbar lebih leluasa.
      * Kalender dihapus dari mega menu Kurikulum supaya tidak double dengan topbar.
      */
     public function run(): void
@@ -98,9 +99,6 @@ class MenuItemsSeeder extends Seeder
                 [
                     'label' => 'Berita & Info', 'url' => '/berita', 'type' => 'static', 'display_order' => 8,
                 ],
-                [
-                    'label' => 'Kontak', 'url' => '/kontak', 'type' => 'static', 'display_order' => 9,
-                ],
             ];
 
             $topbarTree = [
@@ -121,6 +119,9 @@ class MenuItemsSeeder extends Seeder
                 ],
                 [
                     'label' => 'Virtual Tour SMKN 2 Cimahi', 'url' => '#', 'type' => 'static', 'display_order' => 4,
+                ],
+                [
+                    'label' => 'Kontak', 'url' => '/kontak', 'type' => 'static', 'display_order' => 5,
                 ],
             ];
 
