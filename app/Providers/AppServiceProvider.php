@@ -6,9 +6,9 @@ use App\Models\Kompetensi;
 use App\Models\KontakSetting;
 use App\Models\MenuItem;
 use App\Models\SchoolSetting;
-use App\Observers\SharedCacheObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
@@ -37,11 +37,24 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // Auto-invalidate cache shared global saat data admin berubah
-        KontakSetting::observe(new SharedCacheObserver(['shared.kontak_setting']));
-        SchoolSetting::observe(new SharedCacheObserver(['shared.school_setting']));
-        MenuItem::observe(new SharedCacheObserver(['shared.navigation']));
-        Kompetensi::observe(new SharedCacheObserver(['shared.navigation']));
+        // Auto-invalidate cache shared global saat data admin berubah.
+        // Pakai closure langsung (bukan Model::observe(new Observer(...)))
+        // karena Laravel meregistrasi observer sebagai "ClassName@method" lalu
+        // me-resolve ulang instance-nya dari container — argumen constructor
+        // yang di-pass manual (mis. $cacheKeys) akan hilang di luar konteks HTTP.
+        $flushNavigation = fn () => Cache::forget('shared.navigation');
+
+        KontakSetting::saved(fn () => Cache::forget('shared.kontak_setting'));
+        KontakSetting::deleted(fn () => Cache::forget('shared.kontak_setting'));
+
+        SchoolSetting::saved(fn () => Cache::forget('shared.school_setting'));
+        SchoolSetting::deleted(fn () => Cache::forget('shared.school_setting'));
+
+        MenuItem::saved($flushNavigation);
+        MenuItem::deleted($flushNavigation);
+
+        Kompetensi::saved($flushNavigation);
+        Kompetensi::deleted($flushNavigation);
 
         // Rate limiters
         $this->configureRateLimiters();
