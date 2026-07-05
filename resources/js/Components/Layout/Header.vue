@@ -93,7 +93,7 @@ const flattenMegaLinks = (item) => {
                             type="button"
                             :aria-expanded="openMenu === idx"
                             :aria-label="`Menu ${item.label}`"
-                            class="text-[13px] font-medium text-ink-soft hover:text-accent inline-flex items-center gap-1 transition-colors px-2.5 py-2"
+                            class="text-[13px] font-medium text-ink-soft hover:text-accent inline-flex items-center whitespace-nowrap shrink-0 gap-1 transition-colors px-2.5 py-2"
                             :class="{ 'text-accent': isActive(item) }"
                         >
                             {{ item.label }}
@@ -136,7 +136,7 @@ const flattenMegaLinks = (item) => {
                             type="button"
                             :aria-expanded="openMenu === idx"
                             :aria-label="`Menu ${item.label}`"
-                            class="text-[13px] font-medium text-ink-soft hover:text-accent inline-flex items-center gap-1 transition-colors px-2.5 py-2"
+                            class="text-[13px] font-medium text-ink-soft hover:text-accent inline-flex items-center whitespace-nowrap shrink-0 gap-1 transition-colors px-2.5 py-2"
                             :class="{ 'text-accent': isActive(item) }"
                         >
                             {{ item.label }}
@@ -163,7 +163,7 @@ const flattenMegaLinks = (item) => {
                     <Link
                         v-else
                         :href="item.url || '#'"
-                        class="inline-flex items-center text-[13px] font-medium text-ink-soft hover:text-accent transition-colors px-2.5 py-2"
+                        class="inline-flex items-center whitespace-nowrap shrink-0 text-[13px] font-medium text-ink-soft hover:text-accent transition-colors px-2.5 py-2"
                         :class="{ 'text-accent': isActive(item) }"
                     >
                         {{ item.label }}
