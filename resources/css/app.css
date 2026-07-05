@@ -144,12 +144,16 @@
     .topbar {
         @apply bg-ink text-bg flex flex-col sm:flex-row gap-1 sm:gap-0
                justify-between items-start sm:items-center
-               px-4 sm:px-6 md:px-8 lg:px-[56px] py-2
-               font-mono text-[10px] sm:text-[11px] tracking-mono;
+               px-4 sm:px-6 md:px-8 lg:px-[56px] py-2.5
+               font-mono text-xs sm:text-[13px] tracking-mono;
     }
 
     .topbar-link {
         @apply text-bg/70 hover:text-bg transition-colors cursor-pointer;
+    }
+
+    .topbar-divider {
+        @apply text-bg/25 select-none;
     }
 
     .prose-section {

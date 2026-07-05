@@ -25,22 +25,24 @@ const emailKanal   = computed(() => kontakSetting.value.kanal?.find(k => k.label
         <!-- Kanan: topbar nav items (jika ada), fallback ke telepon/email -->
         <span class="hidden sm:flex items-center gap-3 shrink-0">
             <template v-if="topbarItems.length">
-                <template v-for="item in topbarItems" :key="item.label">
+                <template v-for="(item, idx) in topbarItems" :key="item.label">
+                    <span v-if="idx > 0" class="topbar-divider" aria-hidden="true">|</span>
+
                     <!-- Item dengan children: tampil sebagai dropdown -->
                     <span v-if="item.children && item.children.length" class="relative group">
                         <span class="topbar-link cursor-default">
                             {{ item.label }}
                             <span aria-hidden="true" class="opacity-60">▾</span>
                         </span>
-                        <span class="absolute right-0 top-full pt-1 hidden group-hover:block z-50">
-                            <span class="block bg-ink/90 py-1 min-w-[160px]">
+                        <span class="absolute right-0 top-full pt-1 hidden group-hover:block z-[60]">
+                            <span class="block bg-ink/95 py-1 min-w-[170px] shadow-lg">
                                 <a
                                     v-for="child in item.children"
                                     :key="child.label"
                                     :href="child.url || '#'"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="block px-4 py-2 text-[11px] text-bg/80 hover:text-bg hover:bg-white/10 transition-colors"
+                                    class="block px-4 py-2 text-xs text-bg/80 hover:text-bg hover:bg-white/10 transition-colors"
                                 >
                                     {{ child.label }} ↗
                                 </a>
