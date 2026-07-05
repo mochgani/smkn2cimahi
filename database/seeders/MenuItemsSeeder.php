@@ -28,10 +28,7 @@ class MenuItemsSeeder extends Seeder
 
             $navbarTree = [
                 [
-                    'label' => 'Beranda', 'url' => '/', 'type' => 'static', 'display_order' => 1,
-                ],
-                [
-                    'label' => 'Profil', 'url' => '#', 'type' => 'static', 'display_order' => 2,
+                    'label' => 'Profil', 'url' => '#', 'type' => 'static', 'display_order' => 1,
                     'children' => [
                         ['label' => 'Sejarah',        'url' => '/profil/sejarah',       'display_order' => 1],
                         ['label' => 'Kepala Sekolah', 'url' => '/profil/kepala-sekolah', 'display_order' => 2],
@@ -39,7 +36,7 @@ class MenuItemsSeeder extends Seeder
                     ],
                 ],
                 [
-                    'label' => 'Kurikulum', 'url' => '#', 'type' => 'static', 'display_order' => 3,
+                    'label' => 'Kurikulum', 'url' => '#', 'type' => 'static', 'display_order' => 2,
                     'is_mega_menu' => true,
                     'columns' => [
                         [
@@ -66,21 +63,21 @@ class MenuItemsSeeder extends Seeder
                     ],
                 ],
                 [
-                    'label' => 'Kesiswaan', 'url' => '#', 'type' => 'static', 'display_order' => 4,
+                    'label' => 'Kesiswaan', 'url' => '#', 'type' => 'static', 'display_order' => 3,
                     'children' => [
                         ['label' => 'Program Kesiswaan', 'url' => '/kesiswaan/program',     'display_order' => 1],
                         ['label' => 'Statistik Siswa',   'url' => '/kesiswaan/rekap-siswa', 'display_order' => 2],
                     ],
                 ],
                 [
-                    'label' => 'Hubungan Industri', 'url' => '#', 'type' => 'static', 'display_order' => 5,
+                    'label' => 'Hubungan Industri', 'url' => '#', 'type' => 'static', 'display_order' => 4,
                     'children' => [
                         ['label' => 'Info Hubin',         'url' => '/hubungan-industri',     'display_order' => 1],
                         ['label' => 'Bursa Kerja Khusus', 'url' => '/hubungan-industri/bkk', 'display_order' => 2],
                     ],
                 ],
                 [
-                    'label' => 'Sarana dan Prasarana', 'url' => '#', 'type' => 'static', 'display_order' => 6,
+                    'label' => 'Sarana dan Prasarana', 'url' => '#', 'type' => 'static', 'display_order' => 5,
                     'children' => [
                         ['label' => 'Sarana Pembelajaran Non Kejuruan', 'url' => '/sarana/non-kejuruan', 'display_order' => 1],
                         ['label' => 'Sarana Pembelajaran Kejuruan',     'url' => '/sarana/kejuruan',     'display_order' => 2],
@@ -88,10 +85,10 @@ class MenuItemsSeeder extends Seeder
                 ],
                 // Kompetensi Keahlian: children auto-generated dari tabel kompetensis
                 [
-                    'label' => 'Kompetensi Keahlian', 'url' => '#', 'type' => 'kompetensi_list', 'display_order' => 7,
+                    'label' => 'Kompetensi Keahlian', 'url' => '#', 'type' => 'kompetensi_list', 'display_order' => 6,
                 ],
                 [
-                    'label' => 'Prestasi', 'url' => '#', 'type' => 'static', 'display_order' => 8,
+                    'label' => 'Prestasi', 'url' => '#', 'type' => 'static', 'display_order' => 7,
                     'children' => [
                         ['label' => 'Sekolah', 'url' => '/prestasi/sekolah', 'display_order' => 1],
                         ['label' => 'Siswa',   'url' => '/prestasi/siswa',   'display_order' => 2],
@@ -99,10 +96,10 @@ class MenuItemsSeeder extends Seeder
                     ],
                 ],
                 [
-                    'label' => 'Berita & Info', 'url' => '/berita', 'type' => 'static', 'display_order' => 9,
+                    'label' => 'Berita & Info', 'url' => '/berita', 'type' => 'static', 'display_order' => 8,
                 ],
                 [
-                    'label' => 'Kontak', 'url' => '/kontak', 'type' => 'static', 'display_order' => 10,
+                    'label' => 'Kontak', 'url' => '/kontak', 'type' => 'static', 'display_order' => 9,
                 ],
             ];
 
