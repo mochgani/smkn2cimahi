@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/Components/Layout/AppLayout.vue';
 import PageHeader from '@/Components/UI/PageHeader.vue';
@@ -6,10 +7,28 @@ import SectionLabel from '@/Components/UI/SectionLabel.vue';
 import Callout from '@/Components/UI/Callout.vue';
 
 const props = defineProps({
-    prestasi:   { type: Object, required: true },
-    featured:   { type: Object, default: null },
-    berita:     { type: Object, required: true },
-    totalCount: { type: Number, default: 0 },
+    prestasi:      { type: Object, required: true },
+    featured:      { type: Object, default: null },
+    berita:        { type: Object, required: true },
+    totalCount:    { type: Number, default: 0 },
+    prestasiSiswa: { type: Object, default: null },
+});
+
+const tahunAjaranList = props.prestasiSiswa ? Object.keys(props.prestasiSiswa) : [];
+const activeTahunAjaran = ref(tahunAjaranList[0] ?? null);
+const activeTingkat = ref('Semua');
+
+const tingkatBadgeClass = (tingkat) => ({
+    Nasional: 'bg-accent/10 text-accent',
+    Provinsi: 'bg-amber-500/10 text-amber-700',
+    Kota:     'bg-line/60 text-muted-soft',
+}[tingkat] || 'bg-line/60 text-muted-soft');
+
+const activeList = computed(() => {
+    if (!props.prestasiSiswa || !activeTahunAjaran.value) return [];
+    const items = props.prestasiSiswa[activeTahunAjaran.value] ?? [];
+    if (activeTingkat.value === 'Semua') return items;
+    return items.filter((item) => item.tingkat === activeTingkat.value);
 });
 
 const goToPage = (url) => {
@@ -43,6 +62,79 @@ const breadcrumbs = [
             :title="`${prestasi.name} SMK Negeri 2 Cimahi.`"
             :lead="prestasi.description"
         />
+
+        <!-- Daftar Prestasi Siswa (data terstruktur) -->
+        <section v-if="prestasiSiswa" class="container-page py-8 sm:py-10 lg:py-12">
+            <SectionLabel num="1" title="Daftar Prestasi Siswa" />
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+                <h2 class="section-h2">Rekap kejuaraan &amp; penghargaan siswa.</h2>
+
+                <div class="flex flex-wrap gap-2">
+                    <button
+                        v-for="tahun in tahunAjaranList"
+                        :key="tahun"
+                        type="button"
+                        @click="activeTahunAjaran = tahun"
+                        class="px-3 py-1.5 text-[12px] font-mono tracking-mono border transition-colors"
+                        :class="activeTahunAjaran === tahun ? 'bg-ink text-bg border-ink' : 'border-line text-muted-soft hover:border-ink'"
+                    >
+                        {{ tahun }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button
+                    v-for="tingkat in ['Semua', 'Nasional', 'Provinsi', 'Kota']"
+                    :key="tingkat"
+                    type="button"
+                    @click="activeTingkat = tingkat"
+                    class="px-3 py-1 text-[11px] font-mono tracking-mono rounded-full border transition-colors"
+                    :class="activeTingkat === tingkat ? 'bg-accent text-bg border-accent' : 'border-line text-muted-soft hover:border-accent'"
+                >
+                    {{ tingkat }}
+                </button>
+            </div>
+
+            <div class="overflow-x-auto border border-line">
+                <table class="w-full text-left text-[13px] min-w-[640px]">
+                    <thead>
+                        <tr class="bg-bg-alt border-b border-line font-mono text-[11px] tracking-mono text-muted uppercase">
+                            <th class="px-4 py-3">Nama Siswa</th>
+                            <th class="px-4 py-3">Kegiatan</th>
+                            <th class="px-4 py-3">Waktu</th>
+                            <th class="px-4 py-3">Peringkat</th>
+                            <th class="px-4 py-3">Tingkat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="(item, i) in activeList"
+                            :key="i"
+                            class="border-b border-line last:border-b-0 hover:bg-bg-alt/60 transition-colors"
+                        >
+                            <td class="px-4 py-3 font-medium text-ink">{{ item.nama_siswa }}</td>
+                            <td class="px-4 py-3 text-muted-soft">
+                                {{ item.judul_kegiatan }}
+                                <span v-if="item.lokasi" class="block text-[11px] text-muted mt-0.5">{{ item.lokasi }}</span>
+                            </td>
+                            <td class="px-4 py-3 text-muted-soft whitespace-nowrap">{{ item.bulan_tahun || '—' }}</td>
+                            <td class="px-4 py-3 text-muted-soft">{{ item.peringkat || '—' }}</td>
+                            <td class="px-4 py-3">
+                                <span class="px-2 py-1 rounded-full text-[11px] font-mono tracking-mono" :class="tingkatBadgeClass(item.tingkat)">
+                                    {{ item.tingkat }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr v-if="!activeList.length">
+                            <td colspan="5" class="px-4 py-10 text-center text-muted font-mono text-sm">
+                                Tidak ada data untuk filter ini.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <!-- Featured berita -->
         <section v-if="featured" class="container-page py-8 sm:py-10 lg:py-12">
@@ -101,7 +193,7 @@ const breadcrumbs = [
 
         <!-- Grid berita -->
         <section class="container-page py-6 sm:py-8">
-            <SectionLabel num="1" :title="prestasi.name" />
+            <SectionLabel :num="prestasiSiswa ? '2' : '1'" :title="prestasi.name" />
             <div class="mb-6 sm:mb-10">
                 <h2 v-if="berita.data.length || featured" class="section-h2">
                     {{ totalCount }} artikel dipublikasikan.

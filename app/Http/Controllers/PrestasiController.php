@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Kategori;
+use App\Models\PrestasiSiswa;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -51,11 +52,30 @@ class PrestasiController extends Controller
 
         $paginated->getCollection()->transform(fn (Berita $b) => $this->formatBerita($b));
 
+        $prestasiSiswa = null;
+        if ($type === 'siswa') {
+            $prestasiSiswa = PrestasiSiswa::active()
+                ->orderBy('tahun_ajaran', 'desc')
+                ->orderBy('display_order')
+                ->get()
+                ->groupBy('tahun_ajaran')
+                ->map(fn ($items) => $items->map(fn (PrestasiSiswa $p) => [
+                    'nama_siswa'      => $p->nama_siswa,
+                    'judul_kegiatan'  => $p->judul_kegiatan,
+                    'bulan_tahun'     => $p->bulan_tahun,
+                    'lokasi'          => $p->lokasi,
+                    'peringkat'       => $p->peringkat,
+                    'tingkat'         => $p->tingkat,
+                ])->values())
+                ->sortKeysDesc();
+        }
+
         return Inertia::render('Prestasi/Show', [
-            'prestasi'   => $meta,
-            'featured'   => $featured ? $this->formatBerita($featured) : null,
-            'berita'     => $paginated,
-            'totalCount' => $totalCount,
+            'prestasi'      => $meta,
+            'featured'      => $featured ? $this->formatBerita($featured) : null,
+            'berita'        => $paginated,
+            'totalCount'    => $totalCount,
+            'prestasiSiswa' => $prestasiSiswa,
         ]);
     }
 
