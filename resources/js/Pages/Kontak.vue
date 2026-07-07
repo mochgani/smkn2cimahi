@@ -52,7 +52,7 @@ const submit = () => {
                 { label: 'Kontak' },
             ]"
             meta="SENIN — JUMAT · 07:00 — 16:00 WIB"
-            title="Mari berhubungan."
+            title="Hubungi Kami."
             lead="Tim SMKN 2 Cimahi siap menjawab pertanyaan Anda — dari informasi pendaftaran, kerja sama industri, hingga rekrutmen lulusan. Pilih kanal yang paling sesuai."
         />
 
