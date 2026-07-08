@@ -85,12 +85,12 @@ class BeritasTable
                 TernaryFilter::make('is_featured')->label('Featured'),
             ])
             ->recordActions([
-                // Tombol Approve (hanya super_admin, hanya untuk status pending)
+                // Tombol Approve (super_admin & manajemen_mutu, hanya untuk status pending)
                 Action::make('approve')
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->visible(fn ($record) => Auth::user()?->isSuperAdmin()
+                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu())
                         && $record->approval_status === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Approve Berita')
@@ -105,12 +105,12 @@ class BeritasTable
                         ]);
                     }),
 
-                // Tombol Reject (hanya super_admin, hanya untuk status pending)
+                // Tombol Reject (super_admin & manajemen_mutu, hanya untuk status pending)
                 Action::make('reject')
                     ->label('Tolak')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
-                    ->visible(fn ($record) => Auth::user()?->isSuperAdmin()
+                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu())
                         && $record->approval_status === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Tolak Berita')
@@ -122,12 +122,15 @@ class BeritasTable
                         ]);
                     }),
 
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
+                DeleteAction::make()
+                    ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
                 ]),
             ])
             ->defaultSort('published_at', 'desc');

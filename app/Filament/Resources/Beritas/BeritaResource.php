@@ -56,7 +56,7 @@ class BeritaResource extends Resource
         $query = parent::getEloquentQuery();
         $user = auth()->user();
 
-        if (! $user || $user->isSuperAdmin()) {
+        if (! $user || $user->isSuperAdmin() || $user->isManajemenMutu()) {
             return $query;
         }
 
@@ -69,5 +69,20 @@ class BeritaResource extends Resource
         }
 
         return $query->whereRaw('1 = 0');
+    }
+
+    public static function canCreate(): bool
+    {
+        return ! (auth()->user()?->isManajemenMutu() ?? false);
+    }
+
+    public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return ! (auth()->user()?->isManajemenMutu() ?? false);
+    }
+
+    public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
+    {
+        return ! (auth()->user()?->isManajemenMutu() ?? false);
     }
 }

@@ -30,7 +30,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasAnyRole(['super_admin', 'kompetensi', 'divisi']);
+        return $this->hasAnyRole(['super_admin', 'kompetensi', 'divisi', 'manajemen_mutu']);
     }
 
     public function kompetensi(): BelongsTo
@@ -46,5 +46,10 @@ class User extends Authenticatable implements FilamentUser
     public function isSuperAdmin(): bool
     {
         return $this->hasRole('super_admin');
+    }
+
+    public function isManajemenMutu(): bool
+    {
+        return $this->hasRole('manajemen_mutu');
     }
 }
