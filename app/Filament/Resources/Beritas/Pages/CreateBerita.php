@@ -31,9 +31,9 @@ class CreateBerita extends CreateRecord
         // Catat siapa yang input berita
         $data['created_by'] = $user->id;
 
-        // Super admin & Kepala Sekolah: berita sendiri publish langsung,
-        // tidak perlu menunggu approval orang lain.
-        if ($user->isSuperAdmin() || $user->isKepalaSekolah()) {
+        // Super admin, Kepala Sekolah & Manajemen Mutu: berita sendiri
+        // publish langsung, tidak perlu menunggu approval orang lain.
+        if ($user->isSuperAdmin() || $user->isKepalaSekolah() || $user->isManajemenMutu()) {
             $data['approval_status'] = $data['is_published'] ? 'approved' : 'draft';
             if ($data['is_published']) {
                 $data['approved_by'] = $user->id;

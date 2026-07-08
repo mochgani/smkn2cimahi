@@ -73,20 +73,20 @@ class BeritaResource extends Resource
 
     public static function canCreate(): bool
     {
-        return ! (auth()->user()?->isManajemenMutu() ?? false);
+        return auth()->check();
     }
 
     public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
     {
         $user = auth()->user();
 
-        if (! $user || $user->isManajemenMutu()) {
+        if (! $user) {
             return false;
         }
 
-        // Kepala Sekolah cuma bisa edit berita yang dia buat sendiri,
-        // tidak boleh edit konten divisi/kompetensi lain.
-        if ($user->isKepalaSekolah()) {
+        // Kepala Sekolah & Manajemen Mutu cuma bisa edit berita yang mereka
+        // buat sendiri, tidak boleh edit konten divisi/kompetensi lain.
+        if ($user->isKepalaSekolah() || $user->isManajemenMutu()) {
             return $record->created_by === $user->id;
         }
 

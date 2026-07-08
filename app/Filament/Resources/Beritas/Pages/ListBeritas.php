@@ -13,8 +13,7 @@ class ListBeritas extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->visible(fn () => ! (auth()->user()?->isManajemenMutu() ?? false)),
+            CreateAction::make(),
         ];
     }
 }
