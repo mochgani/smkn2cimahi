@@ -57,4 +57,14 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasRole('kepala_sekolah');
     }
+
+    /**
+     * User divisi dengan slug divisi tertentu (mis. 'kurikulum').
+     * Dipakai untuk gating resource khusus satu divisi, di luar scope
+     * berita biasa (yang sudah otomatis ter-scope via divisi_id).
+     */
+    public function isDivisi(string $slug): bool
+    {
+        return $this->hasRole('divisi') && $this->divisi?->slug === $slug;
+    }
 }

@@ -53,5 +53,5 @@ class KurikulumMitraResource extends Resource
         ];
     }
 
-    public static function canViewAny(): bool { return auth()->user()?->isSuperAdmin() ?? false; }
+    public static function canViewAny(): bool { return (auth()->user()?->isSuperAdmin() ?? false) || (auth()->user()?->isDivisi('kurikulum') ?? false); }
 }
