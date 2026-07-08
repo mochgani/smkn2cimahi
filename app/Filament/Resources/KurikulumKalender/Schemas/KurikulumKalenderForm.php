@@ -24,23 +24,31 @@ class KurikulumKalenderForm
                         ->rows(3),
                 ]),
 
-            Section::make('Google Calendar Embed')
-                ->description('Dapatkan URL embed dari Google Calendar → Setelan kalender → Bagikan kalender → Embed code. Salin src="..." dari iframe tersebut.')
+            Section::make('Google Calendar')
+                ->description('Kalender ditampilkan custom (bukan iframe) menggunakan Google Calendar API. Calendar ID bisa dilihat di Google Calendar → Setelan kalender → Integrasikan kalender → Calendar ID. API Key diatur di file .env server (GOOGLE_CALENDAR_API_KEY), bukan di sini.')
                 ->schema([
-                    TextInput::make('embed_url')
-                        ->label('URL Embed Google Calendar')
-                        ->placeholder('https://calendar.google.com/calendar/embed?src=...')
-                        ->url()
-                        ->maxLength(1000)
+                    TextInput::make('calendar_id')
+                        ->label('Calendar ID')
+                        ->placeholder('xxxxx@group.calendar.google.com')
+                        ->maxLength(255)
                         ->columnSpanFull()
-                        ->helperText('Kosongkan jika kalender Google belum tersedia. Akan menampilkan pesan alternatif.'),
+                        ->helperText('Kalender harus di-set "Public" (Setelan kalender → Izin akses → Available to public) supaya event bisa diambil.'),
 
                     TextInput::make('public_url')
                         ->label('URL Publik Google Calendar (opsional)')
                         ->placeholder('https://calendar.google.com/calendar/u/0/r?...')
                         ->url()
                         ->maxLength(1000)
+                        ->columnSpanFull()
                         ->helperText('Link untuk tombol "Buka di Google Calendar".'),
+
+                    TextInput::make('embed_url')
+                        ->label('URL Embed Iframe (fallback lama, opsional)')
+                        ->placeholder('https://calendar.google.com/calendar/embed?src=...')
+                        ->url()
+                        ->maxLength(1000)
+                        ->columnSpanFull()
+                        ->helperText('Cadangan kalau tampilan custom gagal memuat data. Boleh dikosongkan.'),
                 ]),
 
             Section::make('Catatan')

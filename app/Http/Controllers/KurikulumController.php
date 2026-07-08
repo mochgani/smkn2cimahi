@@ -9,6 +9,9 @@ use App\Models\KurikulumTeachingFactory;
 use App\Models\KurikulumSertifikasiPkl;
 use App\Models\KurikulumKalender;
 use App\Models\Kompetensi;
+use App\Support\GoogleCalendar;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -124,9 +127,22 @@ class KurikulumController extends Controller
         ]);
     }
 
-    public function kalender(): Response
+    public function kalender(Request $request): Response
     {
         $data = KurikulumKalender::instance();
+
+        $year  = (int) $request->integer('year', now('Asia/Jakarta')->year);
+        $month = (int) $request->integer('month', now('Asia/Jakarta')->month);
+
+        // Guard supaya tidak bisa dipakai untuk request tanggal ekstrem/invalid
+        $current = Carbon::create($year, $month, 1)->startOfMonth();
+        $year    = $current->year;
+        $month   = $current->month;
+
+        $result = GoogleCalendar::eventsForMonth($data->calendar_id, $year, $month);
+
+        $prev = $current->clone()->subMonth();
+        $next = $current->clone()->addMonth();
 
         return Inertia::render('Kurikulum/Kalender', [
             'kalender' => [
@@ -135,6 +151,23 @@ class KurikulumController extends Controller
                 'embed_url'  => $data->embed_url,
                 'public_url' => $data->public_url,
                 'catatan'    => $data->catatan,
+                'has_source' => (bool) $data->calendar_id || (bool) $data->embed_url,
+            ],
+            'events'        => $result['events'],
+            'eventsByDate'  => $result['byDate'],
+            'calendarError' => $result['error'],
+            'month'         => [
+                'year'      => $year,
+                'month'     => $month,
+                'label'     => $current->locale('id')->translatedFormat('F Y'),
+                'gridStart' => $current->clone()->startOfWeek(Carbon::SUNDAY)->toDateString(),
+                'gridEnd'   => $current->clone()->endOfMonth()->endOfWeek(Carbon::SATURDAY)->toDateString(),
+                'prevYear'  => $prev->year,
+                'prevMonth' => $prev->month,
+                'nextYear'  => $next->year,
+                'nextMonth' => $next->month,
+                'todayYear' => now('Asia/Jakarta')->year,
+                'todayMonth'=> now('Asia/Jakarta')->month,
             ],
         ]);
     }

@@ -9,7 +9,7 @@ class KurikulumKalender extends Model
     protected $table = 'kurikulum_kalender';
 
     protected $fillable = [
-        'title', 'lead', 'embed_url', 'public_url', 'catatan',
+        'title', 'calendar_id', 'lead', 'embed_url', 'public_url', 'catatan',
     ];
 
     public static function instance(): static
