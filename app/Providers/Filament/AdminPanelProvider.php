@@ -34,7 +34,6 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#0d6e3f',
             ])
-            ->spa()
             ->renderHook(
                 PanelsRenderHook::BODY_START,
                 fn (): string => view('filament.loading-bar')->render(),
