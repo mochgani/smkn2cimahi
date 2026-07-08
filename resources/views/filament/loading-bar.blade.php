@@ -33,8 +33,10 @@
 
         // Menangkap SEMUA request Livewire: pagination, filter, sort,
         // search, approve/reject, dst — bukan cuma navigasi antar halaman.
-        Livewire.hook('request', ({ start, succeed, fail }) => {
-            start(() => showBar());
+        // Hook ini terpanggil persis saat request mulai dikirim (bukan
+        // sebelumnya), jadi tampilkan bar langsung di sini.
+        Livewire.hook('request', ({ succeed, fail }) => {
+            showBar();
             succeed(() => hideBar());
             fail(() => hideBar());
         });
