@@ -15,9 +15,9 @@ class KontakSettingSeeder extends Seeder
             'maps_address_full'  => "Jl. Kamarung KM 1.5 No.69\nCiteureup, Cimahi Utara\nKota Cimahi 40512\nJawa Barat, Indonesia",
             'kanal' => [
                 ['num' => '01', 'label' => 'ALAMAT', 'value' => 'Jl. Kamarung KM 1.5 No.69', 'detail' => "Citeureup, Cimahi Utara\nKota Cimahi 40512\nJawa Barat, Indonesia", 'action' => 'Buka di Maps →', 'href' => 'https://maps.google.com/?q=SMKN+2+Cimahi+Jl+Kamarung', 'external' => true],
-                ['num' => '02', 'label' => 'TELEPON', 'value' => '+62 896 0520 1376', 'detail' => "Jam operasional:\nSenin – Jumat\n07:00 – 16:00 WIB", 'action' => 'Telepon Sekarang →', 'href' => 'tel:+6289605201376', 'external' => false],
+                ['num' => '02', 'label' => 'TELEPON', 'value' => '+62 822 9896 8928', 'detail' => "Jam operasional:\nSenin – Jumat\n07:00 – 16:00 WIB", 'action' => 'Telepon Sekarang →', 'href' => 'tel:+6282298968928', 'external' => false],
                 ['num' => '03', 'label' => 'EMAIL', 'value' => 'info@smkn2cmi.sch.id', 'detail' => "Respon dalam\n1 × 24 jam kerja\n(Senin – Jumat)", 'action' => 'Kirim Email →', 'href' => 'mailto:info@smkn2cmi.sch.id', 'external' => false],
-                ['num' => '04', 'label' => 'WHATSAPP', 'value' => '+62 896 0520 1376', 'detail' => "Chat langsung\nuntuk respon cepat\njam kerja", 'action' => 'Buka WhatsApp →', 'href' => 'https://wa.me/6289605201376', 'external' => true],
+                ['num' => '04', 'label' => 'WHATSAPP', 'value' => '+62 822 9896 8928', 'detail' => "Chat langsung\nuntuk respon cepat\njam kerja", 'action' => 'Buka WhatsApp →', 'href' => 'https://wa.me/6282298968928', 'external' => true],
             ],
             'bagian' => [
                 ['num' => '01', 'name' => 'Tata Usaha', 'desc' => 'Administrasi umum, surat-menyurat, legalisir, dan dokumen sekolah.', 'label' => 'EMAIL', 'href' => 'mailto:info@smkn2cmi.sch.id', 'value' => 'info@smkn2cmi.sch.id'],
