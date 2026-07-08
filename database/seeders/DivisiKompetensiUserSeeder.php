@@ -18,11 +18,13 @@ class DivisiKompetensiUserSeeder extends Seeder
      */
     public function run(): void
     {
+        $defaultPassword = '@smkn2cmi';
+
         $divisiUsers = [
-            'kesiswaan'          => ['name' => 'Divisi Kesiswaan',          'email' => 'kesiswaan@smkn2cmi.sch.id',   'password' => 'Kesiswaan49!BE'],
-            'kurikulum'          => ['name' => 'Divisi Kurikulum',          'email' => 'kurikulum@smkn2cmi.sch.id',   'password' => 'Kurikulum27!AX'],
-            'hubungan-industri'  => ['name' => 'Divisi Hubungan Industri',  'email' => 'hubin@smkn2cmi.sch.id',       'password' => 'Hubin39!TG'],
-            'sarana-prasarana'   => ['name' => 'Divisi Sarana Prasarana',   'email' => 'sarpras@smkn2cmi.sch.id',     'password' => 'Sarpras64!UR'],
+            'kesiswaan'          => ['name' => 'Divisi Kesiswaan',          'email' => 'kesiswaan@smkn2cmi.sch.id',   'password' => $defaultPassword],
+            'kurikulum'          => ['name' => 'Divisi Kurikulum',          'email' => 'kurikulum@smkn2cmi.sch.id',   'password' => $defaultPassword],
+            'hubungan-industri'  => ['name' => 'Divisi Hubungan Industri',  'email' => 'hubin@smkn2cmi.sch.id',       'password' => $defaultPassword],
+            'sarana-prasarana'   => ['name' => 'Divisi Sarana Prasarana',   'email' => 'sarpras@smkn2cmi.sch.id',     'password' => $defaultPassword],
         ];
 
         foreach ($divisiUsers as $slug => $data) {
@@ -43,12 +45,12 @@ class DivisiKompetensiUserSeeder extends Seeder
         }
 
         $kompetensiUsers = [
-            'animasi'     => ['name' => 'Kompetensi Animasi',                'email' => 'animasi@smkn2cmi.sch.id',     'password' => 'Animasi82!BJ'],
-            'dkv'         => ['name' => 'Kompetensi Desain Komunikasi Visual', 'email' => 'dkv@smkn2cmi.sch.id',       'password' => 'Dkv65!BL'],
-            'rpl'         => ['name' => 'Kompetensi Rekayasa Perangkat Lunak', 'email' => 'rpl@smkn2cmi.sch.id',       'password' => 'Rpl67!KS'],
-            'kimia'       => ['name' => 'Kompetensi Teknik Kimia Industri',  'email' => 'kimia@smkn2cmi.sch.id',       'password' => 'Kimia62!LJ'],
-            'mekatronika' => ['name' => 'Kompetensi Teknik Mekatronika',     'email' => 'mekatronika@smkn2cmi.sch.id', 'password' => 'Mekatronika46!UD'],
-            'pemesinan'   => ['name' => 'Kompetensi Teknik Pemesinan',       'email' => 'pemesinan@smkn2cmi.sch.id',   'password' => 'Pemesinan27!GD'],
+            'animasi'     => ['name' => 'Kompetensi Animasi',                'email' => 'animasi@smkn2cmi.sch.id',     'password' => $defaultPassword],
+            'dkv'         => ['name' => 'Kompetensi Desain Komunikasi Visual', 'email' => 'dkv@smkn2cmi.sch.id',       'password' => $defaultPassword],
+            'rpl'         => ['name' => 'Kompetensi Rekayasa Perangkat Lunak', 'email' => 'rpl@smkn2cmi.sch.id',       'password' => $defaultPassword],
+            'kimia'       => ['name' => 'Kompetensi Teknik Kimia Industri',  'email' => 'kimia@smkn2cmi.sch.id',       'password' => $defaultPassword],
+            'mekatronika' => ['name' => 'Kompetensi Teknik Mekatronika',     'email' => 'mekatronika@smkn2cmi.sch.id', 'password' => $defaultPassword],
+            'pemesinan'   => ['name' => 'Kompetensi Teknik Pemesinan',       'email' => 'pemesinan@smkn2cmi.sch.id',   'password' => $defaultPassword],
         ];
 
         foreach ($kompetensiUsers as $slug => $data) {
