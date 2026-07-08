@@ -11,6 +11,7 @@ use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Process;
 use UnitEnum;
 use ZipArchive;
 
@@ -36,6 +37,8 @@ class SystemTools extends Page
 
     public ?string $envOutput = null;
 
+    public ?string $gitPullOutput = null;
+
     public static function canAccess(): bool
     {
         return auth()->user()?->isSuperAdmin() ?? false;
@@ -52,6 +55,25 @@ class SystemTools extends Page
      * Sebagai gantinya, dirender manual di bawah judul lewat blade view
      * (system-tools.blade.php) memakai <x-filament::actions>.
      */
+    public function gitPullAction(): Action
+    {
+        return Action::make('gitPull')
+            ->label('Git Pull')
+            ->icon('heroicon-o-cloud-arrow-down')
+            ->color('gray')
+            ->requiresConfirmation()
+            ->modalHeading('Git Pull')
+            ->modalDescription('Menjalankan git pull di server. Perubahan lokal yang belum di-commit di server (kalau ada) bisa menyebabkan konflik.')
+            ->action(function () {
+                $this->gitPullOutput = $this->runGitPull();
+
+                Notification::make()
+                    ->title('Git pull selesai')
+                    ->success()
+                    ->send();
+            });
+    }
+
     public function deployAction(): Action
     {
         return Action::make('deploy')
@@ -60,9 +82,10 @@ class SystemTools extends Page
             ->color('success')
             ->requiresConfirmation()
             ->modalHeading('Deploy Penuh')
-            ->modalDescription('Jalankan migration, extract build.zip, lalu clear semua cache — sekaligus. Pastikan git pull sudah dilakukan sebelum klik ini. Untuk seeder, pakai tombol Seeder terpisah.')
+            ->modalDescription('Jalankan git pull, migration, extract build.zip, lalu clear semua cache — sekaligus. Untuk seeder, pakai tombol Seeder terpisah.')
             ->action(function () {
                 $log = [];
+                $log[] = "=== GIT PULL ===\n" . $this->runGitPull();
                 $log[] = "=== MIGRATION ===\n" . $this->runMigrations();
                 $log[] = "=== EXTRACT BUILD.ZIP ===\n" . $this->runExtractBuild();
                 $log[] = "=== CLEAR CACHE ===\n" . $this->runClearAllCache();
@@ -161,6 +184,27 @@ class SystemTools extends Page
                     ->success()
                     ->send();
             });
+    }
+
+    private function runGitPull(): string
+    {
+        try {
+            $result = Process::path(base_path())
+                ->timeout(60)
+                ->run('git pull');
+
+            $output = trim($result->output() . $result->errorOutput());
+
+            if (! $result->successful()) {
+                return "✗ git pull gagal (exit code {$result->exitCode()}):\n{$output}";
+            }
+
+            return $output ?: '✓ git pull selesai (tidak ada perubahan baru)';
+        } catch (\Throwable $e) {
+            return "✗ Gagal menjalankan git pull: " . $e->getMessage()
+                . "\n\nKemungkinan besar exec()/proc_open() dinonaktifkan di hosting ini. "
+                . "Gunakan cPanel > Git Version Control untuk pull manual sebagai gantinya.";
+        }
     }
 
     private function runMigrations(): string
