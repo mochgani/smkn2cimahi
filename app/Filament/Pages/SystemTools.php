@@ -188,6 +188,7 @@ class SystemTools extends Page
 
     private function runGitPull(): string
     {
+        // Coba lewat Symfony Process (butuh proc_open) dulu.
         try {
             $result = Process::path(base_path())
                 ->timeout(60)
@@ -201,10 +202,35 @@ class SystemTools extends Page
 
             return $output ?: '✓ git pull selesai (tidak ada perubahan baru)';
         } catch (\Throwable $e) {
-            return "✗ Gagal menjalankan git pull: " . $e->getMessage()
-                . "\n\nKemungkinan besar exec()/proc_open() dinonaktifkan di hosting ini. "
-                . "Gunakan cPanel > Git Version Control untuk pull manual sebagai gantinya.";
+            // proc_open dimatikan di hosting ini — coba fallback ke exec().
         }
+
+        $disabled = array_map('trim', explode(',', (string) ini_get('disable_functions')));
+
+        if (function_exists('exec') && ! in_array('exec', $disabled, true)) {
+            try {
+                $cwd = getcwd();
+                chdir(base_path());
+                exec('git pull 2>&1', $outputLines, $exitCode);
+                chdir($cwd);
+
+                $output = trim(implode("\n", $outputLines));
+
+                if ($exitCode !== 0) {
+                    return "✗ git pull gagal (exit code {$exitCode}):\n{$output}";
+                }
+
+                return $output ?: '✓ git pull selesai (tidak ada perubahan baru)';
+            } catch (\Throwable $e) {
+                // lanjut ke pesan error final di bawah.
+            }
+        }
+
+        return "✗ Tidak bisa menjalankan git pull dari server ini.\n\n"
+            . "Hosting ini menonaktifkan proc_open() dan exec() (pengaturan php.ini demi keamanan, "
+            . "umum di shared hosting). Ini bukan masalah kode — perlu diaktifkan dari sisi hosting "
+            . "(cPanel > MultiPHP INI Editor > disable_functions) kalau mau tombol ini berfungsi, atau "
+            . "tetap pakai cPanel > Git Version Control untuk pull manual seperti biasa.";
     }
 
     private function runMigrations(): string
