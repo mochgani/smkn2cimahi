@@ -55,11 +55,10 @@ class SystemTools extends Page
                 ->color('success')
                 ->requiresConfirmation()
                 ->modalHeading('Deploy Penuh')
-                ->modalDescription('Jalankan migration, seeder (DatabaseSeeder default), extract build.zip, lalu clear semua cache — sekaligus. ⚠️ Seeder bisa menambahkan ulang data sample lama kalau belum pernah dijalankan / datanya sudah dihapus. Pastikan git pull sudah dilakukan sebelum klik ini.')
+                ->modalDescription('Jalankan migration, extract build.zip, lalu clear semua cache — sekaligus. Pastikan git pull sudah dilakukan sebelum klik ini. Untuk seeder, pakai tombol Seeder terpisah.')
                 ->action(function () {
                     $log = [];
                     $log[] = "=== MIGRATION ===\n" . $this->runMigrations();
-                    $log[] = "=== SEEDER ===\n" . $this->runSeeder(null);
                     $log[] = "=== EXTRACT BUILD.ZIP ===\n" . $this->runExtractBuild();
                     $log[] = "=== CLEAR CACHE ===\n" . $this->runClearAllCache();
 
@@ -109,14 +108,15 @@ class SystemTools extends Page
                 ->color('gray')
                 ->schema([
                     TextInput::make('class')
-                        ->label('Seeder Class (opsional)')
+                        ->label('Seeder Class')
                         ->placeholder('Database\\Seeders\\PrestasiSiswaSeeder')
-                        ->helperText('Kosongkan untuk jalankan DatabaseSeeder default (⚠️ bisa menambahkan ulang data sample lama). Isi nama class lengkap untuk jalankan seeder tertentu saja.'),
+                        ->required()
+                        ->helperText('Nama class lengkap seeder yang mau dijalankan, cuma seeder itu saja yang jalan.'),
                 ])
                 ->requiresConfirmation()
                 ->modalHeading('Jalankan Seeder')
                 ->action(function (array $data) {
-                    $this->seederOutput = $this->runSeeder($data['class'] ?: null);
+                    $this->seederOutput = $this->runSeeder($data['class']);
 
                     Notification::make()
                         ->title('Seeder selesai')
