@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Divisis\Tables;
 
+use App\Filament\Resources\Divisis\DivisiResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -42,11 +43,13 @@ class DivisisTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->visible(fn ($record) => DivisiResource::canDelete($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->visible(fn () => auth()->user()?->isSuperAdmin() ?? false),
                 ]),
             ])
             ->defaultSort('display_order', 'asc')
