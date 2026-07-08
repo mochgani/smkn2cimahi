@@ -52,6 +52,15 @@ class HeroBannerResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        $user = auth()->user();
+
+        if (! $user) {
+            return false;
+        }
+
+        // Super admin, Kepala Sekolah, dan semua Divisi (Kurikulum,
+        // Kesiswaan, Hubungan Industri, Sarana Prasarana, Manajemen Mutu)
+        // bisa kelola Hero Banner. Role Kompetensi Keahlian tidak.
+        return $user->isSuperAdmin() || $user->isKepalaSekolah() || $user->hasRole('divisi');
     }
 }
