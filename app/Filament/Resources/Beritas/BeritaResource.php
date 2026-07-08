@@ -56,7 +56,7 @@ class BeritaResource extends Resource
         $query = parent::getEloquentQuery();
         $user = auth()->user();
 
-        if (! $user || $user->isSuperAdmin() || $user->isManajemenMutu()) {
+        if (! $user || $user->isSuperAdmin() || $user->isManajemenMutu() || $user->isKepalaSekolah()) {
             return $query;
         }
 
@@ -78,11 +78,23 @@ class BeritaResource extends Resource
 
     public static function canEdit(\Illuminate\Database\Eloquent\Model $record): bool
     {
-        return ! (auth()->user()?->isManajemenMutu() ?? false);
+        $user = auth()->user();
+
+        if (! $user || $user->isManajemenMutu()) {
+            return false;
+        }
+
+        // Kepala Sekolah cuma bisa edit berita yang dia buat sendiri,
+        // tidak boleh edit konten divisi/kompetensi lain.
+        if ($user->isKepalaSekolah()) {
+            return $record->created_by === $user->id;
+        }
+
+        return true;
     }
 
     public static function canDelete(\Illuminate\Database\Eloquent\Model $record): bool
     {
-        return ! (auth()->user()?->isManajemenMutu() ?? false);
+        return static::canEdit($record);
     }
 }

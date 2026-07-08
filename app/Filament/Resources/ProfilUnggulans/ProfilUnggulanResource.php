@@ -54,6 +54,6 @@ class ProfilUnggulanResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        return auth()->user()?->isSuperAdmin() || auth()->user()?->isKepalaSekolah();
     }
 }

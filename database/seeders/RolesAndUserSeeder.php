@@ -12,13 +12,13 @@ class RolesAndUserSeeder extends Seeder
     public function run(): void
     {
         // 1) Buat role utama (idempotent)
-        foreach (['super_admin', 'kompetensi', 'divisi', 'manajemen_mutu'] as $roleName) {
+        foreach (['super_admin', 'kompetensi', 'divisi', 'manajemen_mutu', 'kepala_sekolah'] as $roleName) {
             Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
         }
 
         // 2) Convert admin existing ke super_admin (kalau belum)
         User::query()->each(function (User $u) {
-            if (! $u->hasAnyRole(['super_admin', 'kompetensi', 'divisi', 'manajemen_mutu'])) {
+            if (! $u->hasAnyRole(['super_admin', 'kompetensi', 'divisi', 'manajemen_mutu', 'kepala_sekolah'])) {
                 $u->assignRole('super_admin');
             }
         });

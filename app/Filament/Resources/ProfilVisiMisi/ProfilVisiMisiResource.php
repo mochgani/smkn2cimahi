@@ -43,7 +43,7 @@ class ProfilVisiMisiResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        return (auth()->user()?->isSuperAdmin() ?? false) || (auth()->user()?->isKepalaSekolah() ?? false);
     }
 
     public static function canCreate(): bool

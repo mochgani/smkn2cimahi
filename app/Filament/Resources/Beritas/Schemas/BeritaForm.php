@@ -114,13 +114,13 @@ class BeritaForm
 
                     Toggle::make('is_featured')
                         ->label('Featured (tampil di hero beranda)')
-                        ->visible(fn () => auth()->user()?->isSuperAdmin() ?? false),
+                        ->visible(fn () => auth()->user()?->isSuperAdmin() || auth()->user()?->isKepalaSekolah()),
 
                     Toggle::make('is_published')
                         ->label('Publish')
                         ->default(false)
-                        ->visible(fn () => auth()->user()?->isSuperAdmin() ?? false)
-                        ->helperText('Hanya super admin yang bisa mempublish berita.'),
+                        ->visible(fn () => auth()->user()?->isSuperAdmin() || auth()->user()?->isKepalaSekolah())
+                        ->helperText('Hanya super admin & Kepala Sekolah yang bisa mempublish berita langsung.'),
 
                     DateTimePicker::make('published_at')
                         ->label('Tanggal Publish')

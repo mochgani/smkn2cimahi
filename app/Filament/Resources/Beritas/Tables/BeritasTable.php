@@ -85,12 +85,12 @@ class BeritasTable
                 TernaryFilter::make('is_featured')->label('Featured'),
             ])
             ->recordActions([
-                // Tombol Approve (super_admin & manajemen_mutu, hanya untuk status pending)
+                // Tombol Approve (super_admin, manajemen_mutu, kepala_sekolah — hanya untuk status pending)
                 Action::make('approve')
                     ->label('Approve')
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu())
+                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu() || Auth::user()?->isKepalaSekolah())
                         && $record->approval_status === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Approve Berita')
@@ -105,12 +105,12 @@ class BeritasTable
                         ]);
                     }),
 
-                // Tombol Reject (super_admin & manajemen_mutu, hanya untuk status pending)
+                // Tombol Reject (super_admin, manajemen_mutu, kepala_sekolah — hanya untuk status pending)
                 Action::make('reject')
                     ->label('Tolak')
                     ->icon('heroicon-o-x-circle')
                     ->color('danger')
-                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu())
+                    ->visible(fn ($record) => (Auth::user()?->isSuperAdmin() || Auth::user()?->isManajemenMutu() || Auth::user()?->isKepalaSekolah())
                         && $record->approval_status === 'pending')
                     ->requiresConfirmation()
                     ->modalHeading('Tolak Berita')
@@ -123,14 +123,15 @@ class BeritasTable
                     }),
 
                 EditAction::make()
-                    ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
+                    ->visible(fn ($record) => \App\Filament\Resources\Beritas\BeritaResource::canEdit($record)),
                 DeleteAction::make()
-                    ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
+                    ->visible(fn ($record) => \App\Filament\Resources\Beritas\BeritaResource::canDelete($record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make()
-                        ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)),
+                        ->visible(fn () => ! (Auth::user()?->isManajemenMutu() ?? false)
+                            && ! (Auth::user()?->isKepalaSekolah() ?? false)),
                 ]),
             ])
             ->defaultSort('published_at', 'desc');
