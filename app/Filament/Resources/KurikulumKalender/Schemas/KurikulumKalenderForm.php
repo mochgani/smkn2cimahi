@@ -25,14 +25,22 @@ class KurikulumKalenderForm
                 ]),
 
             Section::make('Google Calendar')
-                ->description('Kalender ditampilkan custom (bukan iframe) menggunakan Google Calendar API. Calendar ID bisa dilihat di Google Calendar → Setelan kalender → Integrasikan kalender → Calendar ID. API Key diatur di file .env server (GOOGLE_CALENDAR_API_KEY), bukan di sini.')
+                ->description('Kalender ditampilkan custom (bukan iframe) menggunakan Google Calendar API. Calendar ID & API Key bisa didapat dari Google Cloud Console dan Setelan Google Calendar — semua diatur di sini, tidak perlu edit file server.')
                 ->schema([
                     TextInput::make('calendar_id')
                         ->label('Calendar ID')
                         ->placeholder('xxxxx@group.calendar.google.com')
                         ->maxLength(255)
                         ->columnSpanFull()
-                        ->helperText('Kalender harus di-set "Public" (Setelan kalender → Izin akses → Available to public) supaya event bisa diambil.'),
+                        ->helperText('Google Calendar → Setelan kalender → Integrasikan kalender → Calendar ID. Kalender harus di-set "Public" (Setelan → Izin akses → Available to public) supaya event bisa diambil.'),
+
+                    TextInput::make('api_key')
+                        ->label('Google Calendar API Key')
+                        ->password()
+                        ->revealable()
+                        ->maxLength(255)
+                        ->columnSpanFull()
+                        ->helperText('Dari Google Cloud Console → APIs & Services → Credentials. Pastikan "Google Calendar API" sudah di-enable di project tersebut.'),
 
                     TextInput::make('public_url')
                         ->label('URL Publik Google Calendar (opsional)')

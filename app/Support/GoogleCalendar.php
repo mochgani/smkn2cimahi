@@ -21,9 +21,10 @@ class GoogleCalendar
      *
      * @return array{events: array, byDate: array<string, array>, error: ?string}
      */
-    public static function eventsForMonth(?string $calendarId, int $year, int $month): array
+    public static function eventsForMonth(?string $calendarId, ?string $apiKey, int $year, int $month): array
     {
-        $apiKey = config('services.google_calendar.api_key');
+        // Fallback ke .env kalau API key belum diisi di admin (kompatibilitas lama).
+        $apiKey = $apiKey ?: config('services.google_calendar.api_key');
 
         if (! $calendarId || ! $apiKey) {
             return ['events' => [], 'byDate' => [], 'error' => null];

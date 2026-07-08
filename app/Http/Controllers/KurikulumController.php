@@ -139,7 +139,7 @@ class KurikulumController extends Controller
         $year    = $current->year;
         $month   = $current->month;
 
-        $result = GoogleCalendar::eventsForMonth($data->calendar_id, $year, $month);
+        $result = GoogleCalendar::eventsForMonth($data->calendar_id, $data->api_key, $year, $month);
 
         $prev = $current->clone()->subMonth();
         $next = $current->clone()->addMonth();
