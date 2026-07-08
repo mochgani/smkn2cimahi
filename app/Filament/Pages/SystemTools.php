@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -25,11 +26,13 @@ class SystemTools extends Page
 
     protected string $view = 'filament.pages.system-tools';
 
-    public ?string $migrateOutput = null;
+    public ?string $deployOutput = null;
 
     public ?string $buildOutput = null;
 
-    public ?string $deployOutput = null;
+    public ?string $migrateOutput = null;
+
+    public ?string $seederOutput = null;
 
     public ?string $envOutput = null;
 
@@ -46,32 +49,37 @@ class SystemTools extends Page
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('runMigrate')
-                ->label('Jalankan Migration')
-                ->icon('heroicon-o-circle-stack')
+            Action::make('deploy')
+                ->label('Deploy')
+                ->icon('heroicon-o-rocket-launch')
                 ->color('success')
                 ->requiresConfirmation()
-                ->modalHeading('Jalankan Migration')
-                ->modalDescription('Menjalankan php artisan migrate --force. Aman dijalankan berkali-kali — migration yang sudah pernah jalan otomatis dilewati.')
+                ->modalHeading('Deploy Penuh')
+                ->modalDescription('Jalankan migration, seeder (DatabaseSeeder default), extract build.zip, lalu clear semua cache — sekaligus. ⚠️ Seeder bisa menambahkan ulang data sample lama kalau belum pernah dijalankan / datanya sudah dihapus. Pastikan git pull sudah dilakukan sebelum klik ini.')
                 ->action(function () {
-                    Artisan::call('migrate', ['--force' => true]);
-                    $this->migrateOutput = Artisan::output();
+                    $log = [];
+                    $log[] = "=== MIGRATION ===\n" . $this->runMigrations();
+                    $log[] = "=== SEEDER ===\n" . $this->runSeeder(null);
+                    $log[] = "=== EXTRACT BUILD.ZIP ===\n" . $this->runExtractBuild();
+                    $log[] = "=== CLEAR CACHE ===\n" . $this->runClearAllCache();
+
+                    $this->deployOutput = implode("\n\n", $log);
 
                     Notification::make()
-                        ->title('Migration selesai')
+                        ->title('Deploy selesai')
                         ->success()
                         ->send();
                 }),
 
-            Action::make('extractBuild')
-                ->label('Extract build.zip')
+            Action::make('build')
+                ->label('Build')
                 ->icon('heroicon-o-archive-box-arrow-down')
                 ->color('warning')
                 ->requiresConfirmation()
                 ->modalHeading('Extract build.zip')
                 ->modalDescription('Folder public/build/ yang lama akan DIHAPUS dan diganti isi build.zip yang baru. Pastikan build.zip sudah ter-update (git pull) sebelum menjalankan ini.')
                 ->action(function () {
-                    $this->buildOutput = $this->doExtractBuild();
+                    $this->buildOutput = $this->runExtractBuild();
 
                     Notification::make()
                         ->title('Extract build.zip selesai')
@@ -79,50 +87,90 @@ class SystemTools extends Page
                         ->send();
                 }),
 
-            Action::make('deploySetup')
-                ->label('Setup Deploy')
-                ->icon('heroicon-o-server-stack')
-                ->color('gray')
+            Action::make('migrate')
+                ->label('Migrate')
+                ->icon('heroicon-o-circle-stack')
+                ->color('info')
                 ->requiresConfirmation()
-                ->modalHeading('Setup Deploy')
-                ->modalDescription('Membuat folder storage yang dibutuhkan, .htaccess keamanan di public/storage, dan rebuild cache config/route/view.')
+                ->modalHeading('Jalankan Migration')
+                ->modalDescription('Menjalankan php artisan migrate --force. Aman dijalankan berkali-kali — migration yang sudah pernah jalan otomatis dilewati.')
                 ->action(function () {
-                    $this->deployOutput = $this->doDeploySetup();
+                    $this->migrateOutput = $this->runMigrations();
 
                     Notification::make()
-                        ->title('Setup deploy selesai')
+                        ->title('Migration selesai')
                         ->success()
                         ->send();
                 }),
 
-            Action::make('setEnvVar')
-                ->label('Set Environment Variable')
-                ->icon('heroicon-o-key')
-                ->color('info')
+            Action::make('seeder')
+                ->label('Seeder')
+                ->icon('heroicon-o-circle-stack')
+                ->color('gray')
                 ->schema([
-                    TextInput::make('key')
-                        ->label('Key')
-                        ->placeholder('GOOGLE_CALENDAR_API_KEY')
-                        ->required()
-                        ->rule('regex:/^[A-Z0-9_]+$/')
-                        ->helperText('Huruf besar, angka, underscore saja.'),
-
-                    TextInput::make('value')
-                        ->label('Value')
-                        ->required(),
+                    TextInput::make('class')
+                        ->label('Seeder Class (opsional)')
+                        ->placeholder('Database\\Seeders\\PrestasiSiswaSeeder')
+                        ->helperText('Kosongkan untuk jalankan DatabaseSeeder default (⚠️ bisa menambahkan ulang data sample lama). Isi nama class lengkap untuk jalankan seeder tertentu saja.'),
                 ])
+                ->requiresConfirmation()
+                ->modalHeading('Jalankan Seeder')
                 ->action(function (array $data) {
-                    $this->envOutput = $this->doSetEnvVar($data['key'], $data['value']);
+                    $this->seederOutput = $this->runSeeder($data['class'] ?: null);
 
                     Notification::make()
-                        ->title("Env {$data['key']} berhasil disimpan")
+                        ->title('Seeder selesai')
+                        ->success()
+                        ->send();
+                }),
+
+            Action::make('setEnv')
+                ->label('Set Env')
+                ->icon('heroicon-o-key')
+                ->color('gray')
+                ->schema([
+                    Textarea::make('lines')
+                        ->label('Baris .env')
+                        ->placeholder("GOOGLE_CALENDAR_API_KEY=xxxxx\nCONTOH_KEY_LAIN=nilainya")
+                        ->rows(6)
+                        ->required()
+                        ->helperText('Satu baris satu variabel, format KEY=VALUE. Baris yang key-nya sudah ada di .env akan di-update, yang belum ada akan ditambahkan.'),
+                ])
+                ->action(function (array $data) {
+                    $this->envOutput = $this->mergeEnvLines($data['lines']);
+
+                    Notification::make()
+                        ->title('Env berhasil disimpan')
                         ->success()
                         ->send();
                 }),
         ];
     }
 
-    private function doExtractBuild(): string
+    private function runMigrations(): string
+    {
+        Artisan::call('migrate', ['--force' => true]);
+
+        return Artisan::output();
+    }
+
+    private function runSeeder(?string $class): string
+    {
+        $params = ['--force' => true];
+        if ($class) {
+            $params['--class'] = $class;
+        }
+
+        try {
+            Artisan::call('db:seed', $params);
+
+            return Artisan::output();
+        } catch (\Throwable $e) {
+            return "✗ Gagal menjalankan seeder: " . $e->getMessage();
+        }
+    }
+
+    private function runExtractBuild(): string
     {
         $zipPath = public_path('build.zip');
         $buildDir = public_path('build');
@@ -152,69 +200,21 @@ class SystemTools extends Page
 
         $log[] = "✓ Berhasil extract {$fileCount} file/folder ke public/build/";
 
-        Artisan::call('view:clear');
-        Artisan::call('cache:clear');
-        $log[] = "✓ view:clear & cache:clear";
-
         return implode("\n", $log);
     }
 
-    private function doDeploySetup(): string
+    private function runClearAllCache(): string
     {
         $log = [];
-
-        $storageDirs = [
-            storage_path('app/public'),
-            storage_path('app/private'),
-            storage_path('framework/cache/data'),
-            storage_path('framework/sessions'),
-            storage_path('framework/views'),
-            storage_path('logs'),
-            base_path('bootstrap/cache'),
-            public_path('storage'),
-        ];
-
-        foreach ($storageDirs as $dir) {
-            if (! is_dir($dir)) {
-                File::makeDirectory($dir, 0755, true);
-                $log[] = "✓ Buat: " . str_replace(base_path(), '', $dir);
-            } else {
-                $log[] = "· OK: " . str_replace(base_path(), '', $dir);
-            }
+        foreach (['config:clear', 'route:clear', 'view:clear', 'cache:clear'] as $command) {
+            Artisan::call($command);
+            $log[] = "✓ {$command}";
         }
-
-        $htaccessContent = <<<HTACCESS
-# Block eksekusi script di folder upload
-<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|phar|inc|sh|cgi|pl|py|asp|aspx)$">
-    Require all denied
-</FilesMatch>
-
-Options -Indexes -ExecCGI
-
-<FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|pdf|doc|docx|xls|xlsx|zip|mp4|webm|mp3|ogg|woff|woff2|ttf|ico)$">
-    Require all granted
-</FilesMatch>
-
-<IfModule mod_headers.c>
-    <FilesMatch "\.(htm|html|svg)$">
-        Header set Content-Disposition "attachment"
-    </FilesMatch>
-</IfModule>
-HTACCESS;
-
-        File::put(public_path('storage/.htaccess'), $htaccessContent);
-        $log[] = "✓ public/storage/.htaccess berhasil dibuat";
-
-        Artisan::call('config:clear');
-        Artisan::call('route:clear');
-        Artisan::call('view:clear');
-        Artisan::call('cache:clear');
-        $log[] = "✓ config/route/view/cache cleared";
 
         return implode("\n", $log);
     }
 
-    private function doSetEnvVar(string $key, string $value): string
+    private function mergeEnvLines(string $rawText): string
     {
         $envPath = base_path('.env');
 
@@ -223,19 +223,38 @@ HTACCESS;
         }
 
         $content = file_get_contents($envPath);
-        $needsQuotes = preg_match('/\s|#|"/', $value);
-        $formattedValue = $needsQuotes ? '"' . str_replace('"', '\"', $value) . '"' : $value;
-        $line = "{$key}={$formattedValue}";
-
-        $pattern = '/^' . preg_quote($key, '/') . '=.*$/m';
         $log = [];
 
-        if (preg_match($pattern, $content)) {
-            $content = preg_replace($pattern, $line, $content);
-            $log[] = "✓ Update: {$key}";
-        } else {
-            $content = rtrim($content) . "\n{$line}\n";
-            $log[] = "✓ Tambah: {$key}";
+        $lines = preg_split('/\r\n|\r|\n/', trim($rawText));
+
+        foreach ($lines as $rawLine) {
+            $rawLine = trim($rawLine);
+            if ($rawLine === '' || ! str_contains($rawLine, '=')) {
+                continue;
+            }
+
+            [$key, $value] = explode('=', $rawLine, 2);
+            $key = trim($key);
+            $value = trim($value);
+
+            if (! preg_match('/^[A-Z0-9_]+$/', $key)) {
+                $log[] = "✗ Lewati (key tidak valid): {$key}";
+                continue;
+            }
+
+            $needsQuotes = preg_match('/\s|#/', $value) && ! (str_starts_with($value, '"') && str_ends_with($value, '"'));
+            $formattedValue = $needsQuotes ? '"' . str_replace('"', '\"', $value) . '"' : $value;
+            $line = "{$key}={$formattedValue}";
+
+            $pattern = '/^' . preg_quote($key, '/') . '=.*$/m';
+
+            if (preg_match($pattern, $content)) {
+                $content = preg_replace($pattern, $line, $content);
+                $log[] = "✓ Update: {$key}";
+            } else {
+                $content = rtrim($content) . "\n{$line}\n";
+                $log[] = "✓ Tambah: {$key}";
+            }
         }
 
         File::put($envPath, $content);
