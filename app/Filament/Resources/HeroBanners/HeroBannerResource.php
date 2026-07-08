@@ -61,6 +61,6 @@ class HeroBannerResource extends Resource
         // Super admin, Kepala Sekolah, dan semua Divisi (Kurikulum,
         // Kesiswaan, Hubungan Industri, Sarana Prasarana, Manajemen Mutu)
         // bisa kelola Hero Banner. Role Kompetensi Keahlian tidak.
-        return $user->isSuperAdmin() || $user->isKepalaSekolah() || $user->hasRole('divisi');
+        return $user->isSuperAdmin() || $user->isKepalaSekolah() || $user->isManajemenMutu() || $user->hasRole('divisi');
     }
 }
