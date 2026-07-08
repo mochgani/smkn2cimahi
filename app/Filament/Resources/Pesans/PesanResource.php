@@ -67,6 +67,7 @@ class PesanResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        // Semua role yang bisa login ke panel admin boleh lihat Pesan Kontak.
+        return auth()->check();
     }
 }
