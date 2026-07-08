@@ -34,9 +34,15 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#0d6e3f',
             ])
+            ->sidebarWidth('16rem')
+            ->sidebarFullyCollapsibleOnDesktop()
             ->renderHook(
                 PanelsRenderHook::BODY_START,
                 fn (): string => view('filament.loading-bar')->render(),
+            )
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): string => view('filament.sidebar-theme')->render(),
             )
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
