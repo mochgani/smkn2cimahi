@@ -46,105 +46,121 @@ class SystemTools extends Page
         return 'Tools Deploy & Maintenance';
     }
 
-    protected function getHeaderActions(): array
+    /**
+     * Actions ini SENGAJA tidak dikembalikan lewat getHeaderActions() supaya
+     * tidak muncul di kanan judul (yang gampang kepotong di layar sempit).
+     * Sebagai gantinya, dirender manual di bawah judul lewat blade view
+     * (system-tools.blade.php) memakai <x-filament::actions>.
+     */
+    public function deployAction(): Action
     {
-        return [
-            Action::make('deploy')
-                ->label('Deploy')
-                ->icon('heroicon-o-rocket-launch')
-                ->color('success')
-                ->requiresConfirmation()
-                ->modalHeading('Deploy Penuh')
-                ->modalDescription('Jalankan migration, extract build.zip, lalu clear semua cache — sekaligus. Pastikan git pull sudah dilakukan sebelum klik ini. Untuk seeder, pakai tombol Seeder terpisah.')
-                ->action(function () {
-                    $log = [];
-                    $log[] = "=== MIGRATION ===\n" . $this->runMigrations();
-                    $log[] = "=== EXTRACT BUILD.ZIP ===\n" . $this->runExtractBuild();
-                    $log[] = "=== CLEAR CACHE ===\n" . $this->runClearAllCache();
+        return Action::make('deploy')
+            ->label('Deploy')
+            ->icon('heroicon-o-rocket-launch')
+            ->color('success')
+            ->requiresConfirmation()
+            ->modalHeading('Deploy Penuh')
+            ->modalDescription('Jalankan migration, extract build.zip, lalu clear semua cache — sekaligus. Pastikan git pull sudah dilakukan sebelum klik ini. Untuk seeder, pakai tombol Seeder terpisah.')
+            ->action(function () {
+                $log = [];
+                $log[] = "=== MIGRATION ===\n" . $this->runMigrations();
+                $log[] = "=== EXTRACT BUILD.ZIP ===\n" . $this->runExtractBuild();
+                $log[] = "=== CLEAR CACHE ===\n" . $this->runClearAllCache();
 
-                    $this->deployOutput = implode("\n\n", $log);
+                $this->deployOutput = implode("\n\n", $log);
 
-                    Notification::make()
-                        ->title('Deploy selesai')
-                        ->success()
-                        ->send();
-                }),
+                Notification::make()
+                    ->title('Deploy selesai')
+                    ->success()
+                    ->send();
+            });
+    }
 
-            Action::make('build')
-                ->label('Build')
-                ->icon('heroicon-o-archive-box-arrow-down')
-                ->color('warning')
-                ->requiresConfirmation()
-                ->modalHeading('Extract build.zip')
-                ->modalDescription('Folder public/build/ yang lama akan DIHAPUS dan diganti isi build.zip yang baru. Pastikan build.zip sudah ter-update (git pull) sebelum menjalankan ini.')
-                ->action(function () {
-                    $this->buildOutput = $this->runExtractBuild();
+    public function buildAction(): Action
+    {
+        return Action::make('build')
+            ->label('Build')
+            ->icon('heroicon-o-archive-box-arrow-down')
+            ->color('warning')
+            ->requiresConfirmation()
+            ->modalHeading('Extract build.zip')
+            ->modalDescription('Folder public/build/ yang lama akan DIHAPUS dan diganti isi build.zip yang baru. Pastikan build.zip sudah ter-update (git pull) sebelum menjalankan ini.')
+            ->action(function () {
+                $this->buildOutput = $this->runExtractBuild();
 
-                    Notification::make()
-                        ->title('Extract build.zip selesai')
-                        ->success()
-                        ->send();
-                }),
+                Notification::make()
+                    ->title('Extract build.zip selesai')
+                    ->success()
+                    ->send();
+            });
+    }
 
-            Action::make('migrate')
-                ->label('Migrate')
-                ->icon('heroicon-o-circle-stack')
-                ->color('info')
-                ->requiresConfirmation()
-                ->modalHeading('Jalankan Migration')
-                ->modalDescription('Menjalankan php artisan migrate --force. Aman dijalankan berkali-kali — migration yang sudah pernah jalan otomatis dilewati.')
-                ->action(function () {
-                    $this->migrateOutput = $this->runMigrations();
+    public function migrateAction(): Action
+    {
+        return Action::make('migrate')
+            ->label('Migrate')
+            ->icon('heroicon-o-circle-stack')
+            ->color('info')
+            ->requiresConfirmation()
+            ->modalHeading('Jalankan Migration')
+            ->modalDescription('Menjalankan php artisan migrate --force. Aman dijalankan berkali-kali — migration yang sudah pernah jalan otomatis dilewati.')
+            ->action(function () {
+                $this->migrateOutput = $this->runMigrations();
 
-                    Notification::make()
-                        ->title('Migration selesai')
-                        ->success()
-                        ->send();
-                }),
+                Notification::make()
+                    ->title('Migration selesai')
+                    ->success()
+                    ->send();
+            });
+    }
 
-            Action::make('seeder')
-                ->label('Seeder')
-                ->icon('heroicon-o-circle-stack')
-                ->color('gray')
-                ->schema([
-                    TextInput::make('class')
-                        ->label('Seeder Class')
-                        ->placeholder('Database\\Seeders\\PrestasiSiswaSeeder')
-                        ->required()
-                        ->helperText('Nama class lengkap seeder yang mau dijalankan, cuma seeder itu saja yang jalan.'),
-                ])
-                ->requiresConfirmation()
-                ->modalHeading('Jalankan Seeder')
-                ->action(function (array $data) {
-                    $this->seederOutput = $this->runSeeder($data['class']);
+    public function seederAction(): Action
+    {
+        return Action::make('seeder')
+            ->label('Seeder')
+            ->icon('heroicon-o-circle-stack')
+            ->color('gray')
+            ->schema([
+                TextInput::make('class')
+                    ->label('Seeder Class')
+                    ->placeholder('Database\\Seeders\\PrestasiSiswaSeeder')
+                    ->required()
+                    ->helperText('Nama class lengkap seeder yang mau dijalankan, cuma seeder itu saja yang jalan.'),
+            ])
+            ->requiresConfirmation()
+            ->modalHeading('Jalankan Seeder')
+            ->action(function (array $data) {
+                $this->seederOutput = $this->runSeeder($data['class']);
 
-                    Notification::make()
-                        ->title('Seeder selesai')
-                        ->success()
-                        ->send();
-                }),
+                Notification::make()
+                    ->title('Seeder selesai')
+                    ->success()
+                    ->send();
+            });
+    }
 
-            Action::make('setEnv')
-                ->label('Set Env')
-                ->icon('heroicon-o-key')
-                ->color('gray')
-                ->schema([
-                    Textarea::make('lines')
-                        ->label('Baris .env')
-                        ->placeholder("GOOGLE_CALENDAR_API_KEY=xxxxx\nCONTOH_KEY_LAIN=nilainya")
-                        ->rows(6)
-                        ->required()
-                        ->helperText('Satu baris satu variabel, format KEY=VALUE. Baris yang key-nya sudah ada di .env akan di-update, yang belum ada akan ditambahkan.'),
-                ])
-                ->action(function (array $data) {
-                    $this->envOutput = $this->mergeEnvLines($data['lines']);
+    public function setEnvAction(): Action
+    {
+        return Action::make('setEnv')
+            ->label('Set Env')
+            ->icon('heroicon-o-key')
+            ->color('gray')
+            ->schema([
+                Textarea::make('lines')
+                    ->label('Baris .env')
+                    ->placeholder("GOOGLE_CALENDAR_API_KEY=xxxxx\nCONTOH_KEY_LAIN=nilainya")
+                    ->rows(6)
+                    ->required()
+                    ->helperText('Satu baris satu variabel, format KEY=VALUE. Baris yang key-nya sudah ada di .env akan di-update, yang belum ada akan ditambahkan.'),
+            ])
+            ->action(function (array $data) {
+                $this->envOutput = $this->mergeEnvLines($data['lines']);
 
-                    Notification::make()
-                        ->title('Env berhasil disimpan')
-                        ->success()
-                        ->send();
-                }),
-        ];
+                Notification::make()
+                    ->title('Env berhasil disimpan')
+                    ->success()
+                    ->send();
+            });
     }
 
     private function runMigrations(): string

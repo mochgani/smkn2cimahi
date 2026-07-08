@@ -1,17 +1,14 @@
 <x-filament-panels::page>
     <div class="space-y-6">
-        <div class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
-            <p class="text-sm text-gray-600 dark:text-gray-400">
-                Halaman ini menggantikan script <code>migrate.php</code>, <code>deploy.php</code>,
-                <code>set-env.php</code>, dan <code>build.php</code> yang sebelumnya diakses publik tanpa login.
-                Sekarang semua fungsi itu ada di sini, hanya bisa diakses <strong>super_admin</strong> yang sudah login.
-            </p>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                <strong>Deploy</strong> = migration + seeder + extract build.zip + clear cache sekaligus.
-                Kalau cuma butuh salah satu, pakai tombol <strong>Build</strong>, <strong>Migrate</strong>,
-                atau <strong>Seeder</strong> secara terpisah.
-            </p>
-        </div>
+        <x-filament::actions
+            :actions="[
+                $this->deployAction(),
+                $this->buildAction(),
+                $this->migrateAction(),
+                $this->seederAction(),
+                $this->setEnvAction(),
+            ]"
+        />
 
         @if ($deployOutput)
             <div class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
