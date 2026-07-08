@@ -18,7 +18,7 @@ class Berita extends Model
 
     protected $fillable = [
         'slug', 'title', 'excerpt', 'content', 'cover_image',
-        'tags', 'reading_time_minutes', 'is_featured', 'is_published',
+        'tags', 'reading_time_minutes', 'is_featured', 'is_published', 'views',
         'published_at', 'author_id', 'created_by', 'kompetensi_id', 'divisi_id',
         'approval_status', 'approved_by', 'approved_at',
     ];
@@ -27,6 +27,7 @@ class Berita extends Model
         'tags' => 'array',
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
+        'views' => 'integer',
         'published_at' => 'datetime',
         'approved_at'  => 'datetime',
     ];

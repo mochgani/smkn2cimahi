@@ -80,6 +80,8 @@ class BeritaController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
+        $berita->increment('views');
+
         $related = Berita::published()
             ->with(['kategoris', 'creator'])
             ->where('id', '!=', $berita->id)
