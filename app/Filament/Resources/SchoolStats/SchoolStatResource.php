@@ -52,6 +52,6 @@ class SchoolStatResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->isSuperAdmin() ?? false;
+        return (auth()->user()?->isSuperAdmin() ?? false) || (auth()->user()?->isDivisi('kesiswaan') ?? false);
     }
 }
