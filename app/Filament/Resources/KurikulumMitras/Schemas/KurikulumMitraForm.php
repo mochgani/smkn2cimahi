@@ -57,6 +57,7 @@ class KurikulumMitraForm
                         ->imageResizeMode('contain')
                         ->imageResizeTargetWidth(400)
                         ->imageResizeTargetHeight(200)
+                        ->imageResizeUpscale(false)
                         ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'])
                         ->maxSize(1024)
                         ->helperText('Rekomendasi: format PNG transparan, max 1MB.'),

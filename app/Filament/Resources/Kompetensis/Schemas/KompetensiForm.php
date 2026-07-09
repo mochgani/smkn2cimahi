@@ -123,6 +123,7 @@ class KompetensiForm
                         ->imageResizeMode('cover')
                         ->imageResizeTargetWidth('1400')
                         ->imageResizeTargetHeight('1400')
+                        ->imageResizeUpscale(false)
                         ->panelLayout('grid')
                         ->helperText('Bisa upload beberapa foto sekaligus. Drag untuk atur urutan. Maks 3MB per foto.')
                         ->columnSpanFull(),

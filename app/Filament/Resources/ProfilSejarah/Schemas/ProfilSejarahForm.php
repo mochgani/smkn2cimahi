@@ -56,6 +56,7 @@ class ProfilSejarahForm
                         ->imageResizeMode('cover')
                         ->imageResizeTargetWidth('1600')
                         ->imageResizeTargetHeight('900')
+                        ->imageResizeUpscale(false)
                         ->imageEditor()
                         ->imageEditorAspectRatios(['16:9'])
                         ->helperText('JPG/PNG/WebP, maks 3MB. Auto-resize ke 1600×900 (16:9).')

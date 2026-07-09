@@ -39,6 +39,7 @@ class ProfilKepalaSekolahForm
                         ->imageResizeMode('cover')
                         ->imageResizeTargetWidth('800')
                         ->imageResizeTargetHeight('1066')
+                        ->imageResizeUpscale(false)
                         ->imageEditor()
                         ->imageEditorAspectRatios(['3:4', '1:1'])
                         ->helperText('JPG/PNG/WebP, maks 2MB. Auto-resize ke 800×1066 (3:4).')

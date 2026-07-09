@@ -61,6 +61,7 @@ class HeroBannerForm
                         ->imageResizeMode('cover')
                         ->imageResizeTargetWidth('1600')
                         ->imageResizeTargetHeight('1200')
+                        ->imageResizeUpscale(false)
                         ->imageEditor()
                         ->imageEditorAspectRatios(['4:3', '16:9'])
                         ->helperText('Opsional. JPG/PNG/WebP. Auto-resize ke 1600×1200, maks 3MB.'),

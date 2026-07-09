@@ -107,6 +107,7 @@ class BeritaForm
                         ->imageResizeMode('cover')
                         ->imageResizeTargetWidth('1200')
                         ->imageResizeTargetHeight('675')
+                        ->imageResizeUpscale(false)
                         ->imageEditor()
                         ->imageEditorAspectRatios(['16:9', '4:3', '1:1'])
                         ->helperText('JPG/PNG/WebP, maks 2MB. Auto-resize ke 1200×675 (16:9).')
