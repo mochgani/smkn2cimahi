@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +18,19 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle:web',
         ]);
 
-        //
+        // Percaya proxy Cloudflare/cPanel di depan aplikasi, agar Laravel
+        // membaca scheme (https) & host asli dari header X-Forwarded-*.
+        // Tanpa ini, request()->hasValidSignature() gagal untuk signed URL
+        // (mis. upload file Livewire) karena scheme yang terdeteksi saat
+        // validasi (http) beda dengan saat signed URL dibuat (https, via
+        // URL::forceScheme di AppServiceProvider) — signature jadi mismatch.
+        $middleware->trustProxies(
+            at: '*',
+            headers: Request::HEADER_X_FORWARDED_FOR
+                | Request::HEADER_X_FORWARDED_HOST
+                | Request::HEADER_X_FORWARDED_PORT
+                | Request::HEADER_X_FORWARDED_PROTO,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Custom 404 page (Inertia) — render Vue page Errors/NotFound
