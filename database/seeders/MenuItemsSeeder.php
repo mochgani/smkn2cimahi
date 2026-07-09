@@ -82,6 +82,7 @@ class MenuItemsSeeder extends Seeder
                     'children' => [
                         ['label' => 'Sarana Pembelajaran Non Kejuruan', 'url' => '/sarana/non-kejuruan', 'display_order' => 1],
                         ['label' => 'Sarana Pembelajaran Kejuruan',     'url' => '/sarana/kejuruan',     'display_order' => 2],
+                        ['label' => 'Sarana Prasarana Lainnya',        'url' => '/sarana/lainnya',       'display_order' => 3],
                     ],
                 ],
                 // Kompetensi Keahlian: children auto-generated dari tabel kompetensis

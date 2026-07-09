@@ -10,6 +10,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\SaranaController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -69,8 +70,9 @@ Route::get('/hubungan-industri', fn () => app(DivisiController::class)->show('hu
 Route::get('/hubungan-industri/bkk', [BkkController::class, 'index'])->name('hubin.bkk');
 
 // Sarana Prasarana
-Route::get('/sarana/non-kejuruan', $placeholder('Sarana Pembelajaran Non Kejuruan', 'Sarana / Non Kejuruan'))->name('sarana.non-kejuruan');
-Route::get('/sarana/kejuruan', $placeholder('Sarana Pembelajaran Kejuruan', 'Sarana / Kejuruan'))->name('sarana.kejuruan');
+Route::get('/sarana/non-kejuruan', [SaranaController::class, 'nonKejuruan'])->name('sarana.non-kejuruan');
+Route::get('/sarana/kejuruan', [SaranaController::class, 'kejuruan'])->name('sarana.kejuruan');
+Route::get('/sarana/lainnya', [SaranaController::class, 'lainnya'])->name('sarana.lainnya');
 
 // Prestasi — berita berdasarkan kategori prestasi
 Route::get('/prestasi/sekolah', fn () => app(PrestasiController::class)->show('sekolah'))->name('prestasi.sekolah');
